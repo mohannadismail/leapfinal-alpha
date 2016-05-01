@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:gravity="center">
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/account_circle"
+        android:id="@+id/circle_image" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/circleName"
+        android:layout_marginTop="8dp"
+        android:id="@+id/circle_name"
+        style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+</LinearLayout>

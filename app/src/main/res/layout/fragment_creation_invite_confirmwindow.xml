@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="500dp"
+    android:layout_gravity="center">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="top"
+        android:title="Confirmation"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleMarginTop="15dp" />
+    <GridView
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:id="@+id/confirmation_user_icons"
+        />
+    <LinearLayout
+        android:id="@+id/button_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/leap_done"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/accept"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/leap_invite"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/decline"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

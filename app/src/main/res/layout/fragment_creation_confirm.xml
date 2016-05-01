@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleMarginTop="15dp" />
+
+
+
+            <ImageView
+                android:id="@+id/header_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/mapscrsht2"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leap Title"
+                android:id="@+id/leaptitle_Confirm"
+                android:textColor="#ffe"
+                android:textStyle="bold"
+                android:textSize="32sp"
+                android:layout_alignBottom="@id/header_confirm"
+                android:layout_margin="16dp"
+                />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ruleid"
+        android:layout_below="@id/header_confirm">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rule"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="60dp"
+            android:text="0/10"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Pending"
+        android:layout_below="@id/ruleid"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:id="@+id/pending"
+        android:textColor="@color/orange"
+        android:visibility="visible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_below="@id/pending"
+        android:text="Invited Users"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/invited_users"/>
+
+        <GridView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@id/invited_users"
+            android:id="@+id/invited_users_grid"
+        />
+
+    <LinearLayout
+        android:id="@+id/button_bar"
+        style="?android:attr/buttonBarStyle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/leap_done"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/accept"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/leap_invite"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/decline"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Leap</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="already"> Already a member? Log in</string>
+    <string name="alreadyMember"> Already a member?</string>
+    <string name="title_activity_leap_view">LeapViewActivity</string>
+    <string name="profile_activity">Profile</string>
+    <string name="search">Search</string>
+    <string name="share">Share</string>
+    <string name="action_settings">Settings</string>
+    <string name="review">Review Leap</string>
+    <string name="oneStar">Not Good</string>
+    <string name="twoStars">Ok</string>
+    <string name="threeStars">Good</string>
+    <string name="fourStars">Very Good</string>
+    <string name="fiveStars">Amazing</string>
+    <string name="reviewTitle">Title</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="LeapTitle">Leap Title</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="currentTime">00 : 00</string>
+    <string name="currentDate">March 19, 2016</string>
+    <string name="makePublic">Make Public</string>
+    <string name="done">Done</string>
+    <string name="invite">Invite</string>
+    <string name="uploadPhoto">Upload Photo</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="Invited_User_Profile_Photo">Invited User profile photo</string>
+    <string name="Confirmation_Rule">Confirmation Rule</string>
+    <string name="rule_text">How many connection should accept the outing?</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="sign_up"><u>Sign Up</u></string>
+    <string name="login"><u>Login</u></string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="noAccount">No account yet?</string>
+    <string name="password">Password</string>
+    <string name="circles">Circles</string>
+    <string name="edit">Edit</string>
+    <string name="circleName">Circle Name</string>
+    <string name="publicSearch">Allow users to find me in public search.</string>
+    <string name="contactsOnly">Receive invitations from contacts only.</string>
+    <string name="publicLeaps">Leaps are public by default.</string>
+
+</resources>
+

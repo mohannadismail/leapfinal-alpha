@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
+    android:gravity="center_horizontal">
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/account_circle"
+        android:id="@+id/user_account_circle"
+        android:contentDescription="@string/Invited_User_Profile_Photo" />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/user_account_circle"
+        android:id="@+id/user_name"/>
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:checked="true"
+        android:elevation="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/user_account_circle"
+        android:layout_alignEnd="@+id/user_account_circle"
+        android:id="@+id/user_checkbox"
+        style="Widget.Holo.Light.CompoundButton.CheckBox"/>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="mesho" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="thintext" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+</resources>

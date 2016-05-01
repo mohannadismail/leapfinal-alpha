@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <android.support.design.widget.FloatingActionButton
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_add_white_48px"
+        android:onClick="addCircle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"/>
+
+        <GridView
+            android:id="@+id/circlesGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            android:verticalSpacing="8dp"
+            android:horizontalSpacing="8dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+
+</RelativeLayout>

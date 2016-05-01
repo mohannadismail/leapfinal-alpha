@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    android:id="@+id/tool_bar"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    app:layout_collapseMode="pin"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    </android.support.v7.widget.Toolbar>
