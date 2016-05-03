@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:id="@+id/fragment_creation">
 
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:textSize="26sp"
+                    android:textSize="16sp"
                     android:gravity="center_vertical"
                     android:text="@string/uploadPhoto"
                     android:textAlignment="center"
@@ -98,6 +99,7 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
+
     </android.support.design.widget.AppBarLayout>
 
 
@@ -105,14 +107,35 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_fab"
-        android:layout_width="wrap_content"
+        android:isScrollContainer="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:overScrollMode="always"/>
+
+    <android.support.v7.internal.widget.ButtonBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"
-        app:elevation="6dp"
-        app:borderWidth="0dp"
-        android:src="@drawable/ic_add_white_48px" />
+        android:layout_gravity="bottom"
+        android:elevation="6dp">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/invite"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:onClick="inviteToLeaps"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:onClick="doneCreating"/>
+
+    </android.support.v7.internal.widget.ButtonBarLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>

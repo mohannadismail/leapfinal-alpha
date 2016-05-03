@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,10 +32,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
-    ImageButton profileButton;
     android.support.v7.widget.Toolbar toolbar;
-    Button signUp;
-
 
 
 
@@ -43,8 +41,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        profileButton = (ImageButton) findViewById(R.id.account_pic);
-        signUp = (Button) findViewById(R.id.signup_button);
+
 
 
 
@@ -158,13 +155,15 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
         startActivity(intent);
     }
 
+
     //Login from Navigation Drawer
     public void Login(View v) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 
-    // View User Profile
+
+    // View User Profile from User Image
     public void profile(View v){
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new UserProfileFragment()).commit();
@@ -174,6 +173,19 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
 
     }
+
+    //Create Leap By Clicking on FAB
+    public void Create(View v){
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Create");
+        mDrawerLayout.closeDrawers();
+
+
+    }
+
+
 
 
 

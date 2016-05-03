@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/LeapTitleText"
         android:layout_width="match_parent"
@@ -18,6 +20,8 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:ems="10"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
             android:textSize="16sp"
             android:hint="@string/LeapTitle"/>
     </android.support.design.widget.TextInputLayout>
@@ -37,8 +41,53 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:ems="10"
+            android:inputType="textAutoComplete|textCapSentences"
+            android:imeOptions="actionNext"
             android:hint="@string/description"/>
     </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/LeapLoc"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="72dp"
+            android:paddingRight="8dp"
+            android:dividerPadding="8dp">
+            <EditText
+                android:id="@+id/LeapLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:inputType="textAutoComplete"
+                android:imeOptions="actionNext"
+                android:ems="10"
+                android:hint="@string/LeapLoc"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/LeapPrice"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="72dp"
+            android:dividerPadding="8dp">
+            <EditText
+                android:id="@+id/Leap_Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:inputType="text"
+                android:imeOptions="actionPrevious|actionDone"
+                android:ems="10"
+                android:hint="@string/ApproxPrice"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -64,7 +113,7 @@
                 style="@style/Platform.Widget.AppCompat.Spinner"
                 android:id="@+id/date_spinner"
                 android:textSize="12sp"
-                android:text="@string/currentDate" />
+                tools:text="@string/currentDate" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +133,7 @@
                 android:id="@+id/time_spinner"
                 android:textSize="12sp"
                 style="@style/Platform.Widget.AppCompat.Spinner"
-                android:text="@string/currentTime"
+                tools:text="@string/currentTime"
                 />
         </LinearLayout>
     </LinearLayout>

@@ -47,7 +47,8 @@
     <string name="circleName">Circle Name</string>
     <string name="publicSearch">Allow users to find me in public search.</string>
     <string name="contactsOnly">Receive invitations from contacts only.</string>
-    <string name="publicLeaps">Leaps are public by default.</string>
-
+    <string name="publicLeaps">Leaps are public by default.</string>s
+    <string name="ApproxPrice">Approx. Price</string>
+    <string name="LeapLoc">Leap Location</string>
 </resources>
 

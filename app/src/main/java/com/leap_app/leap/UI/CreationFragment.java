@@ -32,7 +32,7 @@ public class CreationFragment extends Fragment {
         View x =  inflater.inflate(R.layout.fragment_creation,null);
         tabLayout = (TabLayout) x.findViewById(R.id.creation_tabs);
         viewPager = (ViewPager) x.findViewById(R.id.view_pager);
-        fab = (FloatingActionButton) x.findViewById(R.id.create_fab);
+
 
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
 //        floatingActionButton.setVisibility(View.INVISIBLE);
@@ -52,12 +52,6 @@ public class CreationFragment extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
-            }
-        });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(container, "FAB Clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
 
