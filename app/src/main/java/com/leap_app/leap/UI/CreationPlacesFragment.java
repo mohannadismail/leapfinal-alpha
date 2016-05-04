@@ -1,20 +1,22 @@
 package com.leap_app.leap.UI;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +52,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     FloatingActionButton fab;
     //    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     Collection<com.google.android.gms.location.places.Place> PlacesList = new ArrayList<>();
+    ArrayList<Placeview> placeviewList = new ArrayList<>();
 
 
     /**
@@ -107,34 +110,36 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
     GoogleApiClient mGoogleApiClient;
 
+    SharedPreferences sharedPreferences;
 
+    SharedPreferences.Editor e;
     private static final int PLACE_PICKER_REQUEST = 1;
     private TextView placeName, placeNumber, placeAddress;
-    private int i = 5;
-    Intent intent;
-    ArrayList<String> places;
     public Context context;
     com.google.android.gms.location.places.Place place;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //             Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_creation_places, container, false);
+         final View view = inflater.inflate(R.layout.fragment_creation_places, container, false);
 
-//        placesListView = (RecyclerView) view.findViewById(R.id.creation_places_list);
+        placesListView = (RecyclerView) view.findViewById(R.id.creation_places_list);
+
+
+//        e.clear();
+//        sharedPreferences = getContext().getSharedPreferences("SharedPlaces", Context.MODE_PRIVATE);
+
+
 
         // place list item components
         Button addPlace = (Button) view.findViewById(R.id.addPlace);
         placeName = (TextView) view.findViewById(R.id.creation_place_name);
-        placeAddress = (TextView) view.findViewById(R.id.creation_place_address);
-        placeNumber = (TextView) view.findViewById(R.id.placeNumber);
+//        placeAddress = (TextView) view.findViewById(R.id.creation_place_address);
+//        placeNumber = (TextView) view.findViewById(R.id.placeNumber);
 
         // Initializing Adapter
 
         context = this.getActivity();
-//        LinearLayoutManager llm = new LinearLayoutManager(context);
-//        placesListView.setLayoutManager(llm);
-//        placesListView.setAdapter(new PlacesCreationAdapter(context, places));
 
         // initializing the place picker event
 
@@ -144,6 +149,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
             @Override
             public void onClick(View v) {
                 try {
+
 
                     mGoogleApiClient = new GoogleApiClient
                             .Builder(getContext())
@@ -166,6 +172,8 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 }
                 PlacesList.toString();
 
+                LinearLayoutManager llm = new LinearLayoutManager(context);
+                placesListView.setLayoutManager(llm);
 
 //                    i++;
             }
@@ -189,6 +197,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 //        mGoogleApiClient.disconnect();
 //    }
 
+    private int i = 0 ;
     @Override
     public void onActivityResult(int requestCode,
                                  int resultCode, Intent data) {
@@ -213,11 +222,25 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
 //                ContentValues contentValues= new ContentValues();
 //                contentValues.put("Name",name);
+                // Writing to shared preferences
+
+
+
                 //Adding data to model
-                placeview = new Placeview(lat, lon, name, address, price, phone, id);
+
+                Placeview placeview = new Placeview(lat, lon, name, address, price, phone, id);
+
+                placeviewList.add(placeview);
+                i++;
+                placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList,i));
 
 
-                Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_LONG).show();
+                ContentValues values = new ContentValues();
+
+
+
+
+                Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_SHORT).show();
                 Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
                 Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
                 Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
@@ -227,13 +250,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
 
 
-                Firebase reTest = new Firebase(Constants.FIREBASE_TEST).child(Constants.FIREBASE_PROPERTY_ID+"/"+Constants.FIREBASE_PROPERTY_Leap_Key);
-                Firebase refTest =  new Firebase(Constants.FIREBASE_TEST).child(Constants.FIREBASE_PROPERTY_ID+"/"+Constants.FIREBASE_PROPERTY_Place_Key);
-                for(int i =0 ; i<6 ; i++){
-
-                    refTest.push().setValue(i*i);
-                    reTest.push().setValue(i);
-                }
 
                 //Writing data to Firebase
 
@@ -246,11 +262,11 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 refaddress.push().setValue(address);
 
 
-                placeName.setText(name);
-                placeAddress.setText(address);
+
 
 
                 String attributions = (String) place.getAttributions();
+//                Log.e("Attributionsssssss", attributions);
                 if (attributions == null) {
                     attributions = "";
                 }
@@ -373,9 +389,5 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         void onFragmentInteraction(Uri uri);
     }
 
-    static class PlaceViewHolderItem {
-        TextView placeName, placeNumber, placeAddress;
-
-    }
 
 }
