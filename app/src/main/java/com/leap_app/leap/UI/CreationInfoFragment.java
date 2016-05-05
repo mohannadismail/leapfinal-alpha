@@ -4,13 +4,16 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.leap_app.leap.Models.LeapBase;
 import com.leap_app.leap.R;
 
 import java.util.Calendar;
@@ -22,10 +25,15 @@ public class CreationInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public android.support.v7.widget.AppCompatImageView circleImageView;
-    public TextView dateText;
-    public TextView timeText;
+//    public TextView dateText;
+//    public TextView timeText;
+//    public EditText leapTitle;
+//    public EditText leapDesc;
+//    public EditText leapLocation;
+//    public EditText leapPrice;
     final Calendar now = Calendar.getInstance();
 
+    public String date, Time, Title, Desc, Location, Price;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,14 +76,19 @@ public class CreationInfoFragment extends Fragment {
 
     public Context context;
 
+    public static LeapBase.LeapBaseInfo leapBaseInfooo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_creation_info, container, false);
         circleImageView = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.make_public);
-        dateText = (TextView) view.findViewById(R.id.date_spinner);
-        timeText = (TextView) view.findViewById(R.id.time_spinner);
+        final TextView dateText = (TextView) view.findViewById(R.id.date_spinner);
+        final TextView timeText = (TextView) view.findViewById(R.id.time_spinner);
+        final EditText leapTitle = (EditText) view.findViewById(R.id.LeapTitle);
+        final EditText leapDesc = (EditText) view.findViewById(R.id.LeapDescription);
+        final EditText leapLocation = (EditText) view.findViewById(R.id.LeapLocation);
+        final EditText leapPrice = (EditText) view.findViewById(R.id.Leap_Price);
 
         int hour = now.get(Calendar.HOUR_OF_DAY);
         int minute = now.get(Calendar.MINUTE);
@@ -83,6 +96,24 @@ public class CreationInfoFragment extends Fragment {
         int month = now.get(Calendar.MONTH);
         int day = now.get(Calendar.DAY_OF_MONTH);
 
+
+//        Button nexxt = (Button) view.findViewById(R.id.nextButton);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leapBaseInfooo = new LeapBase.LeapBaseInfo(leapTitle.getText().toString(),leapDesc.getText().toString(),leapLocation.getText().toString(),leapPrice.getText().toString(),dateText.getText().toString(),timeText.getText().toString());
+
+                Toast.makeText(getContext(),"Info Saved, go to add your Places",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        date = dateText.getText().toString();
+        Time = timeText.getText().toString();
+        Title = leapTitle.getText().toString();
+        Desc = leapDesc.getText().toString();
+        Location = leapLocation.getText().toString();
+        Price = leapPrice.getText().toString();
 
         timeText.setText(String.valueOf(hour) + " : " + String.valueOf(minute));
         dateText.setText(String.valueOf(day + " \\ " + (month+1) + " \\ " + year));
@@ -106,6 +137,7 @@ public class CreationInfoFragment extends Fragment {
 
 
         addListenerOnButton();
+
 
         return view;
     }
@@ -151,10 +183,7 @@ public class CreationInfoFragment extends Fragment {
     }
 
     public void addListenerOnButton() {
-
-
         circleImageView.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
 

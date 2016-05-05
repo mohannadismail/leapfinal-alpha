@@ -52,7 +52,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     FloatingActionButton fab;
     //    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     Collection<com.google.android.gms.location.places.Place> PlacesList = new ArrayList<>();
-    ArrayList<Placeview> placeviewList = new ArrayList<>();
+    public static ArrayList<Placeview> placeviewList = new ArrayList<>();
 
 
     /**
@@ -217,6 +217,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 int price = place.getPriceLevel();
                 String phone = (String) place.getPhoneNumber();
                 String id = place.getId();
+
 
 
 

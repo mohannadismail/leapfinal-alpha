@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    android:id="@+id/fragment_creation">
+    android:id="@+id/fragment_creation"
+>
 
 
     <android.support.design.widget.AppBarLayout
@@ -111,11 +112,12 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:overScrollMode="always"/>
 
-    <android.support.v7.internal.widget.ButtonBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:elevation="6dp">
+        android:orientation="horizontal"
+        android:elevation="4dp">
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -123,19 +125,17 @@
             android:background="@color/colorPrimary"
             android:text="@string/invite"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:onClick="inviteToLeaps"/>
+            android:textSize="16sp" />
         <Button
+            android:id="@+id/Done"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:text="@string/done"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:onClick="doneCreating"/>
+            android:textSize="16sp" />
 
-    </android.support.v7.internal.widget.ButtonBarLayout>
-
+</LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

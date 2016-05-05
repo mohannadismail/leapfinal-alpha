@@ -1,9 +1,8 @@
 package com.leap_app.leap.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +11,18 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.leap_app.leap.Models.LeapBase;
+import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by aya on 3/14/16.
@@ -22,7 +31,10 @@ public class CreationFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 2 ;
-    public FloatingActionButton fab;
+    public Button Done, Invite;
+    ArrayList<Placeview> placeviews = new ArrayList<>();
+
+
     @Nullable
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         /**
@@ -36,6 +48,27 @@ public class CreationFragment extends Fragment {
 
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
 //        floatingActionButton.setVisibility(View.INVISIBLE);
+
+
+        Done = (Button) x.findViewById(R.id.Done);
+
+        try {
+            Done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                Toast.makeText(getContext(),CreationInfoFragment.Title,Toast.LENGTH_LONG).show();
+                    LeapBase leapBase = new LeapBase(CreationInfoFragment.leapBaseInfooo, CreationPlacesFragment.placeviewList);
+
+                    pushToFirebase(leapBase);
+                    Intent i = new Intent(getContext(),MainActivity.class);
+                    v.getContext().startActivity(i);
+
+                }
+            });
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
+        }
 
         /**
          *Set an Adapter for the View Pager
@@ -60,6 +93,22 @@ public class CreationFragment extends Fragment {
         return x;
 
     }
+    public void pushToFirebase(LeapBase leapBase){
+        Firebase ref = new Firebase(Constants.FIREBASE_Leap_URL);
+        Map<String, Object> newLeap = new HashMap<String, Object>();
+        try {
+
+
+            newLeap.put(CreationInfoFragment.leapBaseInfooo.getLeapName(), leapBase);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
+
+        }
+        ref.push().setValue(newLeap);
+
+    }
+
 
     class MyAdapter extends FragmentPagerAdapter {
 
