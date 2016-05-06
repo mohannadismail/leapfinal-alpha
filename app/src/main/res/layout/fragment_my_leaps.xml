@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:elevation="6dp">
+    android:elevation="6dp"
+    android:orientation="vertical">
 
 
     <android.support.design.widget.TabLayout
@@ -17,22 +15,21 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
+        android:textAlignment="center"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabGravity="fill"
-        app:tabMode="fixed"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="4dp"
-        android:textAlignment="center"
-        app:textAllCaps="true"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@android:color/white"
-        />
+        app:textAllCaps="true" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/myLeapsViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </LinearLayout>

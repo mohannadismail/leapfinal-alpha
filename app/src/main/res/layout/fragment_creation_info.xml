@@ -1,183 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/LeapTitleText"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:dividerPadding="8dp">
-        <EditText
-            android:id="@+id/LeapTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
 
-            android:textSize="16sp"
-            android:hint="@string/LeapTitle"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/LeapDesc"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:paddingTop="16dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:dividerPadding="8dp">
-        <EditText
-            android:id="@+id/LeapDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:ems="10"
-            android:inputType="textAutoComplete|textCapSentences"
-            android:imeOptions="actionNext"
-            android:hint="@string/description"/>
-    </android.support.design.widget.TextInputLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/LeapLoc"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/LeapTitleText"
+            android:layout_width="match_parent"
             android:layout_height="72dp"
+            android:dividerPadding="8dp"
+            android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:dividerPadding="8dp">
+            android:paddingTop="16dp">
+
             <EditText
-                android:id="@+id/LeapLocation"
+                android:id="@+id/LeapTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:inputType="textAutoComplete"
+                android:hint="@string/LeapTitle"
                 android:imeOptions="actionNext"
-                android:ems="10"
-                android:hint="@string/LeapLoc"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/LeapPrice"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="72dp"
-            android:dividerPadding="8dp">
-            <EditText
-                android:id="@+id/Leap_Price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:paddingTop="8dp"
+                android:inputType="textCapWords"
                 android:paddingBottom="8dp"
-                android:inputType="text"
-                android:imeOptions="actionPrevious|actionDone"
-                android:ems="10"
-                android:hint="@string/ApproxPrice"/>
+                android:paddingTop="8dp"
+                android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/LeapDesc"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:dividerPadding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="8dp">
-            <TextView
+            <EditText
+                android:id="@+id/LeapDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                style="@style/Platform.Widget.AppCompat.Spinner"
-                android:id="@+id/date_spinner"
-                android:textSize="12sp"
-                tools:text="@string/currentDate" />
-        </LinearLayout>
+                android:ems="10"
+                android:hint="@string/description"
+                android:imeOptions="actionNext"
+                android:inputType="textAutoComplete|textCapSentences"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="8dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/time"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/time_spinner"
-                android:textSize="12sp"
-                style="@style/Platform.Widget.AppCompat.Spinner"
-                tools:text="@string/currentTime"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_info"
-            android:layout_gravity="center"
-            android:id="@+id/make_public"/>
-        <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@string/makePublic"
-            android:padding="8dp"
-            android:layoutDirection="rtl"
-            android:hint="All users can view this leap"
-            />
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/LeapLoc"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:dividerPadding="8dp"
+                android:paddingRight="8dp">
+
+                <EditText
+                    android:id="@+id/LeapLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/LeapLoc"
+                    android:imeOptions="actionNext"
+                    android:inputType="textAutoComplete"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="14sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/LeapPrice"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:dividerPadding="8dp">
+
+                <EditText
+                    android:id="@+id/Leap_Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/ApproxPrice"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:textSize="14sp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
 
-    </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:elevation="4dp"
-        android:textSize="16sp"
-        android:id="@+id/nextButton"
-        android:layout_margin="8dp"
-        android:ellipsize="start"
-        android:src="@drawable/contentsave"
-        app:elevation="6dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/date_spinner"
+                    style="@style/Platform.Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="12sp"
+                    tools:text="@string/currentDate" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/time_spinner"
+                    style="@style/Platform.Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textSize="12sp"
+                    tools:text="@string/currentTime" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/make_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="All users can view this leap"
+                android:layoutDirection="rtl"
+                android:padding="8dp"
+                android:text="@string/makePublic"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/nextButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:ellipsize="start"
+            android:src="@drawable/contentsave"
+            android:textSize="16sp"
+            app:elevation="6dp" />
     </LinearLayout>
 </ScrollView>

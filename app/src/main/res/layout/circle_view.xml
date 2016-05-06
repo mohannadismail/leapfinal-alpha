@@ -16,14 +16,14 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <GridView
         android:id="@+id/friendsGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_gravity="center_horizontal" />
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:verticalSpacing="8dp" />
 
 </RelativeLayout>
