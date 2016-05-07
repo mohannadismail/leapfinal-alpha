@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/circle_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/Invited_User_Profile_Photo"
+        android:gravity="center"
+        android:src="@drawable/account_circle" />
+
+    <TextView
+        android:id="@+id/circle_name"
+        style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/circle_image"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/circleName" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/circle_checkbox"
+
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignEnd="@+id/circle_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/circle_image"
+        android:checked="false"
+        android:elevation="2dp" />
+</RelativeLayout>

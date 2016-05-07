@@ -130,6 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
+            android:id="@+id/Invite"
             android:text="@string/invite"
             android:textColor="@color/white"
             android:textSize="16sp" />

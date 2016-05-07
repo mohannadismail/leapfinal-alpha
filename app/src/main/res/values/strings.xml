@@ -50,5 +50,8 @@
     <string name="publicLeaps">Leaps are public by default.</string>s
     <string name="ApproxPrice">Approx. Price</string>
     <string name="LeapLoc">Leap Location</string>
+    <string name="next">Next</string>
+    <string name="confirm">Confirm</string>
+    <string name="inviteMore">Invite More</string>
 </resources>
 

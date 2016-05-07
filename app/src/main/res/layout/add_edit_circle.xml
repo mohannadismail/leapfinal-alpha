@@ -4,6 +4,19 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/friendsGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:horizontalSpacing="8dp"
+        android:numColumns="4"
+        android:verticalSpacing="8dp" />
+
     <SearchView
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
@@ -15,27 +28,13 @@
         android:layout_marginTop="8dp" />
 
     <Button
+        android:id="@+id/done_editing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
         android:text="@string/done"
-        android:id="@+id/done_editing"
         android:textColor="@color/white" />
-
-
-        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/friendsGridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@+id/search_bar"
-            android:gravity="center"
-            android:horizontalSpacing="8dp"
-            android:numColumns="4"
-            android:verticalSpacing="8dp" />
-
 
 
 </RelativeLayout>

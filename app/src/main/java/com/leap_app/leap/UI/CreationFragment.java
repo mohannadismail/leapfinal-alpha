@@ -7,7 +7,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +31,13 @@ import java.util.Map;
 /**
  * Created by aya on 3/14/16.
  */
-public class CreationFragment extends Fragment {
+public class CreationFragment extends Fragment{
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 2 ;
     public Button Done, Invite;
+
+    android.support.v7.widget.Toolbar toolbar;
     ArrayList<Placeview> placeviews = new ArrayList<>();
 
 
@@ -41,9 +47,12 @@ public class CreationFragment extends Fragment {
          *Inflate tab_layout and setup Views.
          */
 
-        View x =  inflater.inflate(R.layout.fragment_creation,null);
+        View x =  inflater.inflate(R.layout.fragment_creation, null);
         tabLayout = (TabLayout) x.findViewById(R.id.creation_tabs);
         viewPager = (ViewPager) x.findViewById(R.id.view_pager);
+
+
+
 
 
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
@@ -51,6 +60,7 @@ public class CreationFragment extends Fragment {
 
 
         Done = (Button) x.findViewById(R.id.Done);
+
 
         try {
             Done.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +79,25 @@ public class CreationFragment extends Fragment {
             e.printStackTrace();
             Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
         }
+
+        Invite = (Button) x.findViewById(R.id.Invite);
+        toolbar = (android.support.v7.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Create");
+        Invite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Invite nextFrag= new Invite();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.containerView, nextFrag,"frag")
+                        .addToBackStack(null)
+                        .commit();
+
+                toolbar.setTitle("Invite");
+
+
+
+            }
+        });
 
         /**
          *Set an Adapter for the View Pager
