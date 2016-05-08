@@ -7,11 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +35,7 @@ public class CreationFragment extends Fragment{
 
     android.support.v7.widget.Toolbar toolbar;
     ArrayList<Placeview> placeviews = new ArrayList<>();
+    Boolean flag = null;
 
 
     @Nullable
@@ -70,14 +67,26 @@ public class CreationFragment extends Fragment{
                     LeapBase leapBase = new LeapBase(CreationInfoFragment.leapBaseInfooo, CreationPlacesFragment.placeviewList);
 
                     pushToFirebase(leapBase);
-                    Intent i = new Intent(getContext(),MainActivity.class);
-                    v.getContext().startActivity(i);
 
+                    if(!CreationInfoFragment.flagg)
+                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
+
+                    if (CreationInfoFragment.flagg) {
+
+                        Intent i = new Intent(getContext(), MainActivity.class);
+                        v.getContext().startActivity(i);
+                        Toast.makeText(getContext(),"Leap Saved", Toast.LENGTH_SHORT).show();
+                        CreationInfoFragment.flagg = false;
+
+
+                    }
                 }
             });
+
+
         }catch (NullPointerException e){
             e.printStackTrace();
-            Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
+            flag = true;
         }
 
         Invite = (Button) x.findViewById(R.id.Invite);
@@ -136,6 +145,7 @@ public class CreationFragment extends Fragment{
         }
         ref.push().setValue(newLeap);
 
+        flag = true;
     }
 
 
