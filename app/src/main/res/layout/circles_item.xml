@@ -5,8 +5,8 @@
     android:padding="8dp"
     android:gravity="center">
     <ImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/account_circle"
         android:id="@+id/circle_image" />
     <TextView
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/circleName"
         android:layout_marginTop="8dp"
-        android:id="@+id/circle_name"
-        style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:id="@+id/circle_name"/>
 </LinearLayout>

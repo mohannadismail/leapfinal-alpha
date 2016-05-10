@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.leap.leap.LeapViewActivity"
+    tools:context=".UI.LeapInfoActivity"
     tools:showIn="@layout/activity_leap_view">
     <include layout="@layout/cardview_item"/>
 

@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.leap_app.leap.LeapViewActivity">
+    tools:context="com.leap_app.leap.UI.LeapInfoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="wrap_content"
         android:layout_height="320dp"
+        android:elevation="8dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -44,39 +45,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
+                        android:layout_margin="8dp"
                         android:orientation="vertical"
+                        android:padding="8dp"
                         android:theme="@style/AlertDialog.AppCompat.Light">
 
                         <TextView
                             android:id="@+id/leaptitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Studying time"
                             android:textColor="#FFFFFF"
-                            android:textSize="22sp" />
-                        <!--<RatingBar
-                            android:id="@+id/MyRating"
-                            style="?android:attr/ratingBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/getRating"
-                            android:isIndicator="true"
-                            android:numStars="5"
-                            android:stepSize="0.1"
-                            android:layout_marginLeft="8dp"/>-->
+                            android:textSize="22sp"
+                            tools:text="Studying time" />
+
 
                         <TextView
                             android:id="@+id/leapLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginTop="4dp"
-                            android:text="City, Country"
                             android:textColor="#95FFFFFF"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            tools:text="City, Country" />
 
                     </LinearLayout>
 
@@ -85,8 +74,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="8dp"
-                        android:orientation="vertical">
+                        android:layout_margin="8dp"
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -98,14 +88,12 @@
 
                         <TextView
                             android:id="@+id/leapprice"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
-                            android:layout_marginBottom="16dp"
-                            android:text="100 L.E"
                             android:textColor="@color/white"
-                            android:textSize="24sp"
-                            android:textStyle="normal" />
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            tools:text="100 L.E" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -123,28 +111,25 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clipToPadding="false"
         android:id="@+id/leap_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:focusableInTouchMode="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#e3e3e3" />
 
             <LinearLayout
                 android:id="@+id/usercard"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_margin="8dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/profile"
@@ -155,123 +140,136 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-
-                    >
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/leapuser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ibrahim Mohammed"
-                        android:textSize="20sp" />
+                        android:textSize="16sp"
+                        tools:text="Ibrahim Mohammed" />
 
                     <TextView
                         android:id="@+id/numofleaps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="25 Leaps"
-                        android:textSize="12sp" />
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        tools:text="25 Leaps" />
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#e3e3e3" />
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/cardview_light_background"
+                android:elevation="1dp" />
+
+
+            <ImageView
+                android:id="@+id/mapIm"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:onClick="viewMap"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mapscrsht2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/cardview_light_background"
+                android:elevation="1dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/leapDisc"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/usercard"
+                android:layout_margin="8dp"
+                android:elevation="1dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e3e3e3" />
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/description"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    tools:text="dasdqwjk maspdainon askdmonqflk asmdkoncklnaskono ammcoinmlkkcmms capsjmpocmpsadpoj cpqojd[salkknciof" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/cardview_light_background"
+                android:elevation="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <ImageView
-                    android:id="@+id/mapIm"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:onClick="viewMap"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mapscrsht2" />
+                    android:id="@+id/profilerev"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_account_circle_black_48px" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e3e3e3" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/usernamereview"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:orientation="vertical">
+                    android:textSize="16sp"
+                    tools:text="El-Shaba7" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="Description"
-                        android:textSize="30sp" />
-
-                    <TextView
-                        android:id="@+id/description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:text="dasdqwjk maspdainon askdmonqflk asmdkoncklnaskono ammcoinmlkkcmms capsjmpocmpsadpoj cpqojd[salkknciof"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#e3e3e3" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <RatingBar
+                    android:id="@+id/ratingBar1"
+                    style="@android:style/Widget.Holo.Light.RatingBar"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/profilerev"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_margin="8dp"
-                        android:src="@drawable/ic_account_circle_black_48px" />
-
-                    <TextView
-                        android:id="@+id/usernamereview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="El-Shaba7"
-                        android:textSize="26sp" />
-
-                    <RatingBar
-                        android:id="@+id/ratingBar1"
-                        style="@android:style/Widget.Holo.Light.RatingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="16dp"
-                        android:numStars="5" />
-                </LinearLayout>
-
-                <include layout="@layout/review_item" />
+                    android:layout_marginTop="8dp"
+                    android:numStars="5" />
             </LinearLayout>
-        </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/cardview_light_background"
+                android:elevation="1dp" />
+
+            <include layout="@layout/review_item" />
+        </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

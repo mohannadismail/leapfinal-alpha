@@ -159,7 +159,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
@@ -186,14 +185,11 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/nextButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
             android:elevation="4dp"
-            android:ellipsize="start"
             android:src="@drawable/contentsave"
-            android:textSize="16sp"
             app:elevation="6dp" />
     </LinearLayout>
 </ScrollView>
