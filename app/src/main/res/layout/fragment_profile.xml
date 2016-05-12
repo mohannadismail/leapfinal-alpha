@@ -4,7 +4,7 @@
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".UI.UserProfileFragment">
 
 
     <android.support.design.widget.AppBarLayout
@@ -25,160 +25,181 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/leappic"
-                android:backgroundTint="#40000000"
-                android:backgroundTintMode="src_over" />
+                android:background="@drawable/leappic" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp">
+                android:orientation="vertical"
+                android:background="#a0000000">
 
                 <LinearLayout
                     android:id="@+id/Profile_indicators"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/account_pic"
-                        android:layout_width="86dp"
-                        android:layout_height="86dp"
-                        android:background="#00000000"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_account" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="16dp"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="Shalaby"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/user_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_margin="8dp"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/Followers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/followers_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="150"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/followers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Followers"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/account_pic"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="#00000000"
+                        android:clickable="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_account" />
 
                     <LinearLayout
-                        android:id="@+id/Following"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:gravity="right"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginBottom="8dp">
 
-                        <TextView
-                            android:id="@+id/following_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="50"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/following"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/user_info"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Following"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/Leaps"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/leaps_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="10"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/leaps"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/leaps"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/Followers"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="4dp">
+
+                                <TextView
+                                    android:id="@+id/followers_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="150"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/followers"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/followers"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/Following"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="4dp">
+
+                                <TextView
+                                    android:id="@+id/following_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="50"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/following"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/following"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/follow_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:text="Sign Up"
+                            android:textAllCaps="true"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/Leaps"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/leaps_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="10"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-
-                        <TextView
-                            android:id="@+id/leaps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Leaps"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </LinearLayout>
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/follow_button"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/user_info"
-                    android:layout_marginRight="50dp"
-                    android:background="@drawable/sign_up_button_2"
-                    android:gravity="center"
-                    android:text="Sign Up"
-                    android:textAllCaps="true"
-                    android:textSize="16sp" />
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/Profile_indicators"
-                    android:gravity="left"
-                    android:padding="8dp"
-                    android:text="Enjoy Leaps. Feel free to invite your Friends."
-                    android:textSize="16sp" />
+                    android:text="@string/profileName"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="8dp" />
 
 
-            </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp"
+                    android:text="@string/profileBio"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -202,6 +223,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:textAlignment="center"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:tabTextAppearance="@style/textStyle"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/white"
                 app:tabIndicatorHeight="4dp"

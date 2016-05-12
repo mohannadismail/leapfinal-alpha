@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,106 +14,115 @@
         app:titleMarginTop="15dp" />
 
 
+    <ImageView
+        android:id="@+id/header_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/mapscrsht2"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        />
 
-            <ImageView
-                android:id="@+id/header_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/mapscrsht2"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Leap Title"
-                android:id="@+id/leaptitle_Confirm"
-                android:textColor="#ffe"
-                android:textStyle="bold"
-                android:textSize="32sp"
-                android:layout_alignBottom="@id/header_confirm"
-                android:layout_margin="16dp"
-                />
+    <TextView
+        android:id="@+id/leaptitle_Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/header_confirm"
+        android:layout_margin="16dp"
+        android:text="@string/LeapTitle"
+        android:textColor="#ffe"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/ruleid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ruleid"
         android:layout_below="@id/header_confirm">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rule"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_margin="16dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Rule"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="60dp"
-            android:text="0/10"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:text="0/10"
+            android:textSize="16sp"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/ruleid"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/cardview_light_background"
+        android:elevation="1dp" />
     <TextView
+        android:id="@+id/pending"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/view"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Pending"
-        android:layout_below="@id/ruleid"
-        android:layout_centerHorizontal="true"
-        android:textSize="16sp"
-        android:id="@+id/pending"
         android:textColor="@color/orange"
-        android:visibility="visible"/>
+        android:textSize="16sp"/>
+
     <TextView
+        android:id="@+id/invited_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:layout_below="@id/pending"
-        android:text="Invited Users"
-        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/invited_users"/>
+        android:layout_margin="16dp"
+        android:text="Invited Users"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
-        <GridView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_below="@id/invited_users"
-            android:id="@+id/invited_users_grid"
-        />
+    <GridView
+        android:id="@+id/invited_users_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/invited_users" />
 
     <LinearLayout
         android:id="@+id/button_bar"
-        style="?android:attr/buttonBarStyle"
-        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/leap_invite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:background="@color/colorPrimary"
+            android:text="@string/decline"
+            android:textColor="@color/white" />
+
+        <Button
             android:id="@+id/leap_done"
-            style="?android:attr/buttonBarButtonStyle"
+            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="@string/accept"
-            android:textColor="@color/white"/>
-
-        <Button
-            android:id="@+id/leap_invite"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="@string/decline"
             android:textColor="@color/white" />
+
+
     </LinearLayout>
 
 </RelativeLayout>

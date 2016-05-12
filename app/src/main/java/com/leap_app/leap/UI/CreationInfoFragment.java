@@ -24,6 +24,7 @@ import java.util.Calendar;
 public class CreationInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static boolean flagg = Boolean.parseBoolean(null);
     public android.support.v7.widget.AppCompatImageView circleImageView;
 //    public TextView dateText;
 //    public TextView timeText;
@@ -104,6 +105,7 @@ public class CreationInfoFragment extends Fragment {
             public void onClick(View v) {
                 leapBaseInfooo = new LeapBase.LeapBaseInfo(leapTitle.getText().toString(),leapDesc.getText().toString(),leapLocation.getText().toString(),leapPrice.getText().toString(),dateText.getText().toString(),timeText.getText().toString());
 
+                flagg = true;
                 Toast.makeText(getContext(),"Info Saved, go to add your Places",Toast.LENGTH_LONG).show();
             }
         });

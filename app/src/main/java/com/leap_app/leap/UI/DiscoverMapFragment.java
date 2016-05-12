@@ -112,10 +112,9 @@ public class DiscoverMapFragment extends SupportMapFragment {
 
         UiSettings settings = getMap().getUiSettings();
         settings.setZoomControlsEnabled(true);
-        settings.setAllGesturesEnabled(true);
         settings.setMyLocationButtonEnabled(true);
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
-        getMap().addMarker(new MarkerOptions().position(latLon));
+        // getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
+        // getMap().addMarker(new MarkerOptions().position(latLon));
         double lats [] = LeapLatLon.getLeapLat();
         double lngs [] = LeapLatLon.getLeapLon();
 

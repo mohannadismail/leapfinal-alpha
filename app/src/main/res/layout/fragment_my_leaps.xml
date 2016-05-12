@@ -16,6 +16,7 @@
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:textAlignment="center"
+        app:tabTextAppearance="@style/textStyle"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"

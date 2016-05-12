@@ -5,16 +5,15 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical">
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/addPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:background="@color/orange"
+        android:layout_gravity="center"
+        android:src="@drawable/vector_drawable_ic_add_location_white___px"
+        android:elevation="4dp"
         android:textColor="@color/white"
-        android:text="Add Place"
-        android:layout_margin="8dp"
-        android:padding="8dp"/>
+        android:layout_margin="@dimen/fab_margin" />
     <android.support.v7.widget.RecyclerView
         android:layout_gravity="center"
         android:layout_width="match_parent"
