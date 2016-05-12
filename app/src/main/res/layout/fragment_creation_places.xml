@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_add_location_white_24dp"
+        android:src="@drawable/vector_drawable_ic_add_location_white___px"
         android:elevation="4dp"
         android:textColor="@color/white"
         android:layout_margin="@dimen/fab_margin" />

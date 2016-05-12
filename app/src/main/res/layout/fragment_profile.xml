@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@drawable/scrim">
+                android:background="#a0000000">
 
                 <LinearLayout
                     android:id="@+id/Profile_indicators"
@@ -63,6 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:layout_marginTop="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:orientation="horizontal">
@@ -72,8 +73,8 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:gravity="center"
+                                android:padding="4dp"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -84,7 +85,7 @@
                                     android:text="10"
                                     android:textStyle="bold"
                                     android:textColor="@color/white"
-                                    android:textSize="16sp" />
+                                    android:textSize="12sp" />
 
                                 <TextView
                                     android:id="@+id/leaps"
@@ -92,17 +93,17 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/leaps"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp" />
+                                    android:textSize="10sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/Followers"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:padding="8dp">
+                                android:padding="4dp">
 
                                 <TextView
                                     android:id="@+id/followers_number"
@@ -113,7 +114,7 @@
                                     android:text="150"
                                     android:textStyle="bold"
                                     android:textColor="@color/white"
-                                    android:textSize="16sp" />
+                                    android:textSize="12sp" />
 
                                 <TextView
                                     android:id="@+id/followers"
@@ -122,17 +123,17 @@
                                     android:gravity="center"
                                     android:text="@string/followers"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp" />
+                                    android:textSize="10sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/Following"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:padding="8dp">
+                                android:padding="4dp">
 
                                 <TextView
                                     android:id="@+id/following_number"
@@ -143,7 +144,7 @@
                                     android:text="50"
                                     android:textStyle="bold"
                                     android:textColor="@color/white"
-                                    android:textSize="16sp" />
+                                    android:textSize="12sp" />
 
                                 <TextView
                                     android:id="@+id/following"
@@ -152,7 +153,7 @@
                                     android:gravity="center"
                                     android:text="@string/following"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp" />
+                                    android:textSize="10sp" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -160,11 +161,11 @@
                             android:id="@+id/follow_button"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginEnd="4dp"
+                            android:layout_marginTop="4dp"
                             android:background="@color/colorPrimary"
                             android:gravity="center"
                             android:text="Sign Up"
@@ -180,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/profileName"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_marginStart="8dp"
@@ -222,6 +223,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:textAlignment="center"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:tabTextAppearance="@style/textStyle"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/white"
                 app:tabIndicatorHeight="4dp"

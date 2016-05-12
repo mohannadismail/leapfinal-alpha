@@ -6,6 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="490dp"
+            android:orientation="vertical">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:elevation="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/Invite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/invite"
+            android:textColor="@color/white"
+            android:textAppearance="@style/textStyle" />
+        <Button
+            android:id="@+id/Done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 
 
     <android.support.design.widget.AppBarLayout
@@ -47,7 +92,7 @@
                     android:layout_marginBottom="?actionBarSize"
                     android:drawablePadding="8dp"
                     android:gravity="center"
-                    android:drawableRight="@drawable/ic_add_a_photo_white_24dp"
+                    android:drawableRight="@drawable/vector_drawable_ic_add_a_photo_white___px"
                     android:padding="8dp"
                     android:text="@string/uploadPhoto"
                     android:textColor="@color/white"
@@ -81,6 +126,7 @@
                 app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
+                app:tabTextAppearance="@style/textStyle"
                 app:tabSelectedTextColor="@android:color/white"
                 app:textAllCaps="true" />
 
@@ -90,38 +136,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:elevation="4dp"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/Invite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="@string/invite"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-        <Button
-            android:id="@+id/Done"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="@string/done"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

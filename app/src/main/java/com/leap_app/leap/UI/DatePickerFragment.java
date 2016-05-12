@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -27,7 +29,8 @@ public class DatePickerFragment extends DialogFragment
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, this, year, month, day);
+
+        return new DatePickerDialog(getActivity(), this, year, month, day);
 
     }
 
