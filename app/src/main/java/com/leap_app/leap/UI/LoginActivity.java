@@ -1,9 +1,11 @@
 package com.leap_app.leap.UI;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.firebase.client.authentication.Constants;
+import com.firebase.client.core.SyncPoint;
+import com.firebase.client.snapshot.KeyIndex;
+import com.leap_app.leap.Models.User;
 import com.leap_app.leap.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by aya on 4/9/16.
@@ -24,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView SignUp;
     EditText LoginEmail;
     EditText LoginPassword;
+    public static final String[] s1 = new String[1];
 
 
 
@@ -57,8 +72,62 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+//    class MyAuthResultHandler implements Firebase.AuthResultHandler{
+//
+//        @Override
+//        public void onAuthenticated(AuthData authData){
+//            switchto
+//        }
+//    }
+
     public void login() {
         Log.d(TAG, "Login");
+
+        final String email = LoginEmail.getText().toString();
+        String password = LoginPassword.getText().toString();
+        final String[] s = new String[1];
+
+        final Firebase firebase = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_URL);
+        firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+            @Override
+            public void onAuthenticated(AuthData authData) {
+                final String uid = authData.getUid().toString();
+                final Firebase firebase1 = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid);
+                firebase1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String key = dataSnapshot.getChildren().iterator().next().getKey();
+                        final Firebase fb = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid).child(key);
+                        fb.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Log.d("User", dataSnapshot.child("name").getValue().toString());
+                                s1[0] = dataSnapshot.child("name").getValue().toString();
+                                MainActivity.instance.fillTextview(s1[0]);
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+
+
+
+            }
+
+            @Override
+            public void onAuthenticationError(FirebaseError firebaseError) {
+
+            }
+        });
 
         if (!validate()) {
             onLoginFailed();
@@ -72,9 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-
-        String email = LoginEmail.getText().toString();
-        String password = LoginPassword.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
@@ -126,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = LoginPassword.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            LoginEmail.setError("enter a valid email address");
+            LoginEmail.setError("Enter a valid email address");
             valid = false;
         } else {
             LoginEmail.setError(null);

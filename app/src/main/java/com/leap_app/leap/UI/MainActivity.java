@@ -1,5 +1,6 @@
 package com.leap_app.leap.UI;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,7 @@ import com.leap_app.leap.R;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity implements DiscoverLeapsFragment.OnFragmentInteractionListener,DiscoverMapFragment.OnFragmentInteractionListener,CreationInfoFragment.OnFragmentInteractionListener,CreationPlacesFragment.OnFragmentInteractionListener {
+    static MainActivity instance;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
@@ -37,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        instance = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
 
 
@@ -140,6 +142,13 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
     }
 
 
+    public void fillTextview(String s){
+        TextView user = (TextView) findViewById(R.id.account_name);
+        user.setText(s);
+
+    }
+
+
 
 
 
@@ -184,9 +193,6 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
 
     }
-
-
-
 
 
 }

@@ -1,5 +1,8 @@
 package com.leap_app.leap.Models;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.authentication.Constants;
+
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,13 @@ public class LeapBase {
     }
 
     public static class LeapBaseInfo{
+        public static String obtaindetails(){
+            String details;
+            Firebase ref = new Firebase(Constants.FIREBASE_AUTH_ANONYMOUS_PATH);
+            ref.child(Constants.FIREBASE_AUTH_EMAIL_PATH_FORMAT);
+            details = ref.toString();
+            return details;
+        }
         public String getTime() {
             return time;
         }

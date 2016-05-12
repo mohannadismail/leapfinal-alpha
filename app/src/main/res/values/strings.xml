@@ -53,5 +53,8 @@
     <string name="next">Next</string>
     <string name="confirm">Confirm</string>
     <string name="inviteMore">Invite More</string>
+    <string name="facebook_app_id">217988371915733</string>
+    <string name="twitter_app_key">yfkcZ1xRe8Zs9vcsYOerFra3o</string>
+    <string name="twitter_app_secret">byZynmYMtF4aKxgGoGISIcJxC0g1fTi5lWoWxJO4P4k9ZP8uio</string>
 </resources>
 
