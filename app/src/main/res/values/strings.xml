@@ -53,5 +53,11 @@
     <string name="next">Next</string>
     <string name="confirm">Confirm</string>
     <string name="inviteMore">Invite More</string>
+    <string name="City">City,Country</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="leaps">Leaps</string>
+    <string name="profileName">Bkeeza El-Zawawy</string>
+    <string name="profileBio">Welcome to my profile.</string>
 </resources>
 

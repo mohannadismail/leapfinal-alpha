@@ -65,7 +65,10 @@
                             android:layout_height="wrap_content"
                             android:textColor="#95FFFFFF"
                             android:textSize="12sp"
-                            tools:text="City, Country" />
+                            android:text="@string/City"
+                            android:drawablePadding="2dp"
+                            android:drawableLeft="@drawable/ic_my_location_black_24px"
+                            android:drawableStart="@drawable/ic_my_location_black_24px"/>
 
                     </LinearLayout>
 
