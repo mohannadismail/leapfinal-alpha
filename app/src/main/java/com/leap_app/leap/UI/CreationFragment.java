@@ -15,10 +15,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
-import com.leap_app.leap.Models.LeapBase;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,20 +63,26 @@ public class CreationFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
 //                Toast.makeText(getContext(),CreationInfoFragment.Title,Toast.LENGTH_LONG).show();
-                    LeapBase leapBase = new LeapBase(CreationInfoFragment.leapBaseInfooo, CreationPlacesFragment.placeviewList);
+                    if (CreationInfoFragment.leapBaseInfooo != null) {
+                        LeapBaseInfo leapBase = new LeapBaseInfo(CreationInfoFragment.leapBaseInfooo.getLeapName(), CreationInfoFragment.leapBaseInfooo.getLeapDescription(), CreationInfoFragment.leapBaseInfooo.getLeapLocation(), CreationInfoFragment.leapBaseInfooo.getLeapPrice(), CreationInfoFragment.leapBaseInfooo.getDate(), CreationInfoFragment.leapBaseInfooo.getTime());
+                        pushToFirebase(leapBase, CreationPlacesFragment.placeviewList);
+                    }else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 
-                    pushToFirebase(leapBase);
+                    if( CreationPlacesFragment.placeviewList.isEmpty())
+                        Toast.makeText(getContext(),"You didn't add your outing's places", Toast.LENGTH_SHORT).show();
+
 
                     if(!CreationInfoFragment.flagg)
                         Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 
-                    if (CreationInfoFragment.flagg) {
+                    if (CreationInfoFragment.flagg && CreationPlacesFragment.placeviewList != null) {
 
                         Intent i = new Intent(getContext(), MainActivity.class);
                         v.getContext().startActivity(i);
                         Toast.makeText(getContext(),"Leap Saved", Toast.LENGTH_SHORT).show();
                         CreationInfoFragment.flagg = false;
 
+                        CreationPlacesFragment.placeviewList = new ArrayList<Placeview>();
 
                     }
                 }
@@ -131,9 +136,12 @@ public class CreationFragment extends Fragment{
         return x;
 
     }
-    public void pushToFirebase(LeapBase leapBase){
-        Firebase ref = new Firebase(Constants.FIREBASE_Leap_URL);
-        Map<String, Object> newLeap = new HashMap<String, Object>();
+    public void pushToFirebase(LeapBaseInfo leapBase, ArrayList<Placeview> placeviewList){
+        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/leap/Leap/");
+        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/leap/Places/");
+
+
+        Map<String, LeapBaseInfo> newLeap = new HashMap<String, LeapBaseInfo>();
         try {
 
 
@@ -143,7 +151,12 @@ public class CreationFragment extends Fragment{
             Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
 
         }
-        ref.push().setValue(newLeap);
+        Firebase newRef = ref.push();
+        String key = newRef.getKey();
+
+        ref.child(key).setValue(leapBase);
+
+        ref2.child(key).setValue(placeviewList);
 
         flag = true;
     }

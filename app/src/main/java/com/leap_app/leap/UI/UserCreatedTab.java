@@ -8,11 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leap_app.leap.Adapter.DiscoverLeapsAdapter;
-import com.leap_app.leap.Models.Leap;
 import com.leap_app.leap.R;
-
-import java.util.List;
 
 public class UserCreatedTab extends Fragment {
 
@@ -25,10 +21,10 @@ public class UserCreatedTab extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
         context = this.getActivity();
-        List<Leap> leaps;
-        leaps = Leap.initializeData();
-        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
-        rv.setAdapter(adapter);
+//        List<LeapBase> leaps = new ArrayList<>();
+//        leaps = Leap.initializeData();
+//        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
+//        rv.setAdapter(adapter);
 
         return view;
     }

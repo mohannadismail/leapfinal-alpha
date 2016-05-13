@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leap_app.leap.Models.LeapMarkerInfo;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.LeapLatLon;
 
 
 /**
@@ -116,10 +115,10 @@ public class DiscoverMapFragment extends SupportMapFragment {
         settings.setMyLocationButtonEnabled(true);
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
         getMap().addMarker(new MarkerOptions().position(latLon));
-        double lats [] = LeapLatLon.getLeapLat();
-        double lngs [] = LeapLatLon.getLeapLon();
-
-        addLeaps(lats, lngs);
+//        double lats [] = LeapLatLon.getLeapLat();
+//        double lngs [] = LeapLatLon.getLeapLon();
+//
+//        addLeaps(lats, lngs);
 
 
     }

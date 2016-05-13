@@ -22,9 +22,9 @@ import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.util.ArrayList;
+
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.ANCHORED;
-import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.EXPANDED;
-import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.HIDDEN;
 
 
 /**
@@ -34,9 +34,14 @@ public class Place extends FragmentActivity{
     private GoogleMap mMap;
     public SlidingUpPanelLayout slidingUpPanelLayout;
     public String leapid;
+
     protected void onCreate(Bundle savedInstanceState) {
         leapid = this.getIntent().getStringExtra("LeapPlace");
-        Log.d("LeapPlace ", "" + leapid);
+//        Parcelable[] parcelables = this.getIntent().getParcelableArrayExtra("Places");
+//        Log.d("LeapPlace ", "" + Arrays.toString(parcelables));
+//        for (Parcelable parcelable : parcelables) {
+//            placeviewArrayList.add((Placeview) parcelable);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_view);
 
@@ -56,42 +61,44 @@ public class Place extends FragmentActivity{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.leap_map)).getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (mMap != null && LeapInfoActivity.flagigo)
+            {
                 setUpMap();
             }
         }
     }
 
 
+    ArrayList<Placeview> placeviewArrayList = new ArrayList<>();
+    boolean flagigo;
     private void setUpMap() {
-
-        // Hide Panel by Clicking on Map
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
-            @Override
-            public void onMapClick(LatLng point) {
-
-                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED)|slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
-                    slidingUpPanelLayout.setPanelState(HIDDEN);
-                }
-
-            }
-        });
-
-
-
-
-
 
         /*
             *Latitude and Longitude Arrays
          */
-        double markersLat[] = Placeview.getLat(Integer.parseInt(leapid));
-        double markersLng[] = Placeview.getLon(Integer.parseInt(leapid));
 
 
-        //Draw Fake Markers with Path
-        addMarker(markersLat, markersLng);
+
+            //Draw Fake Markers with Path
+            addMarker(LeapInfoActivity.markersLat, LeapInfoActivity.markersLng);
+
+//        else Toast.makeText(this.getApplicationContext(),"Error in loading markers, please reload the map",Toast.LENGTH_LONG).show();
+
+        // Hide Panel by Clicking on Map
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+//                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED)|slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
+//                    slidingUpPanelLayout.setPanelState(HIDDEN);
+//                }
+
+                return false;
+            }
+        });
+
+
 
 
 
@@ -118,7 +125,7 @@ public class Place extends FragmentActivity{
             Path
          */
 
-        for (int i = 0; i < Lat.length - 1; i++) {
+        for (int i = 0; i < Lat.length-1 ; i++) {
             LatLng pLatLng = new LatLng(Lat[i], Lng[i]);
             LatLng latLng = new LatLng(Lat[i + 1], Lng[i + 1]);
             mMap.addPolygon(new PolygonOptions().add(latLng).add(pLatLng).strokeColor(Color.rgb(183, 28, 28)).strokeWidth(15));
@@ -143,7 +150,7 @@ public class Place extends FragmentActivity{
             LatLng Target = new LatLng(Lat[0], Lng[0]);
             CameraPosition cp = new CameraPosition.Builder().
                     target(Target)
-                    .zoom(13)
+                    .zoom(15)
                     .build();
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cp), 1000, null);
@@ -157,16 +164,16 @@ public class Place extends FragmentActivity{
 
                                                   LatLng place = marker.getPosition();
                                                   TextView p1 = (TextView) findViewById(R.id.placename);
-                                                  p1.setText(Placeview.getPlaceNameColumn(place.latitude, place.longitude));
+//                                                  p1.setText(Placeview.getPlaceNameColumn(place.latitude, place.longitude));
 
                                                   TextView p2 = (TextView) findViewById(R.id.placecategory);
-                                                  p2.setText(Placeview.getPlaceCatColumn(place.latitude, place.longitude));
+//                                                  p2.setText(Placeview.getPlaceCatColumn(place.latitude, place.longitude));
 
                                                   TextView p3 = (TextView) findViewById(R.id.placeaddress);
-                                                  p3.setText(Placeview.getPlaceAddColumn(place.latitude, place.longitude));
+//                                                  p3.setText(Placeview.getPlaceAddColumn(place.latitude, place.longitude));
 
                                                   TextView p4 = (TextView) findViewById(R.id.placedesc);
-                                                  p4.setText(Placeview.getPlaceDescColumn(place.latitude, place.longitude));
+//                                                  p4.setText(Placeview.getPlaceDescColumn(place.latitude, place.longitude));
 
                                                   slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
                                                   slidingUpPanelLayout.setPanelState(ANCHORED);

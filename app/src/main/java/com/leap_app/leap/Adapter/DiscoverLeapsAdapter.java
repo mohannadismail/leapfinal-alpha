@@ -15,12 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.leap_app.leap.Models.Leap;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.LeapInfoActivity;
-import com.leap_app.leap.Utility.Constants;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,11 +26,13 @@ import java.util.List;
 
 
 public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdapter.LeapViewHolder> {
-    public static List<Leap> leaps;
+    public static List<LeapBaseInfo> leaps;
     public static Context c;
-    public DiscoverLeapsAdapter(Context context, List<Leap> leaps) {
+
+    public DiscoverLeapsAdapter(Context context, List<LeapBaseInfo> leaps) {
         this.c = context;
-        this.leaps = leaps;
+        this.leaps =  leaps;
+//        Log.e("In Adapter Logging" , Arrays.toString(leaps.toArray()));
     }
 
 
@@ -64,13 +63,10 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
                 @Override
                 public void onClick(View view) {
                     int position = getLayoutPosition();
-                    String x = String.valueOf(leaps.get(position).leapId);
+                    String x = String.valueOf(leaps.get(position).getLeapID());
                     Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
                     i.putExtra("LeapId", x);
                     Log.d("EXTRA","" + x);
-
-                    Firebase ref = new Firebase(Constants.FIREBASE_TEST);
-                    ref.push().setValue(x);
                     view.getContext().startActivity(i);
                 }
             });
@@ -80,7 +76,9 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
     @Override
     public int getItemCount() {
-        return leaps.size();
+        if (leaps!= null)
+            return leaps.size();
+        else return 0;
     }
 
     @Override
@@ -92,11 +90,12 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
     @Override
     public void onBindViewHolder(LeapViewHolder personViewHolder, int i) {
-        personViewHolder.LeapName.setText(leaps.get(i).name);
-        personViewHolder.LeapPrice.setText(leaps.get(i).price);
-        personViewHolder.LeapCreator.setText(leaps.get(i).user);
-        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
-        personViewHolder.LeapId.setText(""+leaps.get(i).leapId);
+        personViewHolder.LeapName.setText(leaps.get(i).getLeapName());
+//        Log.e("onBVH Logging" ,leaps.get(i).getLeapName() );
+        personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice());
+        personViewHolder.LeapCreator.setText("No creator");
+//        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
+        personViewHolder.LeapId.setText(leaps.get(i).getLeapLocation());
     }
 
     @Override

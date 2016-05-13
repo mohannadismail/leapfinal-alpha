@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -31,7 +30,6 @@ import com.leap_app.leap.Adapter.PlacesCreationAdapter;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -217,6 +215,9 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 int price = place.getPriceLevel();
                 String phone = (String) place.getPhoneNumber();
                 String id = place.getId();
+                String Lat = String.valueOf(lat);
+                String Lon = String.valueOf(lon);
+                String Price = String.valueOf(price);
 
 
 
@@ -229,39 +230,31 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
                 //Adding data to model
 
-                Placeview placeview = new Placeview(lat, lon, name, address, price, phone, id);
-
+                Placeview placeview = new Placeview(Lat,Lon, name, address, Price, phone, id);
                 placeviewList.add(placeview);
                 i++;
                 placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList,i));
-
-
                 ContentValues values = new ContentValues();
-
-
-
-
                 Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_SHORT).show();
-                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
-                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
-                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
-                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
-                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
-                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
-                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
 
 
-
-                //Writing data to Firebase
-
-                reflat.push().setValue(lat);
-                reflon.push().setValue(lon);
-                refid.push().setValue(id);
-                refprice.push().setValue(price);
-                refPhone.push().setValue(phone);
-                refname.push().setValue(name);
-                refaddress.push().setValue(address);
-
+//                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
+//                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
+//                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
+//                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
+//                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
+//                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
+//                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
+//
+//                //Writing data to Firebase
+//                reflat.push().setValue(lat);
+//                reflon.push().setValue(lon);
+//                refid.push().setValue(id);
+//                refprice.push().setValue(price);
+//                refPhone.push().setValue(phone);
+//                refname.push().setValue(name);
+//                refaddress.push().setValue(address);
+//
 
 
 

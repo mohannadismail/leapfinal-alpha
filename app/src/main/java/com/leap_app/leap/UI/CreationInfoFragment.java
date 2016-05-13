@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.leap_app.leap.Models.LeapBase;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 
 import java.util.Calendar;
@@ -77,7 +77,7 @@ public class CreationInfoFragment extends Fragment {
 
     public Context context;
 
-    public static LeapBase.LeapBaseInfo leapBaseInfooo;
+    public static LeapBaseInfo leapBaseInfooo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,17 +98,18 @@ public class CreationInfoFragment extends Fragment {
         int day = now.get(Calendar.DAY_OF_MONTH);
 
 
-//        Button nexxt = (Button) view.findViewById(R.id.nextButton);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leapBaseInfooo = new LeapBase.LeapBaseInfo(leapTitle.getText().toString(),leapDesc.getText().toString(),leapLocation.getText().toString(),leapPrice.getText().toString(),dateText.getText().toString(),timeText.getText().toString());
 
-                flagg = true;
-                Toast.makeText(getContext(),"Info Saved, go to add your Places",Toast.LENGTH_LONG).show();
-            }
-        });
+
+//        Button nexxt = (Button) view.findViewById(R.id.nextButton);
+            FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    leapBaseInfooo = new LeapBaseInfo(leapTitle.getText().toString(), leapDesc.getText().toString(), leapLocation.getText().toString(), leapPrice.getText().toString(), dateText.getText().toString(), timeText.getText().toString());
+                    flagg = true;
+                    Toast.makeText(getContext(), "Info Saved, go to add your Places", Toast.LENGTH_LONG).show();
+                }
+            });
 
         date = dateText.getText().toString();
         Time = timeText.getText().toString();
