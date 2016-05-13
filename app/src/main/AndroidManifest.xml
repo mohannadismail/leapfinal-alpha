@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:name=".LeapApplication"
@@ -74,6 +76,13 @@
         </activity>
         <activity
             android:name=".UI.LoginActivity"
+            android:parentActivityName=".UI.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.leap_app.leap.UI.MainActivity" />
+        </activity>
+        <activity
+            android:name=".UI.LogoutActivity"
             android:parentActivityName=".UI.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

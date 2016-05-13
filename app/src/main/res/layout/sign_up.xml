@@ -78,6 +78,12 @@
             android:textColor="@color/white"
             android:textSize="16sp" />
 
+        <!--<com.google.android.gms.common.SignInButton-->
+            <!--android:id="@+id/login_with_google"-->
+            <!--android:text="@string/login_with_google"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

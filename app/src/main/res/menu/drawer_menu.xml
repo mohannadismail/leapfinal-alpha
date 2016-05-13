@@ -35,7 +35,7 @@
         <item
             android:id="@+id/nav_item_logout"
             android:title="LogOut"
-            android:icon="@drawable/ic_reply_black_24px"/>
+            android:icon="@drawable/ic_reply_black_24px" />
         <item
             android:id="@+id/nav_item_settings"
             android:title="Settings"
