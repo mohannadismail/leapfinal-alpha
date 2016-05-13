@@ -73,4 +73,12 @@ public class CirclesActivity extends AppCompatActivity implements NewCircleDialo
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // disable going back to the MainActivity
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }

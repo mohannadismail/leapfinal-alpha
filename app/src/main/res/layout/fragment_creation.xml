@@ -6,6 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="490dp"
+            android:orientation="vertical">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:elevation="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/Invite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/invite"
+            android:textColor="@color/white"
+            android:textAppearance="@style/textStyle" />
+        <Button
+            android:id="@+id/Done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+
 
 
     <android.support.design.widget.AppBarLayout
@@ -38,42 +83,22 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/scrim">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center|bottom"
                     android:layout_marginBottom="?actionBarSize"
+                    android:drawablePadding="8dp"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp">
+                    android:drawableRight="@drawable/vector_drawable_ic_add_a_photo_white___px"
+                    android:padding="8dp"
+                    android:text="@string/uploadPhoto"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:src="@drawable/ic_add_white_48px" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:text="@string/uploadPhoto"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:src="@drawable/ic_camera_alt_24dp" />
-
-                </LinearLayout>
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
@@ -101,6 +126,7 @@
                 app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
+                app:tabTextAppearance="@style/textStyle"
                 app:tabSelectedTextColor="@android:color/white"
                 app:textAllCaps="true" />
 
@@ -110,41 +136,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:isScrollContainer="true"
-        android:overScrollMode="always"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:elevation="4dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:id="@+id/Invite"
-            android:text="@string/invite"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/Done"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="@string/done"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

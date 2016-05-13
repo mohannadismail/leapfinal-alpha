@@ -53,5 +53,22 @@
     <string name="next">Next</string>
     <string name="confirm">Confirm</string>
     <string name="inviteMore">Invite More</string>
+    <string name="facebook_app_id">217988371915733</string>
+    <string name="twitter_app_key">yfkcZ1xRe8Zs9vcsYOerFra3o</string>
+    <string name="twitter_app_secret">byZynmYMtF4aKxgGoGISIcJxC0g1fTi5lWoWxJO4P4k9ZP8uio</string>
+    <string name="City">City,Country</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="leaps">Leaps</string>
+    <string name="profileName">Bkeeza El-Zawawy</string>
+    <string name="profileBio">Welcome to my profile.</string>
+    <string name="login_with_google">Login with Google+</string>
+    <string name="oauth2_format">oauth2:%s</string>
+    <string name="google_error_recoverable_oauth_error">"Recoverable Google OAuth error: "</string>
+    <string name="google_error_google_play_services_not_available">Google Play Services are not available.</string>
+    <string name="google_error_trying_to_connect_google_api">Trying to connect to Google API</string>
+    <string name="google_error_auth_with_google">"Error authenticating with Google: "</string>
+    <string name="google_error_network_error">"Network error: "</string>
+    <string name="log_message_auth_successful">auth successful.</string>
 </resources>
 

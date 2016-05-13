@@ -51,6 +51,8 @@ public class CreationFragment extends Fragment{
 
 
 
+
+
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
 //        floatingActionButton.setVisibility(View.INVISIBLE);
 
@@ -205,5 +207,6 @@ public class CreationFragment extends Fragment{
             return null;
         }
     }
+
 
 }

@@ -27,7 +27,6 @@
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/circle_checkbox"
-
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="25dp"
         android:layout_height="25dp"

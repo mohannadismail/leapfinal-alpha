@@ -1,10 +1,15 @@
 package com.leap_app.leap.UI;
 
+import android.app.Fragment;
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -20,31 +25,39 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.app.DialogFragment;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapProvider;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
 
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends AppCompatActivity implements DiscoverLeapsFragment.OnFragmentInteractionListener,DiscoverMapFragment.OnFragmentInteractionListener,CreationInfoFragment.OnFragmentInteractionListener,CreationPlacesFragment.OnFragmentInteractionListener {
+    static MainActivity instance;
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
     android.support.v7.widget.Toolbar toolbar;
-
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String flag = "flag";
+    public static final String Name1 = "nameKey";
+    public static final String signup1 = "signupKey";
+    public static final String member1 = "memberKey";
+    public static final String login1= "loginKey";
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
+        sharedpreferences = getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
+        instance = this;
 
         /**
          * Insert mock data in the database
@@ -98,12 +111,16 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_create ) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
-                    toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-                    toolbar.setTitle("Create");
+                    if (LoginActivity.flag == true) {
+                        FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
+                        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+                        toolbar.setTitle("Create");
+                    }
 
-
+                    else{
+                        Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+                    }
                 }
                 if (menuItem.getItemId() == R.id.nav_item_myleaps) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
@@ -112,10 +129,22 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
                     toolbar.setTitle("My Leaps");
                 }
                 if (menuItem.getItemId() == R.id.nav_item_circles){
-                    Intent intent = new Intent(getApplicationContext(), CirclesActivity.class);
+                    if (LoginActivity.flag == true) {
+                        Intent intent = new Intent(getApplicationContext(), CirclesActivity.class);
+                        startActivity(intent);
+                        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+                        toolbar.setTitle("Circles");
+                        }
+
+                    else{
+                        Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+                    }
+                }
+                if (menuItem.getItemId() == R.id.nav_item_logout){
+                    Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
                     startActivity(intent);
                     toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-                    toolbar.setTitle("Circles");
+                    toolbar.setTitle("Logout");
                 }
                 if (menuItem.getItemId() == R.id.nav_item_settings){
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
@@ -136,15 +165,56 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
     }
 
 
+    public void fillTextview(String s){
+        TextView user = (TextView) findViewById(R.id.account_name);
+        Button signup = (Button) findViewById(R.id.signup_button);
+        TextView member = (TextView) findViewById(R.id.member);
+        TextView login = (TextView) findViewById(R.id.login);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean(flag, LoginActivity.flag);
+        editor.putString(Name1,s);
+        editor.putInt(signup1, View.INVISIBLE);
+        editor.putString(member1, "");
+        editor.putString(login1,"");
+        editor.commit();
+
+        user.setText(s);
+        signup.setVisibility(View.INVISIBLE);
+        member.setText("");
+        login.setText("");
+    }
+
+    public void clearTextview(){
+        TextView user = (TextView) findViewById(R.id.account_name);
+        Button signup = (Button) findViewById(R.id.signup_button);
+        TextView member = (TextView) findViewById(R.id.member);
+        TextView login = (TextView) findViewById(R.id.login);
+
+        user.setText("@string/profileName");
+        signup.setVisibility(View.VISIBLE);
+        member.setText("@string/login");
+        login.setText("@string/alreadyMember");
+    }
 
 
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+//        if (sharedpreferences.getBoolean(flag, false) == true) {
+//            TextView user = (TextView) findViewById(R.id.account_name);
+//            Button signup = (Button) findViewById(R.id.signup_button);
+//            TextView member = (TextView) findViewById(R.id.member);
+//            TextView login = (TextView) findViewById(R.id.login);
+//
+//            user.setText(sharedpreferences.getString(Name1,""));
+//            signup.setVisibility(View.INVISIBLE);
+//            member.setText(sharedpreferences.getString(member1,""));
+//            login.setText(sharedpreferences.getString(login1,""));
+//        }
 
         return;
     }
@@ -162,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
         startActivity(intent);
     }
 
-
     // View User Profile from User Image
     public void profile(View v){
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -176,17 +245,25 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
     //Create Leap By Clicking on FAB
     public void Create(View v){
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Create");
-        mDrawerLayout.closeDrawers();
-
+        if (LoginActivity.flag == true) {
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
+            toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle("Create");
+            mDrawerLayout.closeDrawers();
+        }
+        else{
+            Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+        }
 
     }
 
-
-
-
-
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            this.finish();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
 }

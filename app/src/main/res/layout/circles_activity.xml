@@ -19,13 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:elevation="6dp"
-
         android:layout_margin="16dp"
         android:layout_marginBottom="8dp"
+        android:elevation="6dp"
         android:onClick="addCircle"
         android:padding="16dp"
-        android:src="@drawable/ic_add_white_48px" />
+        android:src="@drawable/vector_drawable_ic_group_add_white___px" />
 
 
 </RelativeLayout>

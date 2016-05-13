@@ -24,6 +24,7 @@
         app:tabIndicatorHeight="4dp"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
+        app:tabTextAppearance="@style/textStyle"
         app:tabSelectedTextColor="@android:color/white"
         app:textAllCaps="true" />
 

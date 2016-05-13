@@ -26,10 +26,11 @@
         android:layout_below="@+id/account_pic"
         android:gravity="center"
         android:paddingTop="2dp"
-        android:text="Your Name"
+        android:text="@string/profileName"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="12sp"
+        android:hint="Name"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,8 +39,8 @@
         android:drawableLeft="@drawable/ic_my_location_black_24px"
         android:drawablePadding="2dp"
         android:drawableStart="@drawable/ic_my_location_black_24px"
-        android:text="City,Country"
-        android:textSize="13dp" />
+        android:text="@string/City"
+        android:textSize="10sp" />
 
     <LinearLayout
         android:id="@+id/intro"
@@ -57,10 +58,10 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/sign_up_button"
             android:onClick="SignUp"
-            android:text="sign up"
+            android:text="@string/sign_up"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16dp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/member"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/alreadyMember"
@@ -76,13 +78,13 @@
                 android:layout_marginTop="2dp"/>
 
             <TextView
+                android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/signup_button"
                 android:layout_marginTop="2dp"
                 android:onClick="Login"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
+                android:padding="8dp"
                 android:text="@string/login"
                 android:textSize="12sp" />
 

@@ -130,7 +130,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
 
         // place list item components
-        Button addPlace = (Button) view.findViewById(R.id.addPlace);
+        FloatingActionButton addPlace = (FloatingActionButton) view.findViewById(R.id.addPlace);
         placeName = (TextView) view.findViewById(R.id.creation_place_name);
 //        placeAddress = (TextView) view.findViewById(R.id.creation_place_address);
 //        placeNumber = (TextView) view.findViewById(R.id.placeNumber);

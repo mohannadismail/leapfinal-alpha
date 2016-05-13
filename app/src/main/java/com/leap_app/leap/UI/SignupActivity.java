@@ -11,7 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by aya on 4/9/16.
@@ -56,6 +62,29 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() {
+
+        final String name = SignUpName.getText().toString();
+        final String email = SignUpEmail.getText().toString();
+        String password = SignUpPassword.getText().toString();
+
+        final Firebase firebase = new Firebase(Constants.FIREBASE_URL).child("users");
+        firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+            @Override
+            public void onSuccess(Map<String, Object> stringObjectMap) {
+
+                Toast.makeText(getBaseContext(),"Successfully created user account",Toast.LENGTH_LONG).show();
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("email", email);
+                map.put("name", name);
+                Firebase fb = firebase.child(stringObjectMap.get("uid").toString()).push();
+                fb.setValue(map);
+            }
+
+            @Override
+            public void onError(FirebaseError firebaseError) {
+                Toast.makeText(getBaseContext(),"Account was not created. Please try again",Toast.LENGTH_LONG).show();
+            }
+        });
         Log.d(TAG, "Signup");
 
         if (!validate()) {
@@ -70,10 +99,6 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-
-        String name = SignUpName.getText().toString();
-        String email = SignUpEmail.getText().toString();
-        String password = SignUpPassword.getText().toString();
 
         // TODO: Implement your own signup logic here.
 

@@ -3,11 +3,12 @@
     android:id="@+id/circle_popup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
     android:layout_gravity="center"
+    android:layout_margin="8dp"
     android:background="@color/white"
     android:elevation="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -20,24 +21,14 @@
             android:id="@+id/new_circle_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/circleName" />
+            android:hint="@string/circleName"
+            android:textSize="16sp" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/circle_name_done"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:onClick="CreateNewCircle"
-            android:text="@string/done"
-            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/cancel_circle_name"
@@ -48,8 +39,20 @@
             android:background="@color/white"
             android:onClick="CancelCreateCircle"
             android:text="@string/cancel"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/circle_name_done"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:onClick="CreateNewCircle"
+            android:text="@string/done"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
     </LinearLayout>
-
-
 </LinearLayout>

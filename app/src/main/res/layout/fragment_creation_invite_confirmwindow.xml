@@ -4,7 +4,8 @@
     android:layout_width="320dp"
     android:layout_height="500dp"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:nestedScrollingEnabled="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/confirm_toolbar"
