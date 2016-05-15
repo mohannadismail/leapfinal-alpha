@@ -213,11 +213,11 @@ public class LoginActivity extends BaseActivity {
             }
         }
 
-        /* Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...); */
-        if (requestCode == RC_GOOGLE_LOGIN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
+//        /* Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...); */
+//        if (requestCode == RC_GOOGLE_LOGIN) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            handleSignInResult(result);
+//        }
     }
 
     @Override

@@ -105,7 +105,7 @@ public class LeapInfoActivity extends AppCompatActivity implements NewCircleDial
         Log.e("LeapID ", "" + leapid);
         Firebase ref = new Firebase("https://leapappeg.firebaseio.com/leap/Leap/");
         ref2 = new Firebase("https://leapappeg.firebaseio.com/leap/Places/");
-        Query query = ref.orderByChild(leapid).limitToLast(1);
+        Query query = ref.orderByChild(leapid);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -115,10 +115,11 @@ public class LeapInfoActivity extends AppCompatActivity implements NewCircleDial
                 Map<String,LeapBaseInfo> leapBaseInfoHashMap = dataSnapshot.getValue(T);
 
                 LeapBaseInfo leapBaseInfo = leapBaseInfoHashMap.get(leapid);
-                Log.e("G Object" , leapBaseInfo.getLeapName().toString());
+                Log.d("LOGi", leapid);
+                Log.d("G Object" , leapBaseInfo.getLeapName().toString());
                 collapsingToolbar.setTitle(leapBaseInfo.getLeapName());
                 v1.setText(leapBaseInfo.getLeapName());
-                v2.setText(leapBaseInfo.getLeapPrice());
+                v2.setText(leapBaseInfo.getLeapPrice() + " L.E");
                 v3.setText(leapBaseInfo.getDate() + "\n" + leapBaseInfo.getLeapDescription());
                 leapLocation.setText(leapBaseInfo.getLeapLocation());
 //                v41.setText(LeapInfo.getLeapUserColumn(Integer.parseInt(leapid)));

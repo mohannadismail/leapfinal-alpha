@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
     public DiscoverLeapsAdapter(Context context, List<LeapBaseInfo> leaps) {
         this.c = context;
         this.leaps =  leaps;
-//        Log.e("In Adapter Logging" , Arrays.toString(leaps.toArray()));
     }
 
 
@@ -66,7 +64,6 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
                     String x = String.valueOf(leaps.get(position).getLeapID());
                     Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
                     i.putExtra("LeapId", x);
-                    Log.d("EXTRA","" + x);
                     view.getContext().startActivity(i);
                 }
             });
@@ -91,8 +88,7 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
     @Override
     public void onBindViewHolder(LeapViewHolder personViewHolder, int i) {
         personViewHolder.LeapName.setText(leaps.get(i).getLeapName());
-//        Log.e("onBVH Logging" ,leaps.get(i).getLeapName() );
-        personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice());
+        personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice() + " L.E");
         personViewHolder.LeapCreator.setText("No creator");
 //        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
         personViewHolder.LeapId.setText(leaps.get(i).getLeapLocation());
