@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/*This class is used to create the actual tables and implement attributes within the database. Also, it implements two methods,
+*getReadableDatabase() and getWritableDatabase(). These are called via this class whenever any modifications are required on the database.*/
 public class LeapDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -17,6 +19,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
 
 
     @Override
+    /*Method for creating the database tables. Gets executed once the LeapDbHelper is called.*/
     public void onCreate(SQLiteDatabase db) {
 
         final String SQL_CREATE_User_TABLE = "CREATE TABLE " + LeapContract.UserEntry.Table_Name + " (" +
@@ -29,8 +32,8 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 LeapContract.UserEntry.COLUMN_About_me + " TEXT, " +
                 LeapContract.UserEntry.COLUMN_HomePage + " TEXT, " +
                 LeapContract.UserEntry.COLUMN_Image + " TEXT, " +
-                LeapContract.UserEntry.COLUMN_No_Of_Leaps + " INTEGER NOT NULL DEFAULT 0, " +
-                LeapContract.UserEntry.COLUMN_UserName + " TEXT UNIQUE NOT NULL " +
+                LeapContract.UserEntry.COLUMN_No_Of_Leaps + " INTEGER DEFAULT 0, " +
+                LeapContract.UserEntry.COLUMN_UserName + " TEXT UNIQUE " +
                 " );";
 
 
@@ -40,7 +43,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 LeapContract.PlaceEntry.COLUMN_Image + " TEXT, " +
                 LeapContract.PlaceEntry.COLUMN_Address + " TEXT , " +
                 LeapContract.PlaceEntry.COLUMN_Description + " TEXT, " +
-                LeapContract.PlaceEntry.COLUMN_Category_Name + " TEXT NOT NULL, " +
+                LeapContract.PlaceEntry.COLUMN_Category_Name + " TEXT, " +
                 LeapContract.PlaceEntry.COLUMN_Latitude + "  REAL NOT NULL, " +
                 LeapContract.PlaceEntry.COLUMN_Longitude + "  REAL NOT NULL " +
                 " );";
@@ -57,11 +60,10 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 LeapContract.PlaceEntry.Table_Name + " (" + LeapContract.PlaceEntry.COLUMN_Place_ID+ ") " +
                 " );";
 
-
         final String SQL_CREATE_Leap_TABLE = "CREATE TABLE " + LeapContract.LeapEntry.Table_Name + " (" +
                 LeapContract.LeapEntry.COLUMN_Leap_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 LeapContract.LeapEntry.COLUMN_Name + " TEXT NOT NULL, " +
-                LeapContract.LeapEntry.COLUMN_Image + " TEXT, " +
+                LeapContract.LeapEntry.COLUMN_Image + " TEXT DEFAULT 'https://cms-assets.tutsplus.com/uploads/users/41/posts/25951/image/more-more-material-design-backgrounds-134679.jpg', " +
                 LeapContract.LeapEntry.COLUMN_Description + " TEXT, " +
                 LeapContract.LeapEntry.COLUMN_Map_Image + " TEXT, " +
                 LeapContract.LeapEntry.COLUMN_No_Of_Reviews + " INTEGER DEFAULT 0, " +
@@ -69,7 +71,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 LeapContract.LeapEntry.COLUMN_Review + " INTEGER CHECK(review >=1 AND review <=10) DEFAULT NULL, " +
                 LeapContract.LeapEntry.COLUMN_Latitude + "  REAL DEFAULT NULL, " +
                 LeapContract.LeapEntry.COLUMN_Longitude + "  REAL DEFAULT NULL, " +
-                LeapContract.LeapEntry.COLUMN_User_Key + "  REAL NOT NULL, " +
+                LeapContract.LeapEntry.COLUMN_User_Key + "  REAL DEFAULT 2,  " +
 
 
                 " FOREIGN KEY (" + LeapContract.LeapEntry.COLUMN_User_Key + ") REFERENCES " +
@@ -103,6 +105,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    /*Method for preventing the repetition of the tables in the database. Any repetitions are deleted.*/
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + LeapContract.UserEntry.Table_Name);

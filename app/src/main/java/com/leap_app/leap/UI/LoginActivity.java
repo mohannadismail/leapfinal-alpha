@@ -2,11 +2,17 @@ package com.leap_app.leap.UI;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.support.annotation.LayoutRes;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -15,6 +21,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +45,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.Scope;
+import com.leap_app.leap.LeapProvider.LeapContract;
+import com.leap_app.leap.LeapProvider.LeapDbHelper;
+import com.leap_app.leap.Models.LeapInfo;
 import com.leap_app.leap.Models.User;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -47,15 +60,18 @@ import java.util.ArrayList;
 /**
  * Created by aya on 4/9/16.
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    public LeapDbHelper mLeapHelper;
     Button LoginBtn,googlePlus;
     TextView SignUp;
     EditText LoginEmail;
     EditText LoginPassword;
-    public static final String[] s1 = new String[1];
+    public static String s1 = "";
+    public static String id1 ="";
     public static boolean flag = false;
+
 
 
 
@@ -68,6 +84,8 @@ public class LoginActivity extends BaseActivity {
         SignUp = (TextView) findViewById(R.id.signUpHere);
         LoginEmail = (EditText) findViewById(R.id.input_email);
         LoginPassword = (EditText) findViewById(R.id.input_password);
+        mLeapHelper = new LeapDbHelper(getApplicationContext());
+
 //        googlePlus = (Button) findViewById(R.id.login_with_google);
 
 //        googlePlus.setOnClickListener(new View.OnClickListener() {
@@ -116,61 +134,68 @@ public class LoginActivity extends BaseActivity {
     public void login() {
         Log.d(TAG, "Login");
 
+
         final String email = LoginEmail.getText().toString();
         String password = LoginPassword.getText().toString();
-        final String[] s = new String[1];
 
-        final Firebase firebase = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_URL);
-        firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                final String uid = authData.getUid().toString();
-                final Firebase firebase1 = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid);
-                firebase1.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String key = dataSnapshot.getChildren().iterator().next().getKey();
-                        final Firebase fb = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid).child(key);
-                        fb.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Log.d("User", dataSnapshot.child("name").getValue().toString());
-                                s1[0] = dataSnapshot.child("name").getValue().toString();
-                                MainActivity.instance.fillTextview(s1[0]);
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
+        SQLiteDatabase db = mLeapHelper.getReadableDatabase();
+        final Cursor c = db.rawQuery("SELECT id FROM User WHERE email =? AND password =? ", new String[]{email,password});
 
 
 
-            }
+//        final String[] s = new String[1];
 
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                switch (firebaseError.getCode()) {
-                    case FirebaseError.USER_DOES_NOT_EXIST:
-                        Toast.makeText(getBaseContext(), "Login failed. User doesn't exist.", Toast.LENGTH_LONG).show();
-                        break;
-                    case FirebaseError.INVALID_PASSWORD:
-                        Toast.makeText(getBaseContext(), "Login failed. Wrong password.", Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        Toast.makeText(getBaseContext(), "Login failed. Please try again.", Toast.LENGTH_LONG).show();
-                        break;
-                }
-            }
-        });
+//        final Firebase firebase = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_URL);
+//        firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+//            @Override
+//            public void onAuthenticated(AuthData authData) {
+//                final String uid = authData.getUid().toString();
+//                final Firebase firebase1 = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid);
+//                firebase1.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        String key = dataSnapshot.getChildren().iterator().next().getKey();
+//                        final Firebase fb = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_LEAP_USERS_URL).child(uid).child(key);
+//                        fb.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                Log.d("User", dataSnapshot.child("name").getValue().toString());
+//                                s1[0] = dataSnapshot.child("name").getValue().toString();
+//                                MainActivity.instance.fillTextview(s1[0]);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(FirebaseError firebaseError) {
+//
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(FirebaseError firebaseError) {
+//
+//                    }
+//                });
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onAuthenticationError(FirebaseError firebaseError) {
+//                switch (firebaseError.getCode()) {
+//                    case FirebaseError.USER_DOES_NOT_EXIST:
+//                        Toast.makeText(getBaseContext(), "Login failed. User doesn't exist.", Toast.LENGTH_LONG).show();
+//                        break;
+//                    case FirebaseError.INVALID_PASSWORD:
+//                        Toast.makeText(getBaseContext(), "Login failed. Wrong password.", Toast.LENGTH_LONG).show();
+//                        break;
+//                    default:
+//                        Toast.makeText(getBaseContext(), "Login failed. Please try again.", Toast.LENGTH_LONG).show();
+//                        break;
+//                }
+//            }
+//        });
 
         if (!validate()) {
             onLoginFailed();
@@ -185,15 +210,25 @@ public class LoginActivity extends BaseActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        // TODO: Implement your own authentication logic here.
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
+                        if (c != null) {
+                            c.moveToFirst();
+                            if(c.getCount() > 0)
+                            {
+                                id1 = c.getString(0);
+                                Log.d("ID1", id1);
+                                c.close();
+                                onLoginSuccess();
+                            }
+                            else{
+                                c.close();
+                                onLoginFailed();
+                            }
+                        }
+                            progressDialog.dismiss();
+
                     }
                 }, 3000);
     }
@@ -228,11 +263,27 @@ public class LoginActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
     public void onLoginSuccess() {
         LoginBtn.setEnabled(true);
+        SQLiteDatabase db = mLeapHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT name FROM User WHERE id =?" , new String[]{id1});
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
+        s1 = c.getString(0);
+
+        MainActivity.instance.fillTextview(s1);
         flag = true;
+        c.close();
         finish();
     }
+
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
@@ -280,10 +331,10 @@ public class LoginActivity extends BaseActivity {
      *
      * @param token A Google OAuth access token returned from Google
      */
-    private void loginWithGoogle(String token) {
-        Firebase mFirebaseRef = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_URL);
-        mFirebaseRef.authWithOAuthToken("google", token, new MyAuthResultHandler("google"));
-    }
+//    private void loginWithGoogle(String token) {
+//        Firebase mFirebaseRef = new Firebase(com.leap_app.leap.Utility.Constants.FIREBASE_URL);
+//        mFirebaseRef.authWithOAuthToken("google", token, new MyAuthResultHandler("google"));
+//    }
 
     /**
      * GOOGLE SIGN IN CODE
@@ -307,7 +358,7 @@ public class LoginActivity extends BaseActivity {
 
 
     /* Sets up the Google Sign In Button : https://developers.google.com/android/reference/com/google/android/gms/common/SignInButton */
-    private void setupGoogleSignIn() {
+//    private void setupGoogleSignIn() {
 //        SignInButton signInButton = (SignInButton)findViewById(R.id.login_with_google);
 //        signInButton.setSize(SignInButton.SIZE_WIDE);
 //        signInButton.setOnClickListener(new View.OnClickListener() {
@@ -321,128 +372,128 @@ public class LoginActivity extends BaseActivity {
     /**
      * Sign in with Google plus when user clicks "Sign in with Google" textView (button)
      */
-    public void onSignInGooglePressed(View view) {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_GOOGLE_LOGIN);
-        mAuthProgressDialog.show();
+//    public void onSignInGooglePressed(View view) {
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signInIntent, RC_GOOGLE_LOGIN);
+//        mAuthProgressDialog.show();
+//
+//    }
+//
+//    private void showErrorToast(String message) {
+//        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+//    }
 
-    }
-
-    private void showErrorToast(String message) {
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        /**
-         * An unresolvable error has occurred and Google APIs (including Sign-In) will not
-         * be available.
-         */
-        mAuthProgressDialog.dismiss();
-        showErrorToast(result.toString());
-    }
-
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        Log.d("LOG", "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            /* Signed in successfully, get the OAuth token */
-            mGoogleAccount = result.getSignInAccount();
-            getGoogleOAuthTokenAndLogin();
+//    @Override
+//    public void onConnectionFailed(ConnectionResult result) {
+//        /**
+//         * An unresolvable error has occurred and Google APIs (including Sign-In) will not
+//         * be available.
+//         */
+//        mAuthProgressDialog.dismiss();
+//        showErrorToast(result.toString());
+//    }
 
 
-        } else {
-            if (result.getStatus().getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
-                showErrorToast("The sign in was cancelled. Make sure you're connected to the internet and try again.");
-            } else {
-                showErrorToast("Error handling the sign in: " + result.getStatus().getStatusMessage());
-            }
-            mAuthProgressDialog.dismiss();
-        }
-    }
+//    private void handleSignInResult(GoogleSignInResult result) {
+//        Log.d("LOG", "handleSignInResult:" + result.isSuccess());
+//        if (result.isSuccess()) {
+//            /* Signed in successfully, get the OAuth token */
+//            mGoogleAccount = result.getSignInAccount();
+//            getGoogleOAuthTokenAndLogin();
+//
+//
+//        } else {
+//            if (result.getStatus().getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
+//                showErrorToast("The sign in was cancelled. Make sure you're connected to the internet and try again.");
+//            } else {
+//                showErrorToast("Error handling the sign in: " + result.getStatus().getStatusMessage());
+//            }
+//            mAuthProgressDialog.dismiss();
+//        }
+//    }
 
-    /**
-     * Gets the GoogleAuthToken and logs in.
-     */
-    private void getGoogleOAuthTokenAndLogin() {
-        /* Get OAuth token in Background */
-        AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-            String mErrorMessage = null;
+//    /**
+//     * Gets the GoogleAuthToken and logs in.
+//     */
+//    private void getGoogleOAuthTokenAndLogin() {
+//        /* Get OAuth token in Background */
+//        AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+//            String mErrorMessage = null;
+//
+//            @Override
+//            protected String doInBackground(Void... params) {
+//                String token = null;
+//
+//                try {
+//                    String scope = String.format(getString(R.string.oauth2_format), new Scope(Scopes.PROFILE)) + " email";
+//
+//                    token = GoogleAuthUtil.getToken(LoginActivity.this, mGoogleAccount.getEmail(), scope);
+//                } catch (IOException transientEx) {
+//                    /* Network or server error */
+//                    Log.e("LOG", getString(R.string.google_error_auth_with_google) + transientEx);
+//                    mErrorMessage = getString(R.string.google_error_network_error) + transientEx.getMessage();
+//                } catch (UserRecoverableAuthException e) {
+//                    Log.w("LOG", getString(R.string.google_error_recoverable_oauth_error) + e.toString());
+//
+//                    /* We probably need to ask for permissions, so start the intent if there is none pending */
+//                    if (!mGoogleIntentInProgress) {
+//                        mGoogleIntentInProgress = true;
+//                        Intent recover = e.getIntent();
+//                        startActivityForResult(recover, RC_GOOGLE_LOGIN);
+//                    }
+//                } catch (GoogleAuthException authEx) {
+//                    /* The call is not ever expected to succeed assuming you have already verified that
+//                     * Google Play services is installed. */
+//                    Log.e("LOG", " " + authEx.getMessage(), authEx);
+//                    mErrorMessage = getString(R.string.google_error_auth_with_google) + authEx.getMessage();
+//                }
+//                return token;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(String token) {
+//                mAuthProgressDialog.dismiss();
+//                if (token != null) {
+//                    /* Successfully got OAuth token, now login with Google */
+//                    loginWithGoogle(token);
+//                } else if (mErrorMessage != null) {
+//                    showErrorToast(mErrorMessage);
+//                }
+//            }
+//        };
+//
+//        task.execute();
+//    }
 
-            @Override
-            protected String doInBackground(Void... params) {
-                String token = null;
-
-                try {
-                    String scope = String.format(getString(R.string.oauth2_format), new Scope(Scopes.PROFILE)) + " email";
-
-                    token = GoogleAuthUtil.getToken(LoginActivity.this, mGoogleAccount.getEmail(), scope);
-                } catch (IOException transientEx) {
-                    /* Network or server error */
-                    Log.e("LOG", getString(R.string.google_error_auth_with_google) + transientEx);
-                    mErrorMessage = getString(R.string.google_error_network_error) + transientEx.getMessage();
-                } catch (UserRecoverableAuthException e) {
-                    Log.w("LOG", getString(R.string.google_error_recoverable_oauth_error) + e.toString());
-
-                    /* We probably need to ask for permissions, so start the intent if there is none pending */
-                    if (!mGoogleIntentInProgress) {
-                        mGoogleIntentInProgress = true;
-                        Intent recover = e.getIntent();
-                        startActivityForResult(recover, RC_GOOGLE_LOGIN);
-                    }
-                } catch (GoogleAuthException authEx) {
-                    /* The call is not ever expected to succeed assuming you have already verified that
-                     * Google Play services is installed. */
-                    Log.e("LOG", " " + authEx.getMessage(), authEx);
-                    mErrorMessage = getString(R.string.google_error_auth_with_google) + authEx.getMessage();
-                }
-                return token;
-            }
-
-            @Override
-            protected void onPostExecute(String token) {
-                mAuthProgressDialog.dismiss();
-                if (token != null) {
-                    /* Successfully got OAuth token, now login with Google */
-                    loginWithGoogle(token);
-                } else if (mErrorMessage != null) {
-                    showErrorToast(mErrorMessage);
-                }
-            }
-        };
-
-        task.execute();
-    }
-
-    private class MyAuthResultHandler implements Firebase.AuthResultHandler {
-
-        private final String provider;
-
-        public MyAuthResultHandler(String provider) {
-            this.provider = provider;
-        }
-
-        /**
-         * On successful authentication call setAuthenticatedUser if it was not already
-         * called in
-         */
-        @Override
-        public void onAuthenticated(AuthData authData) {
-            mAuthProgressDialog.dismiss();
-            Log.i("LOG", provider + " " + getString(R.string.log_message_auth_successful));
-            if (authData != null) {
-                /* Go to main activity */
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        }
-
-        @Override
-        public void onAuthenticationError(FirebaseError firebaseError) {
-            mAuthProgressDialog.dismiss();
-            showErrorToast(firebaseError.toString());
-            }
-        }
-}
+//    private class MyAuthResultHandler implements Firebase.AuthResultHandler {
+//
+//        private final String provider;
+//
+//        public MyAuthResultHandler(String provider) {
+//            this.provider = provider;
+//        }
+//
+//        /**
+//         * On successful authentication call setAuthenticatedUser if it was not already
+//         * called in
+//         */
+//        @Override
+//        public void onAuthenticated(AuthData authData) {
+//            mAuthProgressDialog.dismiss();
+//            Log.i("LOG", provider + " " + getString(R.string.log_message_auth_successful));
+//            if (authData != null) {
+//                /* Go to main activity */
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
+//
+//        @Override
+//        public void onAuthenticationError(FirebaseError firebaseError) {
+//            mAuthProgressDialog.dismiss();
+//            showErrorToast(firebaseError.toString());
+//            }
+//        }
+//}

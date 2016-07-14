@@ -18,9 +18,9 @@ public class LogoutActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
-        firebase.unauth();
-        MainActivity.instance.clearTextview();
+//        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+//        firebase.unauth();
+//        MainActivity.instance.clearTextview();
 
         final ProgressDialog progressDialog = new ProgressDialog(LogoutActivity.this,
                 R.style.AppTheme);
@@ -35,10 +35,12 @@ public class LogoutActivity extends AppCompatActivity{
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
+                        progressDialog.dismiss();
+                        LoginActivity.flag = false;
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
                         // onLoginFailed();
-                        progressDialog.dismiss();
+
                     }
                 }, 3000);
     }

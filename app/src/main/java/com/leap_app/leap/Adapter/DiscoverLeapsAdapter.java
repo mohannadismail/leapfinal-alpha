@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.leap_app.leap.Models.Leap;
 import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.LeapInfoActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,10 +27,10 @@ import java.util.List;
 
 
 public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdapter.LeapViewHolder> {
-    public static List<LeapBaseInfo> leaps;
+    public static List<Leap> leaps;
     public static Context c;
 
-    public DiscoverLeapsAdapter(Context context, List<LeapBaseInfo> leaps) {
+    public DiscoverLeapsAdapter(Context context, List<Leap> leaps) {
         this.c = context;
         this.leaps =  leaps;
     }
@@ -61,7 +63,7 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
                 @Override
                 public void onClick(View view) {
                     int position = getLayoutPosition();
-                    String x = String.valueOf(leaps.get(position).getLeapID());
+                    String x = String.valueOf(leaps.get(position).leapId);
                     Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
                     i.putExtra("LeapId", x);
                     view.getContext().startActivity(i);
@@ -87,11 +89,11 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
     @Override
     public void onBindViewHolder(LeapViewHolder personViewHolder, int i) {
-        personViewHolder.LeapName.setText(leaps.get(i).getLeapName());
-        personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice() + " L.E");
-        personViewHolder.LeapCreator.setText("No creator");
-//        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
-        personViewHolder.LeapId.setText(leaps.get(i).getLeapLocation());
+        personViewHolder.LeapName.setText(leaps.get(i).name);
+        personViewHolder.LeapPrice.setText(leaps.get(i).price + " L.E");
+        personViewHolder.LeapCreator.setText(leaps.get(i).user);
+        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
+        personViewHolder.LeapId.setText(""+leaps.get(i).leapId);
     }
 
     @Override

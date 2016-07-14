@@ -1,342 +1,216 @@
 package com.leap_app.leap.Models;
 
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.leap_app.leap.LeapProvider.LeapContract;
+import com.leap_app.leap.LeapProvider.LeapProvider;
+import com.leap_app.leap.Utility.Constants;
 
 /**
  * Place model to set and get place attributes from all over the app.
  */
 
-public class Placeview implements Parcelable {
+public class Placeview {
 
 
-    String Price;
-    public Placeview(String lat, String lon, String placeName, String placeAddress, String price, String phone, String placeID) {
+    public   double lat;
+    public   double lon;
+    public int placeId;
+    public   String placeName;
+    public   String placeCategory;
+    public   String placeAddress;
+    public   String placeDesc;
+    public   int price;
+    public   String phone;
+    public   String placeID;
+
+
+    public   void setPlaceID(String placeID) {
+        this.placeID = placeID;
+    }
+
+    public   void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public   void setPrice(int price) {
+        this.price = price;
+    }
+
+
+
+    Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc) {
         setLat(lat);
         setLon(lon);
         setPlaceName(placeName);
         setPlaceAddress(placeAddress);
-        setPrice(price);
+        setPlaceDesc(placeDesc);
+        setPlaceCategory(placeCategory);
+    }
+
+    Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc, int placeId) {
+        setLat(lat);
+        setLon(lon);
+        setPlaceName(placeName);
+        setPlaceAddress(placeAddress);
+        setPlaceDesc(placeDesc);
+        setPlaceCategory(placeCategory);
+
+        //place key
+
+        setPlaceId(placeId);
+    }
+
+    public Placeview(double lat, double lon, String placeName, String placeAddress, int price, String phone, String id) {
+        setLat(lat);
+        setLon(lon);
+        setPlaceName(placeName);
+        setPlaceAddress(placeAddress);
         setPhone(phone);
-        setPlaceID(placeID);
-    }
+        setPrice(price);
 
-    protected Placeview(Parcel in) {
-        Price = in.readString();
-        lat = in.readString();
-        lon = in.readString();
-        placeName = in.readString();
-        placeAddress = in.readString();
-        phone = in.readString();
-        placeID = in.readString();
-    }
 
-    public static final Creator<Placeview> CREATOR = new Creator<Placeview>() {
-        @Override
-        public Placeview createFromParcel(Parcel in) {
-            return new Placeview(in);
+        //place ID
+
+        setPlaceID(id);
+    }
+    public static   double[] getLat(int leapID)
+    {
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT Place.Latitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_place.leap_id =?", new String[]{String.valueOf(leapID)});
+
+        if(c!=null)
+        {
+            c.moveToFirst();
         }
 
-        @Override
-        public Placeview[] newArray(int size) {
-            return new Placeview[size];
+        Log.d("TAG5", DatabaseUtils.dumpCursorToString(c));
+        Log.d("Taglat", "Value:" + c.getCount());
+
+        double[] s = new double[c.getCount()];
+        int i = 0;
+        while (!c.isAfterLast()){
+            s[i] = (c.getDouble(0));
+            i++;
+            c.moveToNext();
         }
-    };
-
-    public void setPrice(String price) {
-        Price = price;
+        c.close();
+        return s;
     }
 
-    public String getLat() {
-        return lat;
+    public static  double[] getLon(int leapID)
+    {
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT Place.longitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_place.leap_id =?", new String[]{String.valueOf(leapID)});
+
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
+
+        Log.d("TAG5", DatabaseUtils.dumpCursorToString(c));
+        Log.d("Taglon", "Value:" + c.getCount());
+
+        double[] s = new double[c.getCount()];
+        int i = 0;
+        while (!c.isAfterLast()){
+            s[i] = (c.getDouble(0));
+            i++;
+            c.moveToNext();
+        }
+        c.close();
+        return s;
     }
 
-    public String lat;
 
-    public String getPlaceAddress() {
-        return placeAddress;
+    public static  String getPlaceNameColumn(double lat, double lon) {
+
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"name"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
+
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
+
+        Log.d("TAGP1", DatabaseUtils.dumpCursorToString(c));
+        Log.d("TagPname", "Value:" + c.getCount());
+
+        String s = (c.getString(0));
+
+        c.close();
+        return s;
     }
 
-//    public String getPlaceDesc() {
-//        return placeDesc;
-//    }
+    public static  String getPlaceCatColumn(double lat, double lon) {
 
-    public String lon;
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"category"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
 
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
 
+        Log.d("TAGP2", DatabaseUtils.dumpCursorToString(c));
+        Log.d("TagPCat", "Value:" + c.getCount());
 
-    public String getPhone() {
-        return phone;
+        String s = (c.getString(0));
+
+        c.close();
+        return s;
     }
 
-    public String getPlaceName() {
-        return placeName;
+    public static  String getPlaceAddColumn(double lat, double lon) {
+
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"Address"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
+
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
+
+        Log.d("TAGP3", DatabaseUtils.dumpCursorToString(c));
+        Log.d("TagPAdd", "Value:" + c.getCount());
+
+        String s = (c.getString(0));
+
+        c.close();
+        return s;
     }
 
-    public String placeName;
+    public static  String getPlaceDescColumn(double lat, double lon) {
 
-//    public String getPlaceCategory() {
-//        return placeCategory;
-//    }
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"description"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
 
-//    public String placeCategory;
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
 
-    public String getLon() {
-        return lon;
+        Log.d("TAGP4", DatabaseUtils.dumpCursorToString(c));
+        Log.d("TagPDesc", "Value:" + c.getCount());
+
+        String s = (c.getString(0));
+
+        c.close();
+        return s;
     }
-
-    public String placeAddress;
-
-    public String getPlaceID() {
-        return placeID;
-    }
-
-//    public String placeDesc;
-    public String phone;
-    public String placeID;
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-//    public void setPlaceDesc(String placeDesc) {
-//        this.placeDesc = placeDesc;
-//    }
-    public void setPlaceAddress(String placeAddress) {
-        this.placeAddress = placeAddress;
-    }
-//    public void setPlaceCategory(String placeCategory) {
-//        this.placeCategory = placeCategory;
-//    }
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    public void setPlaceID(String placeID) {
-        this.placeID = placeID;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Price);
-        dest.writeString(lat);
-        dest.writeString(lon);
-        dest.writeString(placeName);
-        dest.writeString(placeAddress);
-        dest.writeString(phone);
-        dest.writeString(placeID);
-    }
-
-    //Rubbish
-//    public String getFPlaceID() {
-//        Firebase refID = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
-//        refID.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                placeID = dataSnapshot.getValue().toString();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//        return placeID;
-//    }
-
-
-
-//    public String getFPhone() {
-//        Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
-//        refPhone.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                phone = dataSnapshot.getValue().toString();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//
-//        return phone;
-//    }
-
-//    public int getFPrice() {
-//        Firebase refPrice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
-//        refPrice.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                price = (int) dataSnapshot.getValue();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//        return price;
-//    }
-
-
-
-//    Placeview(String lat, String lon, String placeName, String placeCategory, String placeAddress, String placeDesc, String placeID) {
-//        setLat(lat);
-//        setLon(lon);
-//        setPlaceName(placeName);
-//        setPlaceAddress(placeAddress);
-//        setPlaceDesc(placeDesc);
-//        setPlaceCategory(placeCategory);
-//        setPlaceID(placeID);
-//    }
-//
-//
-//    public Placeview(String lat, String lon, String placeName, String placeAddress, int price, String phone, String id) {
-//        setLat(lat);
-//        setLon(lon);
-//        setPlaceName(placeName);
-//        setPlaceAddress(placeAddress);
-//        setPhone(phone);
-//        setPrice(price);
-//
-//
-//        place ID
-//
-//        setPlaceID(id);
-//    }
-
-//    public static double[] getLat(int leapID) {
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.rawQuery("SELECT Place.Latitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_place.leap_id =?", new String[]{String.valueOf(leapID)});
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAG5", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("Taglat", "Value:" + c.getCount());
-//
-//        double[] s = new double[c.getCount()];
-//        int i = 0;
-//        while (!c.isAfterLast()) {
-//            s[i] = (c.getDouble(0));
-//            i++;
-//            c.moveToNext();
-//        }
-//        c.close();
-//        return s;
-//    }
-//
-//    public static double[] getLon(int leapID) {
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.rawQuery("SELECT Place.longitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_place.leap_id =?", new String[]{String.valueOf(leapID)});
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAG5", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("Taglon", "Value:" + c.getCount());
-//
-//        double[] s = new double[c.getCount()];
-//        int i = 0;
-//        while (!c.isAfterLast()) {
-//            s[i] = (c.getDouble(0));
-//            i++;
-//            c.moveToNext();
-//        }
-//        c.close();
-//        return s;
-//    }
-//
-//
-//    public static String getPlaceNameColumn(double lat, double lon) {
-//
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"name"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAGP1", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("TagPname", "Value:" + c.getCount());
-//
-//        String s = (c.getString(0));
-//
-//        c.close();
-//        return s;
-//    }
-//
-//    public static String getPlaceCatColumn(double lat, double lon) {
-//
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"category"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAGP2", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("TagPCat", "Value:" + c.getCount());
-//
-//        String s = (c.getString(0));
-//
-//        c.close();
-//        return s;
-//    }
-//
-//    public static String getPlaceAddColumn(double lat, double lon) {
-//
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"Address"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAGP3", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("TagPAdd", "Value:" + c.getCount());
-//
-//        String s = (c.getString(0));
-//
-//        c.close();
-//        return s;
-//    }
-//
-//    public static String getPlaceDescColumn(double lat, double lon) {
-//
-//        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-//        Cursor c = db.query(LeapContract.PlaceEntry.Table_Name, new String[]{"description"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
-//
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//
-//        Log.d("TAGP4", DatabaseUtils.dumpCursorToString(c));
-//        Log.d("TagPDesc", "Value:" + c.getCount());
-//
-//        String s = (c.getString(0));
-//
-//        c.close();
-//        return s;
-//    }
 
     //setters and getters
-//    public double getFLat() {
+
+//    public   double getLat() {
 //        Firebase refLat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
 //        refLat.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -353,7 +227,12 @@ public class Placeview implements Parcelable {
 //        return lat;
 //    }
 
-//    public String getFPlaceDesc() {
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+
+//    public   String getPlaceDesc() {
 //        Firebase refDescription = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Description);
 //        refDescription.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -369,7 +248,11 @@ public class Placeview implements Parcelable {
 //        return placeDesc;
 //    }
 
-//    public String getFPlaceAddress() {
+    public void setPlaceDesc(String placeDesc) {
+        this.placeDesc = placeDesc;
+    }
+
+//    public   String getPlaceAddress() {
 //        Firebase refAdress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
 //        refAdress.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -386,7 +269,12 @@ public class Placeview implements Parcelable {
 //        });
 //        return placeAddress;
 //    }
-//    public String getFPlaceCategory() {
+
+    public void setPlaceAddress(String placeAddress) {
+        this.placeAddress = placeAddress;
+    }
+
+//    public   String getPlaceCategory() {
 //        Firebase refCategory = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Category_Name);
 //        refCategory.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -403,8 +291,11 @@ public class Placeview implements Parcelable {
 //        return placeCategory;
 //    }
 
+    public void setPlaceCategory(String placeCategory) {
+        this.placeCategory = placeCategory;
+    }
 
-//    public String getFPlaceName() {
+//    public   String getPlaceName() {
 //        Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
 //        refname.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -420,9 +311,20 @@ public class Placeview implements Parcelable {
 //        return placeName;
 //    }
 
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
+    }
 
+    public int getPlaceId() {
 
-//    public double getFLon() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
+    }
+
+//    public   double getLon() {
 //        Firebase refLon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
 //        refLon.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -437,6 +339,10 @@ public class Placeview implements Parcelable {
 //        });
 //        return lon;
 //    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
 
 
 }

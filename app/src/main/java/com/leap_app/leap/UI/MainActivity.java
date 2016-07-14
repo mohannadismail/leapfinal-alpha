@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
         Button signup = (Button) findViewById(R.id.signup_button);
         TextView member = (TextView) findViewById(R.id.member);
         TextView login = (TextView) findViewById(R.id.login);
+        TextView location = (TextView) findViewById(R.id.location);
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putBoolean(flag, LoginActivity.flag);
@@ -183,9 +184,11 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
         editor.commit();
 
         user.setText(s);
+        location.setText("Mansoura");
         signup.setVisibility(View.INVISIBLE);
         member.setText("");
         login.setText("");
+        Log.d("MAIN", "DONE");
     }
 
     public void clearTextview(){

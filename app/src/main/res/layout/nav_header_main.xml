@@ -9,8 +9,8 @@
     android:paddingTop="@dimen/nav_header_vertical_spacing"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageButton
-        android:id="@+id/account_pic"
+    <ImageView
+        android:id="@+id/account_user_pic"
         android:layout_width="86dp"
         android:layout_height="86dp"
         android:background="#00000000"
@@ -23,7 +23,7 @@
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/account_pic"
+        android:layout_below="@+id/account_user_pic"
         android:gravity="center"
         android:paddingTop="2dp"
         android:text="@string/profileName"
@@ -33,6 +33,7 @@
         android:hint="Name"/>
 
     <TextView
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/account_name"

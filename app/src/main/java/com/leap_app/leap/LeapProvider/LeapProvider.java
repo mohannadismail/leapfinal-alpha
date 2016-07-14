@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.leap_app.leap.Utility.LeapLatLon;
 
+/**/
 public class LeapProvider extends ContentProvider {
 
     public static LeapDbHelper mLeapHelper;
@@ -308,7 +309,7 @@ public class LeapProvider extends ContentProvider {
         values1.put( LeapContract.UserEntry.COLUMN_Name, "Monica");
         values1.put( LeapContract.UserEntry.COLUMN_UserName, "Guy123");
         values1.put( LeapContract.UserEntry.COLUMN_Image, "https://upload.wikimedia.org/wikipedia/en/d/d0/Courteney_Cox_as_Monica_Geller.jpg");
-        values1.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "3");
+        values1.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "2");
         values1.put( LeapContract.UserEntry.COLUMN_password, "12345");
         values1.put( LeapContract.UserEntry.COLUMN_Address, "45 Blue St.");
         values1.put( LeapContract.UserEntry.COLUMN_Email, "123@abc.com");
@@ -319,7 +320,7 @@ public class LeapProvider extends ContentProvider {
         values2.put( LeapContract.UserEntry.COLUMN_Name, "Mohammad");
         values2.put( LeapContract.UserEntry.COLUMN_UserName, "Guy1234");
         values2.put( LeapContract.UserEntry.COLUMN_Image, "https://www.bluerunnersolutions.com/images/icon-idea1-profile1.jpg");
-        values2.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "4");
+        values2.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "1");
         values2.put( LeapContract.UserEntry.COLUMN_password, "123456");
         values2.put( LeapContract.UserEntry.COLUMN_Address, "45 Green St.");
         values2.put( LeapContract.UserEntry.COLUMN_Email, "1234@abc.com");
@@ -330,7 +331,7 @@ public class LeapProvider extends ContentProvider {
         values3.put( LeapContract.UserEntry.COLUMN_Name, "Khaled");
         values3.put( LeapContract.UserEntry.COLUMN_UserName, "Guy12345");
         values3.put( LeapContract.UserEntry.COLUMN_Image, "https://www.bluerunnersolutions.com/images/icon-idea1-profile1.jpg");
-        values3.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "5");
+        values3.put( LeapContract.UserEntry.COLUMN_No_Of_Leaps, "1");
         values3.put( LeapContract.UserEntry.COLUMN_password, "1234567");
         values3.put( LeapContract.UserEntry.COLUMN_Address, "45 Pink St.");
         values3.put( LeapContract.UserEntry.COLUMN_Email, "12345@abc.com");
@@ -342,6 +343,7 @@ public class LeapProvider extends ContentProvider {
         db.insert( LeapContract.UserEntry.Table_Name, null, values2);
         db.insert( LeapContract.UserEntry.Table_Name, null, values3);
         db.close();
+
     }
 
     public static void insertPlaceRecords(){
@@ -507,31 +509,31 @@ public class LeapProvider extends ContentProvider {
         values1.put( LeapContract.LeapEntry.COLUMN_Name, "College reunion");
         values1.put( LeapContract.LeapEntry.COLUMN_Image,"http://media-cdn.tripadvisor.com/media/photo-s/05/00/f5/7d/spectra.jpg");
         values1.put( LeapContract.LeapEntry.COLUMN_Description, "Reunion of the 2003-2004 alumni. We'll meet up at a cafe, drink coffee and hangout, then have dinner at KFC, and finally chill out and tell memories");
-        values1.put( LeapContract.LeapEntry.COLUMN_Map_Image, "MapImageURI");
+        values1.put( LeapContract.LeapEntry.COLUMN_Map_Image, "Mansoura");
         values1.put( LeapContract.LeapEntry.COLUMN_No_Of_Reviews, "1");
-        values1.put( LeapContract.LeapEntry.COLUMN_Price, "200 L.E");
+        values1.put( LeapContract.LeapEntry.COLUMN_Price, "200");
         values1.put( LeapContract.LeapEntry.COLUMN_Review, "8");
 //        values1.put( LeapContract.LeapEntry.COLUMN_Latitude, LeapLatLon.LeapCenter(LeapLatLon.LeapLat(1), LeapLatLon.LeapLon(1))[0]);
 //        values1.put( LeapContract.LeapEntry.COLUMN_Longitude, LeapLatLon.LeapCenter(LeapLatLon.LeapLat(1), LeapLatLon.LeapLon(1))[1]);
         values1.put( LeapContract.LeapEntry.COLUMN_User_Key, "1");
 
         values2.put( LeapContract.LeapEntry.COLUMN_Name, "Sports FTW");
-        values2.put( LeapContract.LeapEntry.COLUMN_Image, "http://thesalinepost.com/sites/default/files/styles/tbmagzmedium/public/golf.jpg?itok=9XbHJVwO");
+        values2.put( LeapContract.LeapEntry.COLUMN_Image, "http://chandlerparkgolfcourse.com/images/golf%20course.jpg");
         values2.put( LeapContract.LeapEntry.COLUMN_Description, "Golf");
-        values2.put( LeapContract.LeapEntry.COLUMN_Map_Image, "MapImageURI");
+        values2.put( LeapContract.LeapEntry.COLUMN_Map_Image, "Mansoura");
         values2.put( LeapContract.LeapEntry.COLUMN_No_Of_Reviews, "6");
-        values2.put( LeapContract.LeapEntry.COLUMN_Price, "160 L.E");
+        values2.put( LeapContract.LeapEntry.COLUMN_Price, "160");
         values2.put( LeapContract.LeapEntry.COLUMN_Review, "5");
 //        values2.put( LeapContract.LeapEntry.COLUMN_Latitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(2), LeapLatLon.LeapLon(2))[0]);
 //        values2.put( LeapContract.LeapEntry.COLUMN_Longitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(2), LeapLatLon.LeapLon(2))[1]);
         values2.put( LeapContract.LeapEntry.COLUMN_User_Key, "1");
 
         values3.put( LeapContract.LeapEntry.COLUMN_Name, "Cultural Tour");
-        values3.put( LeapContract.LeapEntry.COLUMN_Image, "http://www.blulyn.com/wp-content/uploads/2015/07/columns-unbound-hagia-sophia.jpg");
+        values3.put( LeapContract.LeapEntry.COLUMN_Image, "http://thenews-chronicle.com/wp-content/uploads/2015/07/Mosque.jpg");
         values3.put( LeapContract.LeapEntry.COLUMN_Description, "The third outing");
-        values3.put( LeapContract.LeapEntry.COLUMN_Map_Image, "MapImageURI");
+        values3.put( LeapContract.LeapEntry.COLUMN_Map_Image, "Mansoura");
         values3.put( LeapContract.LeapEntry.COLUMN_No_Of_Reviews, "2");
-        values3.put( LeapContract.LeapEntry.COLUMN_Price, "250 L.E");
+        values3.put( LeapContract.LeapEntry.COLUMN_Price, "250");
         values3.put( LeapContract.LeapEntry.COLUMN_Review, "9");
 //        values3.put( LeapContract.LeapEntry.COLUMN_Latitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(3), LeapLatLon.LeapLon(3))[0]);
 //        values3.put( LeapContract.LeapEntry.COLUMN_Longitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(3), LeapLatLon.LeapLon(3))[1]);
@@ -540,9 +542,9 @@ public class LeapProvider extends ContentProvider {
         values4.put( LeapContract.LeapEntry.COLUMN_Name, "A day on the beach");
         values4.put( LeapContract.LeapEntry.COLUMN_Image, "http://www.clickeer.com/wp-content/uploads/2014/01/Sunglasses2.jpg");
         values4.put( LeapContract.LeapEntry.COLUMN_Description, "The fourth outing");
-        values4.put( LeapContract.LeapEntry.COLUMN_Map_Image, "MapImageURI");
+        values4.put( LeapContract.LeapEntry.COLUMN_Map_Image, "Mansoura");
         values4.put( LeapContract.LeapEntry.COLUMN_No_Of_Reviews, "4");
-        values4.put( LeapContract.LeapEntry.COLUMN_Price, "50 L.E");
+        values4.put( LeapContract.LeapEntry.COLUMN_Price, "50");
         values4.put( LeapContract.LeapEntry.COLUMN_Review, "7");
 //        values4.put( LeapContract.LeapEntry.COLUMN_Latitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(4), LeapLatLon.LeapLon(4))[0]);
 //        values4.put( LeapContract.LeapEntry.COLUMN_Longitude, "" + LeapLatLon.LeapCenter(LeapLatLon.LeapLat(4), LeapLatLon.LeapLon(4))[1]);

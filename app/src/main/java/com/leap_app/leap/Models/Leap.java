@@ -153,15 +153,12 @@ import java.util.List;
         return s;
     }
 
-    public static String[] string = getNameColumn();
-    public static String[] string1 = getPriceColumn();
-    public static String[] string2 = getUserColumn();
-    public static String[] image = getImageColumn();
-    public static int[] id = getLeapIdColumn();
-
-
-
     public static List<Leap> initializeData() {
+        String[] string = getNameColumn();
+        String[] string1 = getPriceColumn();
+        String[] string2 = getUserColumn();
+        String[] image = getImageColumn();
+        int[] id = getLeapIdColumn();
         leaps = new ArrayList<>();
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         long numLeapRows = DatabaseUtils.queryNumEntries(db, "Leap");

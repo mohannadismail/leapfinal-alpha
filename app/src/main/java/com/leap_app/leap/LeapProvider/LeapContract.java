@@ -6,6 +6,7 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/*This class specifies the names of the tables and URI paths to be used for creation of the database and communication with it.*/
 public class LeapContract {
     public static final String CONTENT_AUTHORITY = "com.example.CIE.LeapApp";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -16,7 +17,7 @@ public class LeapContract {
     public static final String PATH_REVIEW = "Review";
 
 
-
+/*Table name, row names and URI path for the User table*/
     public static final class UserEntry implements BaseColumns{
 
         public static final Uri CONTENT_URI1 = BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER).build();
@@ -44,6 +45,7 @@ public class LeapContract {
 
     }
 
+    /*Table name, row names and URI path for the Place table*/
     public static final class PlaceEntry implements BaseColumns{
 
         public static final Uri CONTENT_URI1 = BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLACE).build();
@@ -67,6 +69,8 @@ public class LeapContract {
         }
     }
 
+    /*Table name, row names and URI path for the Leap_place table. This table is the intermediary between the Leap and Place tables,
+    * since they have a many-to-many relationship*/
     public static final class Leap_Place_Entry implements BaseColumns{
 
         public static final Uri CONTENT_URI1 = BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLACE_LEAP).build();
@@ -84,6 +88,7 @@ public class LeapContract {
         }
     }
 
+    /*Table name, row names and URI path for the Leap table*/
     public static final class LeapEntry implements BaseColumns{
 
         public static final Uri CONTENT_URI1 = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LEAP).build();
@@ -110,6 +115,8 @@ public class LeapContract {
         }
     }
 
+
+    /*Table name, row names and URI path for the Review table*/
     public static final class ReviewEntry implements BaseColumns{
 
         public static final Uri CONTENT_URI1 = BASE_CONTENT_URI.buildUpon().appendPath(PATH_REVIEW).build();

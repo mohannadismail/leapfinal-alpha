@@ -149,6 +149,23 @@ public class LeapInfo {
         return s;
     }
 
+    public static String getLocationColumn(int leapID) {
+        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
+        Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"mapUri"}, "id =" + leapID, null, null, null, "id");
+
+        if(c!=null)
+        {
+            c.moveToFirst();
+        }
+        Log.d("TAG2", DatabaseUtils.dumpCursorToString(c));
+        Log.d("Tagimage1", "Value:" + c.getCount());
+
+        String s = (c.getString(0));
+
+        c.close();
+        return s;
+    }
+
     public static String getUserImageColumn(int leapID) {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT User.imageUri FROM User INNER JOIN Leap ON User.id = Leap.user_id WHERE Leap.id =?", new String[]{String.valueOf(leapID)});

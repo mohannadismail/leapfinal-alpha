@@ -1,7 +1,10 @@
 package com.leap_app.leap.UI;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.leap_app.leap.LeapProvider.LeapContract;
+import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.Constants;
 
@@ -22,6 +27,7 @@ import java.util.Map;
 /**
  * Created by aya on 4/9/16.
  */
+
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
@@ -30,6 +36,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText SignUpPassword;
     Button SignUpBtn;
     TextView SignInLink;
+    public static LeapDbHelper mLeapHelper;
+
 
 
     @Override
@@ -41,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
         SignUpEmail = (EditText) findViewById(R.id.up_input_email);
         SignUpName = (EditText) findViewById(R.id.up_input_name);
         SignUpPassword = (EditText) findViewById(R.id.up_input_password);
-
+        mLeapHelper = new LeapDbHelper(getApplicationContext());
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,24 +75,35 @@ public class SignupActivity extends AppCompatActivity {
         final String email = SignUpEmail.getText().toString();
         String password = SignUpPassword.getText().toString();
 
-        final Firebase firebase = new Firebase(Constants.FIREBASE_URL).child("users");
-        firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> stringObjectMap) {
+        SQLiteDatabase db = mLeapHelper.getWritableDatabase();
 
-                Toast.makeText(getBaseContext(),"Successfully created user account",Toast.LENGTH_LONG).show();
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("email", email);
-                map.put("name", name);
-                Firebase fb = firebase.child(stringObjectMap.get("uid").toString()).push();
-                fb.setValue(map);
-            }
+        ContentValues values = new ContentValues();
 
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                Toast.makeText(getBaseContext(),"Account was not created. Please try again",Toast.LENGTH_LONG).show();
-            }
-        });
+        values.put(LeapContract.UserEntry.COLUMN_Name,name);
+        values.put(LeapContract.UserEntry.COLUMN_Email,email);
+        values.put(LeapContract.UserEntry.COLUMN_password,password);
+
+        db.insert(LeapContract.UserEntry.Table_Name, null, values);
+
+
+//        final Firebase firebase = new Firebase(Constants.FIREBASE_URL).child("users");
+//        firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+//            @Override
+//            public void onSuccess(Map<String, Object> stringObjectMap) {
+//
+//                Toast.makeText(getBaseContext(),"Successfully created user account",Toast.LENGTH_LONG).show();
+//                Map<String, String> map = new HashMap<String, String>();
+//                map.put("email", email);
+//                map.put("name", name);
+//                Firebase fb = firebase.child(stringObjectMap.get("uid").toString()).push();
+//                fb.setValue(map);
+//            }
+//
+//            @Override
+//            public void onError(FirebaseError firebaseError) {
+//                Toast.makeText(getBaseContext(),"Account was not created. Please try again",Toast.LENGTH_LONG).show();
+//            }
+//        });
         Log.d(TAG, "Signup");
 
         if (!validate()) {
@@ -118,6 +137,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         SignUpBtn.setEnabled(true);
         setResult(RESULT_OK, null);
+        Toast.makeText(getBaseContext(),"Successfully created user account",Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -157,4 +177,5 @@ public class SignupActivity extends AppCompatActivity {
 
         return valid;
     }
+
 }

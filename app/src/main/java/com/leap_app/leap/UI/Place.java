@@ -25,6 +25,8 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.ANCHORED;
+import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.EXPANDED;
+import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.HIDDEN;
 
 
 /**
@@ -37,11 +39,7 @@ public class Place extends FragmentActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         leapid = this.getIntent().getStringExtra("LeapPlace");
-//        Parcelable[] parcelables = this.getIntent().getParcelableArrayExtra("Places");
-//        Log.d("LeapPlace ", "" + Arrays.toString(parcelables));
-//        for (Parcelable parcelable : parcelables) {
-//            placeviewArrayList.add((Placeview) parcelable);
-//        }
+        Log.d("LeapPlace ", "" + leapid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_view);
 
@@ -61,7 +59,7 @@ public class Place extends FragmentActivity{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.leap_map)).getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null && LeapInfoActivity.flagigo)
+            if (mMap != null)
             {
                 setUpMap();
             }
@@ -69,35 +67,30 @@ public class Place extends FragmentActivity{
     }
 
 
-    ArrayList<Placeview> placeviewArrayList = new ArrayList<>();
-    boolean flagigo;
     private void setUpMap() {
+
+
+        // Hide Panel by Clicking on Map
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng point) {
+
+                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED)|slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
+                    slidingUpPanelLayout.setPanelState(HIDDEN);
+                }
+            }
+        });
 
         /*
             *Latitude and Longitude Arrays
          */
+        double markersLat[] = Placeview.getLat(Integer.parseInt(leapid));
+        double markersLng[] = Placeview.getLon(Integer.parseInt(leapid));
 
 
-
-            //Draw Fake Markers with Path
-            addMarker(LeapInfoActivity.markersLat, LeapInfoActivity.markersLng);
-
-//        else Toast.makeText(this.getApplicationContext(),"Error in loading markers, please reload the map",Toast.LENGTH_LONG).show();
-
-        // Hide Panel by Clicking on Map
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-
-//                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED)|slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
-//                    slidingUpPanelLayout.setPanelState(HIDDEN);
-//                }
-
-                return false;
-            }
-        });
-
+        //Draw Fake Markers with Path
+        addMarker(markersLat, markersLng);
 
 
 
@@ -164,16 +157,16 @@ public class Place extends FragmentActivity{
 
                                                   LatLng place = marker.getPosition();
                                                   TextView p1 = (TextView) findViewById(R.id.placename);
-//                                                  p1.setText(Placeview.getPlaceNameColumn(place.latitude, place.longitude));
+                                                  p1.setText(Placeview.getPlaceNameColumn(place.latitude, place.longitude));
 
                                                   TextView p2 = (TextView) findViewById(R.id.placecategory);
-//                                                  p2.setText(Placeview.getPlaceCatColumn(place.latitude, place.longitude));
+                                                  p2.setText(Placeview.getPlaceCatColumn(place.latitude, place.longitude));
 
                                                   TextView p3 = (TextView) findViewById(R.id.placeaddress);
-//                                                  p3.setText(Placeview.getPlaceAddColumn(place.latitude, place.longitude));
+                                                  p3.setText(Placeview.getPlaceAddColumn(place.latitude, place.longitude));
 
                                                   TextView p4 = (TextView) findViewById(R.id.placedesc);
-//                                                  p4.setText(Placeview.getPlaceDescColumn(place.latitude, place.longitude));
+                                                  p4.setText(Placeview.getPlaceDescColumn(place.latitude, place.longitude));
 
                                                   slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
                                                   slidingUpPanelLayout.setPanelState(ANCHORED);

@@ -5,8 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -27,6 +30,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.leap_app.leap.Adapter.PlacesCreationAdapter;
+import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
@@ -215,10 +219,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 int price = place.getPriceLevel();
                 String phone = (String) place.getPhoneNumber();
                 String id = place.getId();
-                String Lat = String.valueOf(lat);
-                String Lon = String.valueOf(lon);
-                String Price = String.valueOf(price);
-
 
 
 
@@ -229,13 +229,44 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
 
                 //Adding data to model
-
-                Placeview placeview = new Placeview(Lat,Lon, name, address, Price, phone, id);
+                SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+                Placeview placeview = new Placeview(lat,lon, name, address, price, phone, id);
                 placeviewList.add(placeview);
                 i++;
                 placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList,i));
-                ContentValues values = new ContentValues();
+
                 Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_SHORT).show();
+                ContentValues values = new ContentValues();
+                values.put(LeapContract.PlaceEntry.COLUMN_Name, name);
+                values.put(LeapContract.PlaceEntry.COLUMN_Address, address);
+                values.put(LeapContract.PlaceEntry.COLUMN_Latitude, lat);
+//                values.put(LeapContract.PlaceEntry.COLUMN_Category_Name, );
+                values.put(LeapContract.PlaceEntry.COLUMN_Longitude, lon);
+                db.insert(LeapContract.PlaceEntry.Table_Name, null, values);
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        ContentValues values1 = new ContentValues();
+                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+
+                        Cursor c = db.rawQuery("SELECT place_id FROM Leap_Place ORDER BY place_id DESC LIMIT 1", null);
+                        if(c!=null)
+                        {
+                            c.moveToFirst();
+                        }
+                        String s = (c.getString(0));
+                        Log.d("PLACEID", s);
+                        Integer i = Integer.parseInt(s);
+
+                        c.close();
+                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Leap_Key, CreationInfoFragment.s);
+                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Place_Key, i + 1);
+
+                        db.insert(LeapContract.Leap_Place_Entry.Table_Name, null, values1);
+                    }
+                }, 500);
 
 
 //                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);

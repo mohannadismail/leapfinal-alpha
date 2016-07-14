@@ -1,13 +1,19 @@
 package com.leap_app.leap.UI;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.leap_app.leap.LeapProvider.LeapContract;
+import com.leap_app.leap.LeapProvider.LeapDbHelper;
+import com.leap_app.leap.Models.Leap;
 import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
@@ -48,11 +57,6 @@ public class CreationFragment extends Fragment{
         viewPager = (ViewPager) x.findViewById(R.id.view_pager);
 
 
-
-
-
-
-
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
 //        floatingActionButton.setVisibility(View.INVISIBLE);
 
@@ -65,27 +69,54 @@ public class CreationFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
 //                Toast.makeText(getContext(),CreationInfoFragment.Title,Toast.LENGTH_LONG).show();
-                    if (CreationInfoFragment.leapBaseInfooo != null) {
-                        LeapBaseInfo leapBase = new LeapBaseInfo(CreationInfoFragment.leapBaseInfooo.getLeapName(), CreationInfoFragment.leapBaseInfooo.getLeapDescription(), CreationInfoFragment.leapBaseInfooo.getLeapLocation(), CreationInfoFragment.leapBaseInfooo.getLeapPrice(), CreationInfoFragment.leapBaseInfooo.getDate(), CreationInfoFragment.leapBaseInfooo.getTime());
-                        pushToFirebase(leapBase, CreationPlacesFragment.placeviewList);
-                    }else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
-
-                    if( CreationPlacesFragment.placeviewList.isEmpty())
-                        Toast.makeText(getContext(),"You didn't add your outing's places", Toast.LENGTH_SHORT).show();
-
-
-                    if(!CreationInfoFragment.flagg)
+//                    if (CreationInfoFragment.leapBaseInfooo != null) {
+                    if (CreationInfoFragment.flagg == false){
                         Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 
+//                        ContentValues values = new ContentValues();
+//                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+//
+//                        values.put(LeapContract.LeapEntry.COLUMN_Name, CreationInfoFragment.leapBaseInfooo.getLeapName());
+//                        values.put(LeapContract.LeapEntry.COLUMN_Description, CreationInfoFragment.leapBaseInfooo.getLeapDescription());
+//                        values.put(LeapContract.LeapEntry.COLUMN_Map_Image, CreationInfoFragment.leapBaseInfooo.getLeapLocation());
+//                        values.put(LeapContract.LeapEntry.COLUMN_Price, CreationInfoFragment.leapBaseInfooo.getLeapPrice());
+//
+//                        db.insert(LeapContract.LeapEntry.Table_Name,null, values);
+
+//                        LeapBaseInfo leapBase = new LeapBaseInfo(CreationInfoFragment.leapBaseInfooo.getLeapName(), CreationInfoFragment.leapBaseInfooo.getLeapDescription(), CreationInfoFragment.leapBaseInfooo.getLeapLocation(), CreationInfoFragment.leapBaseInfooo.getLeapPrice(), CreationInfoFragment.leapBaseInfooo.getDate(), CreationInfoFragment.leapBaseInfooo.getTime());
+//                        pushToFirebase(leapBase, CreationPlacesFragment.placeviewList);
+                    }
+//                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
+//
+                    if( CreationPlacesFragment.placeviewList.isEmpty())
+                        Toast.makeText(getContext(),"You didn't add your outing's places", Toast.LENGTH_SHORT).show();
+//
+//
+//                    if(!CreationInfoFragment.flagg)
+//                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
+//
                     if (CreationInfoFragment.flagg && CreationPlacesFragment.placeviewList != null) {
 
                         Intent i = new Intent(getContext(), MainActivity.class);
                         v.getContext().startActivity(i);
+//                        SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
+//                        Cursor c = db.rawQuery("SELECT name FROM User WHERE id =?" , new String[]{LoginActivity.id1});
+//                        if(c!=null)
+//                        {
+//                            c.moveToFirst();
+//                        }
+//                        String s = c.getString(0);
+//                        Log.d("TAGI", s);
+//
+//                        MainActivity.instance.fillTextview(s);
+//                        LoginActivity.flag = true;
+//                        c.close();
                         Toast.makeText(getContext(),"Leap Saved", Toast.LENGTH_SHORT).show();
                         CreationInfoFragment.flagg = false;
 
-                        CreationPlacesFragment.placeviewList = new ArrayList<Placeview>();
-
+//
+////                        CreationPlacesFragment.placeviewList = new ArrayList<Placeview>();
+//
                     }
                 }
             });
@@ -109,9 +140,6 @@ public class CreationFragment extends Fragment{
                         .commit();
 
                 toolbar.setTitle("Invite");
-
-
-
             }
         });
 
@@ -138,30 +166,28 @@ public class CreationFragment extends Fragment{
         return x;
 
     }
-    public void pushToFirebase(LeapBaseInfo leapBase, ArrayList<Placeview> placeviewList){
-        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/leap/Leap/");
-        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/leap/Places/");
-
-
-        Map<String, LeapBaseInfo> newLeap = new HashMap<String, LeapBaseInfo>();
-        try {
-
-
-            newLeap.put(CreationInfoFragment.leapBaseInfooo.getLeapName(), leapBase);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
-
-        }
-        Firebase newRef = ref.push();
-        String key = newRef.getKey();
-
-        ref.child(key).setValue(leapBase);
-
-        ref2.child(key).setValue(placeviewList);
-
-        flag = true;
-    }
+//    public void pushToFirebase(LeapBaseInfo leapBase, ArrayList<Placeview> placeviewList){
+//        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/leap/Leap/");
+//        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/leap/Places/");
+//
+//
+//        Map<String, LeapBaseInfo> newLeap = new HashMap<String, LeapBaseInfo>();
+//        try {
+//            newLeap.put(CreationInfoFragment.leapBaseInfooo.getLeapName(), leapBase);
+//        }catch (NullPointerException e){
+//            e.printStackTrace();
+//            Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_LONG).show();
+//
+//        }
+//        Firebase newRef = ref.push();
+//        String key = newRef.getKey();
+//
+//        ref.child(key).setValue(leapBase);
+//
+//        ref2.child(key).setValue(placeviewList);
+//
+//        flag = true;
+//    }
 
 
     class MyAdapter extends FragmentPagerAdapter {
