@@ -27,8 +27,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.leap_app.leap.Adapter.PlacesCreationAdapter;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
@@ -38,11 +36,10 @@ import com.leap_app.leap.R;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by aya on 3/14/16.
- */
+
+
 public class CreationPlacesFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
-    public Placeview placeview;
+    private Placeview placeview;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -51,10 +48,10 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
     //    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    Collection<com.google.android.gms.location.places.Place> PlacesList = new ArrayList<>();
-    public static ArrayList<Placeview> placeviewList = new ArrayList<>();
+    private Collection<Place> PlacesList = new ArrayList<>();
+    private static ArrayList<Placeview> placeviewList = new ArrayList<>();
 
 
     /**

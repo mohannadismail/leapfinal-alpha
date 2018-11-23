@@ -18,12 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <!-- <meta-data -->
-        <!-- android:name="com.google.android.geo.API_KEY" -->
-        <!-- android:value="AIzaSyCdMM7Xk16FNW_7-NBsdrd60UdAYT79ZSM" /> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB2o53Kwa9ZJap4XTumjWLBMzH9MoxbrRo" />
+            android:value="AIzaSyA9mrL8tO3tY29Qmd9BqAD8BQDVRItXPnU" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

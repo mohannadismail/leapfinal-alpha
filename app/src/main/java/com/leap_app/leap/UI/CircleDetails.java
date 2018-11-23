@@ -8,30 +8,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.leap_app.leap.Adapter.CirclesAdapter;
 import com.leap_app.leap.Adapter.circleFriendsAdapter;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
 
-/**
- * Created by aya on 4/18/16.
- */
+
 public class CircleDetails extends AppCompatActivity {
     Button editCircle;
     FragmentManager mFragmentManager;
-    static final String[] user_names = new String[] {
-            "Ahmed", "Abbas","Fatakat", "Sania","User" };
+    static final String[] user_names = new String[]{
+            "Ahmed", "Abbas", "Fatakat", "Sania", "User"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.circle_view);
-        final String title = getIntent().getStringExtra("key").toString();
+        final String title = getIntent().getStringExtra(Constants.KEY).toString();
         setTitle(title);
         editCircle = (Button) findViewById(R.id.edit_circle);
         editCircle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CircleDetails.this, addCircle.class);
-                i.putExtra("key", title);
+                i.putExtra(Constants.KEY, title);
                 startActivity(i);
             }
         });
@@ -39,8 +38,6 @@ public class CircleDetails extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         GridView gridview = (GridView) findViewById(R.id.friendsGridView);
         gridview.setAdapter(new circleFriendsAdapter(this, user_names));
-
-
 
     }
 }

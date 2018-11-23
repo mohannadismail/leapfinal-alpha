@@ -1,49 +1,32 @@
 package com.leap_app.leap.UI;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.leap_app.leap.LeapProvider.LeapContract;
-import com.leap_app.leap.LeapProvider.LeapDbHelper;
-import com.leap_app.leap.Models.Leap;
-import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by aya on 3/14/16.
- */
-public class CreationFragment extends Fragment{
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
-    public static int int_items = 2 ;
-    public Button Done, Invite;
 
-    android.support.v7.widget.Toolbar toolbar;
-    ArrayList<Placeview> placeviews = new ArrayList<>();
-    Boolean flag = null;
+public class CreationFragment extends Fragment {
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+    private android.support.v7.widget.Toolbar toolbar;
+    private ArrayList<Placeview> placeviews = new ArrayList<>();
+    private Boolean flag = null;
 
 
     @Nullable
@@ -52,26 +35,19 @@ public class CreationFragment extends Fragment{
          *Inflate tab_layout and setup Views.
          */
 
-        View x =  inflater.inflate(R.layout.fragment_creation, null);
+        View x = inflater.inflate(R.layout.fragment_creation, null);
         tabLayout = (TabLayout) x.findViewById(R.id.creation_tabs);
         viewPager = (ViewPager) x.findViewById(R.id.view_pager);
 
-
-//        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
-//        floatingActionButton.setVisibility(View.INVISIBLE);
-
-
-        Done = (Button) x.findViewById(R.id.Done);
+        Button done = (Button) x.findViewById(R.id.Done);
 
 
         try {
-            Done.setOnClickListener(new View.OnClickListener() {
+            done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                Toast.makeText(getContext(),CreationInfoFragment.Title,Toast.LENGTH_LONG).show();
-//                    if (CreationInfoFragment.leapBaseInfooo != null) {
-                    if (CreationInfoFragment.flagg == false){
-                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
+                    if (!CreationInfoFragment.flagg) {
+                        Toast.makeText(getContext(), "You forgot to save your data", Toast.LENGTH_SHORT).show();
 
 //                        ContentValues values = new ContentValues();
 //                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
@@ -88,8 +64,8 @@ public class CreationFragment extends Fragment{
                     }
 //                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-                    if( CreationPlacesFragment.placeviewList.isEmpty())
-                        Toast.makeText(getContext(),"You didn't add your outing's places", Toast.LENGTH_SHORT).show();
+                    if (CreationPlacesFragment.placeviewList.isEmpty())
+                        Toast.makeText(getContext(), "You didn't add your outing's places", Toast.LENGTH_SHORT).show();
 //
 //
 //                    if(!CreationInfoFragment.flagg)
@@ -111,7 +87,7 @@ public class CreationFragment extends Fragment{
 //                        MainActivity.instance.fillTextview(s);
 //                        LoginActivity.flag = true;
 //                        c.close();
-                        Toast.makeText(getContext(),"Leap Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Leap Saved", Toast.LENGTH_SHORT).show();
                         CreationInfoFragment.flagg = false;
 
 //
@@ -122,20 +98,20 @@ public class CreationFragment extends Fragment{
             });
 
 
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             flag = true;
         }
 
-        Invite = (Button) x.findViewById(R.id.Invite);
+        Button invite = (Button) x.findViewById(R.id.Invite);
         toolbar = (android.support.v7.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Create");
-        Invite.setOnClickListener(new View.OnClickListener() {
+        invite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Invite nextFrag= new Invite();
+                Invite nextFrag = new Invite();
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.containerView, nextFrag,"frag")
+                        .replace(R.id.containerView, nextFrag, "frag")
                         .addToBackStack(null)
                         .commit();
 
@@ -160,7 +136,6 @@ public class CreationFragment extends Fragment{
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-
 
 
         return x;
@@ -201,11 +176,12 @@ public class CreationFragment extends Fragment{
          */
 
         @Override
-        public Fragment getItem(int position)
-        {
-            switch (position){
-                case 0 : return new CreationInfoFragment();
-                case 1 :return new CreationPlacesFragment();
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new CreationInfoFragment();
+                case 1:
+                    return new CreationPlacesFragment();
             }
             return null;
         }
@@ -213,6 +189,7 @@ public class CreationFragment extends Fragment{
         @Override
         public int getCount() {
 
+            int int_items = 2;
             return int_items;
 
         }
@@ -224,10 +201,10 @@ public class CreationFragment extends Fragment{
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position){
-                case 0 :
+            switch (position) {
+                case 0:
                     return "INFO";
-                case 1 :
+                case 1:
                     return "PLACES";
             }
             return null;

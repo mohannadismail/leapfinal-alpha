@@ -3,6 +3,7 @@ package com.leap_app.leap.UI;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,20 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.leap_app.leap.Adapter.DiscoverLeapsAdapter;
 import com.leap_app.leap.Models.Leap;
-import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -80,12 +72,11 @@ public class DiscoverLeapsFragment extends Fragment {
 
     }
 
-    /**
-     * Created by Psychalafy on 1/3/2016.
-     */
+
     public Context context;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaps, container, false);
@@ -94,10 +85,8 @@ public class DiscoverLeapsFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
         context = this.getActivity();
-        List<Leap> leaps;
-        leaps = Leap.initializeData();
-        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
-        rv.setAdapter(adapter);
+//        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
+//        rv.setAdapter(adapter);
 
         return view;
     }

@@ -1,23 +1,12 @@
 package com.leap_app.leap.UI;
 
-/**
- * Created by Mohannad on 13/05/2016.
- */
-
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-        import android.content.res.Configuration;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.widget.LinearLayout;
-
-        import com.google.android.gms.auth.api.Auth;
-        import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-        import com.google.android.gms.common.ConnectionResult;
-        import com.google.android.gms.common.api.GoogleApiClient;
-import com.leap_app.leap.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * BaseActivity class is used as a base class for all activities in the app
@@ -58,19 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
         super.onSaveInstanceState(outState);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == android.R.id.home) {
-//            super.onBackPressed();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
 }

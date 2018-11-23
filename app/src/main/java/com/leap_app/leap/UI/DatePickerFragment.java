@@ -1,12 +1,9 @@
 package com.leap_app.leap.UI;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -14,9 +11,7 @@ import com.leap_app.leap.R;
 
 import java.util.Calendar;
 
-/**
- * Created by aya on 3/28/16.
- */
+
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
     TextView dateText;

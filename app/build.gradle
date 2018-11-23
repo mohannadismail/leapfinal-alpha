@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'leapSocialWorld'
-            keyPassword 'leapappsworld747 '
-            storeFile file('C:/Program Files/Java/jdk1.7.0_80/debug.keystore')
-            storePassword 'leapappeg747'
-        }
-    }
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
     defaultConfig {
@@ -24,7 +16,7 @@ android {
             multiDexEnabled true
 //            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
             zipAlignEnabled true
         }
     }

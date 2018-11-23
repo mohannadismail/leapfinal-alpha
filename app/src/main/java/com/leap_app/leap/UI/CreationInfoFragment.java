@@ -24,24 +24,22 @@ import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-/**
- * Created by aya on 3/14/16.
- */
+
 public class CreationInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static boolean flagg = Boolean.parseBoolean(null);
-    public android.support.v7.widget.AppCompatImageView circleImageView;
+    private static boolean flagg = Boolean.parseBoolean(null);
+    private android.support.v7.widget.AppCompatImageView circleImageView;
 //    public TextView dateText;
 //    public TextView timeText;
 //    public EditText leapTitle;
 //    public EditText leapDesc;
 //    public EditText leapLocation;
 //    public EditText leapPrice;
-    final Calendar now = Calendar.getInstance();
+    private final Calendar now = Calendar.getInstance();
 
-    public static String date, Time, Title, Desc, Location, Price, s;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -106,9 +104,16 @@ public class CreationInfoFragment extends Fragment {
 
 
 
+        String date;
+        String Time;
+        String Title;
+        String Desc;
+        String Location;
+        String Price;
+        final String[] s = new String[1];
 
-//        Button nexxt = (Button) view.findViewById(R.id.nextButton);
-            FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,9 +138,7 @@ public class CreationInfoFragment extends Fragment {
                             {
                                 c.moveToFirst();
                             }
-                            s = (c.getString(0));
-                            Log.d("LEAPID", s);
-
+                            s[0] = (Objects.requireNonNull(c).getString(0));
                             c.close();
 
                         }
