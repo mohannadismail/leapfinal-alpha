@@ -1,8 +1,7 @@
 package com.leap_app.leap.Utility;
 
-/**
- * Created by Amgad on 27/02/2016.
- */
+
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -41,6 +40,6 @@ public class CircleTransform implements Transformation {
 
     @Override
     public String key() {
-        return "circle";
+        return Constants.FIREBASE_USER_CIRCLE;
     }
 }

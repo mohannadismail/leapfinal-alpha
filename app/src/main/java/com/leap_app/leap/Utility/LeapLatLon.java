@@ -8,19 +8,18 @@ import android.util.Log;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapProvider;
 
-/**
- * Created by TOSHIBA on 07-Mar-16.
- */
+import java.util.Objects;
+
+
 public class LeapLatLon {
 
     public static double[] LeapLat(int leapid) {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getWritableDatabase();
 
-        Cursor c = db.rawQuery("SELECT Place.Latitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_Place.place_id WHERE Leap_Place.leap_id =?",new String[]{String.valueOf(leapid)});
+        Cursor c = db.rawQuery("SELECT Place.Latitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_Place.place_id WHERE Leap_Place.leap_id =?", new String[]{String.valueOf(leapid)});
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -29,16 +28,11 @@ public class LeapLatLon {
 
         double[] s = new double[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getDouble(0));
             i++;
             c.moveToNext();
         }
-
-//        for (int x = 0; i < s.length; i++)
-//        {
-//            s[x] = Math.toRadians(s[x]);
-//        }
 
         return s;
     }
@@ -46,29 +40,24 @@ public class LeapLatLon {
     public static double[] LeapLon(int leapid) {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT Place.longitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_Place.leap_id =?",new String[]{String.valueOf(leapid)});
+        Cursor c = db.rawQuery("SELECT Place.longitude FROM Place INNER JOIN Leap_Place ON Place.id = Leap_place.place_id WHERE Leap_Place.leap_id =?", new String[]{String.valueOf(leapid)});
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
         Log.d("TAGleap1", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplon", "Value:" + c.getCount());
+        Log.d("Tagleaplon", "Value:" + Objects.requireNonNull(c).getCount());
 
         double[] s = new double[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getDouble(0));
             i++;
             c.moveToNext();
         }
 
-//        for (int x = 0; x < s.length; x++)
-//        {
-//            s[x] = Math.toRadians(s[x]);
-//        }
-        Log.d("Sval ", "" + s[0] + s[1] + s[2] + " " + s.length );
+        Log.d("Sval ", "" + s[0] + s[1] + s[2] + " " + s.length);
         return s;
     }
 
@@ -89,22 +78,22 @@ public class LeapLatLon {
         Log.d("Z1 ", "" + z1.length);
 
         double x = 0;
-        for (int j = 0; j < x1.length; j++) {
-            x = x + x1[j];
+        for (double aX1 : x1) {
+            x = x + aX1;
         }
-        x = x/x1.length;
+        x = x / x1.length;
 
         double y = 0;
-        for (int j = 0; j < y1.length; j++) {
-            y = y + y1[j];
+        for (double aY1 : y1) {
+            y = y + aY1;
         }
-        y=y/y1.length;
+        y = y / y1.length;
 
         double z = 0;
-        for (int j = 0; j < z1.length; j++) {
-            z = z + z1[j];
+        for (double aZ1 : z1) {
+            z = z + aZ1;
         }
-        z=z/z1.length;
+        z = z / z1.length;
 
         Log.d("Xval ", "" + x);
         Log.d("Yval ", "" + y);
@@ -119,26 +108,23 @@ public class LeapLatLon {
 
         Log.d("TAGCenter", " " + leaplat + leaplon);
 
-        double[] values = {leaplat, leaplon};
-        return values;
+        return new double[]{leaplat, leaplon};
     }
 
-    public static double[] getLeapLat()
-    {
+    public static double[] getLeapLat() {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"latitude"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
         Log.d("TAG6", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplat1", "Value:" + c.getCount());
+        Log.d("Tagleaplat1", "Value:" + Objects.requireNonNull(c).getCount());
 
         double[] s = new double[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getDouble(0));
             i++;
             c.moveToNext();
@@ -147,22 +133,20 @@ public class LeapLatLon {
         return s;
     }
 
-    public static double[] getLeapLon()
-    {
+    public static double[] getLeapLon() {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"longitude"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
         Log.d("TAG7", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplon1", "Value:" + c.getCount());
+        Log.d("Tagleaplon1", "Value:" + Objects.requireNonNull(c).getCount());
 
         double[] s = new double[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getDouble(0));
             i++;
             c.moveToNext();

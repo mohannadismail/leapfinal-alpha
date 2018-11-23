@@ -21,7 +21,6 @@ public final class Constants {
     public static final String FIREBASE_USER_CIRCLE = "circle";
 
 
-
     /**
      * Constants for Firebase object properties
      */
