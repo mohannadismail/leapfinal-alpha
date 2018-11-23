@@ -14,9 +14,6 @@ import android.widget.TextView;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.CircleDetails;
 
-/**
- * Created by aya on 4/18/16.
- */
 public class circleFriendsAdapter extends BaseAdapter{
     private Context mContext;
     private final String[] userNames;
@@ -27,7 +24,6 @@ public class circleFriendsAdapter extends BaseAdapter{
     }
 
     public int getCount() {
-        //return mThumbIds.length;
         return userNames.length;
     }
 
@@ -70,17 +66,19 @@ public class circleFriendsAdapter extends BaseAdapter{
             checkBox.setVisibility(View.INVISIBLE);
 
 
-
-            String users = userNames[position];
-            if (users.equals("Ahmed")) {
-                pic.setImageResource(R.drawable.account_circle);
-            }
-            else if (users.equals("Abbas")){
-                pic.setImageResource(R.drawable.account_circle);
-            }
-            else {
-                pic.setImageResource(R.drawable.leaplogo);
-            }
+//
+//            String users = userNames[position];
+//            switch (users) {
+//                case mContext.getString(R.string.ahmedname):
+//                    pic.setImageResource(R.drawable.account_circle);
+//                    break;
+//                case "Abbas":
+//                    pic.setImageResource(R.drawable.account_circle);
+//                    break;
+//                default:
+//                    pic.setImageResource(R.drawable.leaplogo);
+//                    break;
+//            }
 
 
 

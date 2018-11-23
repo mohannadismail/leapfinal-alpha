@@ -70,5 +70,8 @@
     <string name="google_error_auth_with_google">"Error authenticating with Google: "</string>
     <string name="google_error_network_error">"Network error: "</string>
     <string name="log_message_auth_successful">auth successful.</string>
+    <string name="ahmedname">Ahmed</string>
+    <string name="LeapId">LeapId</string>
+    <string name="LE">L.E</string>
 </resources>
 

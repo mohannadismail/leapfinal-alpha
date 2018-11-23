@@ -17,9 +17,8 @@ import com.leap_app.leap.UI.CircleDetails;
 import com.leap_app.leap.UI.CirclesActivity;
 import com.leap_app.leap.UI.LeapInfoActivity;
 
-/**
- * Created by aya on 4/11/16.
- */
+
+
 public class CirclesAdapter extends BaseAdapter {
     private Context mContext;
     private final String[] userNames;

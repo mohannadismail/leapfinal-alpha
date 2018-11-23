@@ -1,11 +1,9 @@
 package com.leap_app.leap.Adapter;
 
-/**
- * Created by Psychalafy on 1/3/2016.
- */
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,28 +13,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leap_app.leap.Models.Leap;
-import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.LeapInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-//import com.firebase.client.Firebase;
-
-
 
 public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdapter.LeapViewHolder> {
-    public static List<Leap> leaps;
-    public static Context c;
+    private static List<Leap> leaps;
+    private Context c;
 
     public DiscoverLeapsAdapter(Context context, List<Leap> leaps) {
         this.c = context;
-        this.leaps =  leaps;
+        DiscoverLeapsAdapter.leaps = leaps;
     }
 
 
-    public static class LeapViewHolder extends RecyclerView.ViewHolder  {
+    public static class LeapViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         public View view;
         TextView LeapName;
@@ -47,7 +41,7 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
         private Context context;
 
 
-        public LeapViewHolder(View itemView) {
+        LeapViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             cv = (CardView) itemView.findViewById(R.id.cv);
@@ -65,7 +59,7 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
                     int position = getLayoutPosition();
                     String x = String.valueOf(leaps.get(position).leapId);
                     Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
-                    i.putExtra("LeapId", x);
+                    i.putExtra(context.getString(R.string.LeapId), x);
                     view.getContext().startActivity(i);
                 }
             });
@@ -75,29 +69,33 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
     @Override
     public int getItemCount() {
-        if (leaps!= null)
+        if (leaps != null)
             return leaps.size();
         else return 0;
     }
 
+    @NonNull
     @Override
-    public LeapViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public LeapViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.leapcardlayout, viewGroup, false);
         LeapViewHolder pvh = new LeapViewHolder(v);
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(LeapViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(@NonNull LeapViewHolder personViewHolder, int i) {
         personViewHolder.LeapName.setText(leaps.get(i).name);
-        personViewHolder.LeapPrice.setText(leaps.get(i).price + " L.E");
+        personViewHolder.LeapPrice.setText(leaps.get(i).price + c.getString(R.string.LE));
         personViewHolder.LeapCreator.setText(leaps.get(i).user);
-        Picasso.with(c).load(leaps.get(i).photoId).into(personViewHolder.LeapPhoto);
-        personViewHolder.LeapId.setText(""+leaps.get(i).leapId);
+
+        Picasso.get()
+                .load(leaps.get(i).photoId)
+                .into(personViewHolder.LeapPhoto);
+        personViewHolder.LeapId.setText(leaps.get(i).leapId);
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 

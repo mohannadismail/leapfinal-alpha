@@ -14,9 +14,8 @@ import android.widget.TextView;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.CircleDetails;
 
-/**
- * Created by aya on 5/7/16.
- */
+
+
 public class InviteCirclesAdapter extends BaseAdapter {
     private Context mContext;
     private final String[] circles;

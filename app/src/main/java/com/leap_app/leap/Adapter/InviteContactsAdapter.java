@@ -1,7 +1,6 @@
 package com.leap_app.leap.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leap_app.leap.R;
-import com.leap_app.leap.UI.CircleDetails;
 
-/**
- * Created by aya on 5/7/16.
- */
+
 public class InviteContactsAdapter extends BaseAdapter {
     private Context mContext;
     private final String[] names;
 
-    public InviteContactsAdapter(Context c , String[] names) {
+    public InviteContactsAdapter(Context c, String[] names) {
         this.mContext = c;
         this.names = names;
     }
@@ -76,21 +72,12 @@ public class InviteContactsAdapter extends BaseAdapter {
                 }
             });
 
-
-
-
-
-
-
-        }
-        else {
+        } else {
             gridView = (View) convertView;
         }
-
 
         return gridView;
 
     }
-
 
 }
