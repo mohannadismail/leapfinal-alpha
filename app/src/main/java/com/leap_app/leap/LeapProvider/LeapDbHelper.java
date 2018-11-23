@@ -6,16 +6,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /*This class is used to create the actual tables and implement attributes within the database. Also, it implements two methods,
-*getReadableDatabase() and getWritableDatabase(). These are called via this class whenever any modifications are required on the database.*/
+ *getReadableDatabase() and getWritableDatabase(). These are called via this class whenever any modifications are required on the database.*/
 public class LeapDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    static final String DATABASE_NAME = "Leap.db";
+    private static final String DATABASE_NAME = "Leap.db";
 
     public LeapDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
 
     @Override
@@ -37,7 +36,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 " );";
 
 
-       final String SQL_CREATE_Place_TABLE = "CREATE TABLE " + LeapContract.PlaceEntry.Table_Name + " (" +
+        final String SQL_CREATE_Place_TABLE = "CREATE TABLE " + LeapContract.PlaceEntry.Table_Name + " (" +
                 LeapContract.PlaceEntry.COLUMN_Place_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 LeapContract.PlaceEntry.COLUMN_Name + " TEXT NOT NULL, " +
                 LeapContract.PlaceEntry.COLUMN_Image + " TEXT, " +
@@ -57,7 +56,7 @@ public class LeapDbHelper extends SQLiteOpenHelper {
                 LeapContract.LeapEntry.Table_Name + " (" + LeapContract.LeapEntry.COLUMN_Leap_ID + "), " +
 
                 " FOREIGN KEY (" + LeapContract.Leap_Place_Entry.COLUMN_Place_Key + ") REFERENCES " +
-                LeapContract.PlaceEntry.Table_Name + " (" + LeapContract.PlaceEntry.COLUMN_Place_ID+ ") " +
+                LeapContract.PlaceEntry.Table_Name + " (" + LeapContract.PlaceEntry.COLUMN_Place_ID + ") " +
                 " );";
 
         final String SQL_CREATE_Leap_TABLE = "CREATE TABLE " + LeapContract.LeapEntry.Table_Name + " (" +
