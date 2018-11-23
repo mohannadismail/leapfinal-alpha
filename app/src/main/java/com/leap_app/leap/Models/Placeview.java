@@ -19,20 +19,43 @@ import com.leap_app.leap.Utility.Constants;
  * Place model to set and get place attributes from all over the app.
  */
 
-public class Placeview {
+public class Placeview implements Parcelable{
+    private double lat;
+    private double lon;
+    private int placeId;
+    private   String placeName;
+    private   String placeCategory;
+    private   String placeAddress;
+    private   String placeDesc;
+    private   int price;
+    private   String phone;
+    private   String placeID;
 
 
-    public   double lat;
-    public   double lon;
-    public int placeId;
-    public   String placeName;
-    public   String placeCategory;
-    public   String placeAddress;
-    public   String placeDesc;
-    public   int price;
-    public   String phone;
-    public   String placeID;
+    protected Placeview(Parcel in) {
+        lat = in.readDouble();
+        lon = in.readDouble();
+        placeId = in.readInt();
+        placeName = in.readString();
+        placeCategory = in.readString();
+        placeAddress = in.readString();
+        placeDesc = in.readString();
+        price = in.readInt();
+        phone = in.readString();
+        placeID = in.readString();
+    }
 
+    public static final Creator<Placeview> CREATOR = new Creator<Placeview>() {
+        @Override
+        public Placeview createFromParcel(Parcel in) {
+            return new Placeview(in);
+        }
+
+        @Override
+        public Placeview[] newArray(int size) {
+            return new Placeview[size];
+        }
+    };
 
     public   void setPlaceID(String placeID) {
         this.placeID = placeID;
@@ -48,7 +71,7 @@ public class Placeview {
 
 
 
-    Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc) {
+    public Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc) {
         setLat(lat);
         setLon(lon);
         setPlaceName(placeName);
@@ -57,7 +80,7 @@ public class Placeview {
         setPlaceCategory(placeCategory);
     }
 
-    Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc, int placeId) {
+    public Placeview(double lat, double lon, String placeName, String placeCategory, String placeAddress, String placeDesc, int placeId) {
         setLat(lat);
         setLon(lon);
         setPlaceName(placeName);
@@ -208,108 +231,22 @@ public class Placeview {
         return s;
     }
 
-    //setters and getters
-
-//    public   double getLat() {
-//        Firebase refLat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
-//        refLat.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                lat = (double) dataSnapshot.getValue();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//        return lat;
-//    }
-
     public void setLat(double lat) {
         this.lat = lat;
     }
-
-
-//    public   String getPlaceDesc() {
-//        Firebase refDescription = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Description);
-//        refDescription.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                placeDesc = dataSnapshot.getValue().toString();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//        return placeDesc;
-//    }
 
     public void setPlaceDesc(String placeDesc) {
         this.placeDesc = placeDesc;
     }
 
-//    public   String getPlaceAddress() {
-//        Firebase refAdress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
-//        refAdress.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                placeAddress = dataSnapshot.getValue().toString();
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//        return placeAddress;
-//    }
-
     public void setPlaceAddress(String placeAddress) {
         this.placeAddress = placeAddress;
     }
-
-//    public   String getPlaceCategory() {
-//        Firebase refCategory = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Category_Name);
-//        refCategory.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                placeCategory = dataSnapshot.getValue().toString();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//        return placeCategory;
-//    }
 
     public void setPlaceCategory(String placeCategory) {
         this.placeCategory = placeCategory;
     }
 
-//    public   String getPlaceName() {
-//        Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
-//        refname.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                placeName = dataSnapshot.getValue().toString();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//        return placeName;
-//    }
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
@@ -324,25 +261,27 @@ public class Placeview {
         this.placeId = placeId;
     }
 
-//    public   double getLon() {
-//        Firebase refLon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
-//        refLon.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                lon = (double) dataSnapshot.getValue();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//        return lon;
-//    }
-
     public void setLon(double lon) {
         this.lon = lon;
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
+        dest.writeInt(placeId);
+        dest.writeString(placeName);
+        dest.writeString(placeCategory);
+        dest.writeString(placeAddress);
+        dest.writeString(placeDesc);
+        dest.writeInt(price);
+        dest.writeString(phone);
+        dest.writeString(placeID);
+    }
 }

@@ -1,19 +1,30 @@
 package com.leap_app.leap.Models;
 
-/**
- * Created by RamyFRadwan on 04/04/2016.
- */
+
+
 public class User {
 
-    public String email;
-    public String name;
+    private String email;
+    private String name;
 
     public User(String email, String name){
         this.email = email;
         this.name = name;
     }
 
-    public String getName(){
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

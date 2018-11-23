@@ -4,27 +4,25 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapProvider;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * Created by Psychalafy on 1/3/2016.
- */
+public class Leap implements Parcelable {
+    private Context context;
+    private String name;
+    private String price;
+    private String user;
+    private String photoId;
+    private int leapId;
 
- public class Leap {
-    public static Context context ;
-    public String name;
-    public String price;
-    public String user;
-    public String photoId;
-    public int leapId;
-
-    Leap(String name, String price, String user, String photoId, int leapId) {
+    private Leap(String name, String price, String user, String photoId, int leapId) {
         this.name = name;
         this.price = price;
         this.user = user;
@@ -34,13 +32,32 @@ import java.util.List;
 
     public static List<Leap> leaps;
 
-    public static String[] getNameColumn() {
+    protected Leap(Parcel in) {
+        name = in.readString();
+        price = in.readString();
+        user = in.readString();
+        photoId = in.readString();
+        leapId = in.readInt();
+    }
+
+    public static final Creator<Leap> CREATOR = new Creator<Leap>() {
+        @Override
+        public Leap createFromParcel(Parcel in) {
+            return new Leap(in);
+        }
+
+        @Override
+        public Leap[] newArray(int size) {
+            return new Leap[size];
+        }
+    };
+
+    private static String[] getNameColumn() {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"name"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -49,7 +66,7 @@ import java.util.List;
 
         String[] s = new String[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getString(0));
             i++;
             c.moveToNext();
@@ -58,22 +75,21 @@ import java.util.List;
         return s;
     }
 
-    public static String[] getPriceColumn() {
+    private static String[] getPriceColumn() {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"price"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
         Log.d("TAG2", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagprice", "Value:" + c.getCount());
+        Log.d("Tagprice", "Value:" + Objects.requireNonNull(c).getCount());
 
         String[] s = new String[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getString(0));
             i++;
             c.moveToNext();
@@ -82,22 +98,21 @@ import java.util.List;
         return s;
     }
 
-    public static String[] getUserColumn() {
+    private static String[] getUserColumn() {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT User.name FROM User INNER JOIN Leap ON User.id = Leap.user_id", null);
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
         Log.d("TAG2", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Taguser", "Value:" + c.getCount());
+        Log.d("Taguser", "Value:" + Objects.requireNonNull(c).getCount());
 
         String[] s = new String[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getString(0));
             i++;
             c.moveToNext();
@@ -106,12 +121,11 @@ import java.util.List;
         return s;
     }
 
-    public static String[] getImageColumn() {
+    private static String[] getImageColumn() {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"imageURI"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
         Log.d("TAG2", DatabaseUtils.dumpCursorToString(c));
@@ -119,7 +133,7 @@ import java.util.List;
 
         String[] s = new String[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getString(0));
             i++;
             c.moveToNext();
@@ -129,13 +143,12 @@ import java.util.List;
         return s;
     }
 
-    public static int[] getLeapIdColumn() {
+    private static int[] getLeapIdColumn() {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"id"}, null, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -144,7 +157,7 @@ import java.util.List;
 
         int[] s = new int[c.getCount()];
         int i = 0;
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             s[i] = (c.getInt(0));
             i++;
             c.moveToNext();
@@ -153,23 +166,73 @@ import java.util.List;
         return s;
     }
 
-    public static List<Leap> initializeData() {
-        String[] string = getNameColumn();
-        String[] string1 = getPriceColumn();
-        String[] string2 = getUserColumn();
-        String[] image = getImageColumn();
-        int[] id = getLeapIdColumn();
-        leaps = new ArrayList<>();
-        SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
-        long numLeapRows = DatabaseUtils.queryNumEntries(db, "Leap");
-        Log.d("Tag3", "Value:" + numLeapRows);
+    public Context getContext() {
+        return context;
+    }
 
-        for (int i = 0; i < numLeapRows; i++){
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-            leaps.add(new Leap(string[i], string1[i], string2[i],image[i], id[i]));
+    public String getName() {
+        return name;
+    }
 
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
+    }
+
+    public int getLeapId() {
+        return leapId;
+    }
+
+    public void setLeapId(int leapId) {
+        this.leapId = leapId;
+    }
+
+    public static List<Leap> getLeaps() {
         return leaps;
+    }
+
+    public static void setLeaps(List<Leap> leaps) {
+        Leap.leaps = leaps;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(price);
+        dest.writeString(user);
+        dest.writeString(photoId);
+        dest.writeInt(leapId);
     }
 }

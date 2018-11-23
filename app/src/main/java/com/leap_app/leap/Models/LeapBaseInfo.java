@@ -3,23 +3,20 @@ package com.leap_app.leap.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by RamyFRadwan on 10/05/2016.
- */
-public class LeapBaseInfo implements Parcelable{
-    String date;
-    String leapDescription;
-    String leapLocation;
-    String leapName;
-    String leapPrice;
-    String time;
-    String leapID;
+public class LeapBaseInfo implements Parcelable {
+    private String date;
+    private String leapDescription;
+    private String leapLocation;
+    private String leapName;
+    private String leapPrice;
+    private String time;
+    private String leapID;
 
 
-    public LeapBaseInfo(){}
+    public LeapBaseInfo() {
+    }
 
-    public LeapBaseInfo(String leapName, String leapDescription, String leapLocation, String leapPrice, String date,  String time, String leapID)
-    {
+    public LeapBaseInfo(String leapName, String leapDescription, String leapLocation, String leapPrice, String date, String time, String leapID) {
         this.leapID = leapID;
         this.leapName = leapName;
         this.leapDescription = leapDescription;
@@ -28,8 +25,8 @@ public class LeapBaseInfo implements Parcelable{
         this.date = date;
         this.time = time;
     }
-    public LeapBaseInfo(String leapName, String leapDescription, String leapLocation, String leapPrice, String date,  String time)
-    {
+
+    public LeapBaseInfo(String leapName, String leapDescription, String leapLocation, String leapPrice, String date, String time) {
 
         this.leapName = leapName;
         this.leapDescription = leapDescription;
@@ -39,7 +36,7 @@ public class LeapBaseInfo implements Parcelable{
         this.time = time;
     }
 
-    protected LeapBaseInfo(Parcel in) {
+    private LeapBaseInfo(Parcel in) {
         date = in.readString();
         leapDescription = in.readString();
         leapLocation = in.readString();
@@ -72,6 +69,7 @@ public class LeapBaseInfo implements Parcelable{
 
         return date;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -113,8 +111,6 @@ public class LeapBaseInfo implements Parcelable{
     public void setLeapPrice(String leapPrice) {
         this.leapPrice = leapPrice;
     }
-
-
 
 
     public String getTime() {

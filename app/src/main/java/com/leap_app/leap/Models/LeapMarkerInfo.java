@@ -5,36 +5,57 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapProvider;
 
-/**
- * Created by RamyFRadwan on 26/03/2016.
- */
-public class LeapMarkerInfo {
-    public static Context context ;
-    public String name;
-    public String price;
-    public String user;
-    public String photoId;
-    public int leapIddd;
-    public double lat,lon;
 
-    public LeapMarkerInfo(double lat, double lon){
+public class LeapMarkerInfo implements Parcelable {
+    private Context context;
+    private String name;
+    private String price;
+    private String user;
+    private String photoId;
+    private int leapIddd;
+    private double lat, lon;
+
+    public LeapMarkerInfo(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }
 
-    public int getLeapID(){
+    protected LeapMarkerInfo(Parcel in) {
+        name = in.readString();
+        price = in.readString();
+        user = in.readString();
+        photoId = in.readString();
+        leapIddd = in.readInt();
+        lat = in.readDouble();
+        lon = in.readDouble();
+    }
+
+    public static final Creator<LeapMarkerInfo> CREATOR = new Creator<LeapMarkerInfo>() {
+        @Override
+        public LeapMarkerInfo createFromParcel(Parcel in) {
+            return new LeapMarkerInfo(in);
+        }
+
+        @Override
+        public LeapMarkerInfo[] newArray(int size) {
+            return new LeapMarkerInfo[size];
+        }
+    };
+
+    public int getLeapID() {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
 
 
-        Cursor cid = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"id"},  "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
+        Cursor cid = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"id"}, "latitude =" + lat + " AND " + "longitude =" + lon, null, null, null, "id");
 
-        if(cid!=null)
-        {
+        if (cid != null) {
             cid.moveToFirst();
         }
 
@@ -43,7 +64,7 @@ public class LeapMarkerInfo {
 
         int[] s = new int[cid.getCount()];
         int i = 0;
-        while (!cid.isAfterLast()){
+        while (!cid.isAfterLast()) {
             s[i] = (cid.getInt(0));
             leapIddd = s[i];
             i++;
@@ -54,13 +75,12 @@ public class LeapMarkerInfo {
     }
 
 
-    public  String getLeapNameColumn() {
+    public String getLeapNameColumn() {
 
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"name"}, "id =" + leapIddd, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -78,8 +98,7 @@ public class LeapMarkerInfo {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.query(LeapContract.LeapEntry.Table_Name, new String[]{"price"}, "id =" + leapIddd, null, null, null, "id");
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -97,8 +116,7 @@ public class LeapMarkerInfo {
         SQLiteDatabase db = LeapProvider.mLeapHelper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT User.name FROM User INNER JOIN Leap ON User.id = Leap.user_id WHERE Leap.id =?", new String[]{String.valueOf(leapIddd)});
 
-        if(c!=null)
-        {
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -109,5 +127,85 @@ public class LeapMarkerInfo {
 
         c.close();
         return s;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
+    }
+
+    public int getLeapIddd() {
+        return leapIddd;
+    }
+
+    public void setLeapIddd(int leapIddd) {
+        this.leapIddd = leapIddd;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(price);
+        dest.writeString(user);
+        dest.writeString(photoId);
+        dest.writeInt(leapIddd);
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
     }
 }
