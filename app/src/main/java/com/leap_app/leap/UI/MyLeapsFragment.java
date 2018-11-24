@@ -1,20 +1,14 @@
 package com.leap_app.leap.UI;
 
-/**
- * Created by aya on 4/24/16.
- */
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +28,8 @@ public class MyLeapsFragment extends Fragment {
          */
 
         View x =  inflater.inflate(R.layout.fragment_my_leaps,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.my_leaps_tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.myLeapsViewPager);
+        tabLayout = x.findViewById(R.id.my_leaps_tabs);
+        viewPager = x.findViewById(R.id.myLeapsViewPager);
 
 
 

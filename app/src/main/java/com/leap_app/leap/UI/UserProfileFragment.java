@@ -1,5 +1,6 @@
 package com.leap_app.leap.UI;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,19 +16,19 @@ import com.leap_app.leap.R;
 
 public class UserProfileFragment extends Fragment {
 
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
-    public static int int_items = 4 ;
+    private static TabLayout tabLayout;
+    private static ViewPager viewPager;
+    private static int int_items = 4;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /**
          *Inflate tab_layout and setup Views.
          */
 
         View x =  inflater.inflate(R.layout.fragment_profile,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.profile_tab);
-        viewPager = (ViewPager) x.findViewById(R.id.pager);
+        tabLayout = x.findViewById(R.id.profile_tab);
+        viewPager = x.findViewById(R.id.pager);
 
 //        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
 //        floatingActionButton.setVisibility(View.INVISIBLE);

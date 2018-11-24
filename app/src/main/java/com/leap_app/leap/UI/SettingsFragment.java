@@ -1,19 +1,16 @@
 package com.leap_app.leap.UI;
+
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.leap_app.leap.R;
 
-/**
- * Created by aya on 4/24/16.
- */
+
 public class SettingsFragment extends Fragment{
 
     ImageButton publicSearch;
@@ -22,9 +19,9 @@ public class SettingsFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.settings, container, false);
-        publicSearch = (ImageButton) view.findViewById(R.id.publicSearchInfo);
-        contactsOnly = (ImageButton) view.findViewById(R.id.contactsOnlyInfo);
-        publicLeaps = (ImageButton) view.findViewById(R.id.publicLeapsInfo);
+        publicSearch = view.findViewById(R.id.publicSearchInfo);
+        contactsOnly = view.findViewById(R.id.contactsOnlyInfo);
+        publicLeaps = view.findViewById(R.id.publicLeapsInfo);
 
         publicSearch.setOnClickListener(new View.OnClickListener() {
             @Override

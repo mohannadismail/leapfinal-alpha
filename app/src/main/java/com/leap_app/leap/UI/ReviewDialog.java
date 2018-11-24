@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 import com.leap_app.leap.R;
 
-/**
- * Created by aya on 4/18/16.
- */
+
 public class ReviewDialog extends DialogFragment implements TextView.OnEditorActionListener {
     public interface EditNameDialogListener {
         void onFinishEditDialog(String inputText);
@@ -35,7 +33,7 @@ public class ReviewDialog extends DialogFragment implements TextView.OnEditorAct
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.review_popup, container);
-        mEditText = (EditText) view.findViewById(R.id.review_title);
+        mEditText = view.findViewById(R.id.review_title);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         // Show soft keyboard automatically
@@ -44,7 +42,7 @@ public class ReviewDialog extends DialogFragment implements TextView.OnEditorAct
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mEditText.setOnEditorActionListener(this);
 
-        dismissDialog = (Button) view.findViewById(R.id.buttonclose);
+        dismissDialog = view.findViewById(R.id.buttonclose);
         dismissDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +50,7 @@ public class ReviewDialog extends DialogFragment implements TextView.OnEditorAct
             }
         });
 
-        doneAdding = (Button) view.findViewById(R.id.submitReview);
+        doneAdding = view.findViewById(R.id.submitReview);
         doneAdding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.firebase.client.Firebase;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.Constants;
 
-/**
- * Created by Mohannad on 13/05/2016.
- */
+
 public class LogoutActivity extends AppCompatActivity{
 
     @Override

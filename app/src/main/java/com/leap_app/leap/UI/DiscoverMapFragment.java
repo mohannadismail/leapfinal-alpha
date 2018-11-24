@@ -106,11 +106,11 @@ public class DiscoverMapFragment extends SupportMapFragment {
     private void initMap() {
 
         // Get the button view
-        // and next place it, for exemple, on bottom right (as Google Maps app)
+        // and next place it, for example, on bottom right (as Google Maps app)
 
         // position on right bottom
 
-        UiSettings settings = getMap().getUiSettings();
+        UiSettings settings = new UiSettings();
         settings.setZoomControlsEnabled(true);
         settings.setAllGesturesEnabled(true);
         settings.setMyLocationButtonEnabled(true);
@@ -202,9 +202,9 @@ public class DiscoverMapFragment extends SupportMapFragment {
                                                           public View getInfoWindow(Marker marker) {
                                                               v = inflatr.inflate(R.layout.infowindow_card, null);
 
-                                                              TextView title = (TextView) v.findViewById(R.id.LeapNameIW);
-                                                              TextView price = (TextView) v.findViewById(R.id.LeapPriceIW);
-                                                              TextView creator = (TextView) v.findViewById(R.id.LeapCreatorIW);
+                                                              TextView title = v.findViewById(R.id.LeapNameIW);
+                                                              TextView price = v.findViewById(R.id.LeapPriceIW);
+                                                              TextView creator = v.findViewById(R.id.LeapCreatorIW);
 
                                                               LatLng place = marker.getPosition();
                                                               lat = place.latitude; lon =place.longitude;

@@ -7,9 +7,7 @@ import android.os.Handler;
 
 import com.leap_app.leap.R;
 
-/**
- * Created by aya on 3/16/16.
- */
+
 public class SplashScreen extends Activity {
 
     // Splash screen timer

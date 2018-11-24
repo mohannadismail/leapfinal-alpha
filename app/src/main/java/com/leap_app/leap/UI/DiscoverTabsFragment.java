@@ -1,8 +1,6 @@
 package com.leap_app.leap.UI;
 
-/**
- * Created by Psychalafy on 1/2/2016.
- */
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +29,8 @@ public class DiscoverTabsFragment extends Fragment  {
          */
 
         View x =  inflater.inflate(R.layout.tab_layout,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-//        floatingActionButton = (FloatingActionButton) x.findViewById(R.id.fab);
-//        floatingActionButton.setVisibility(View.INVISIBLE);
+        tabLayout = x.findViewById(R.id.tabs);
+        viewPager = x.findViewById(R.id.viewpager);
 
         /**
          *Set an Adapter for the View Pager

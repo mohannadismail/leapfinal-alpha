@@ -1,6 +1,5 @@
 package com.leap_app.leap.UI;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -13,9 +12,7 @@ import com.leap_app.leap.R;
 
 import java.util.Calendar;
 
-/**
- * Created by aya on 3/30/16.
- */
+
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
     TextView timeText;
@@ -33,7 +30,7 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        timeText = (TextView) getActivity().findViewById(R.id.time_spinner);
+        timeText = getActivity().findViewById(R.id.time_spinner);
         onTimeUpdated(hourOfDay, minute);
 
 

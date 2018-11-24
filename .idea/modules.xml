@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/leap-final.iml" filepath="$PROJECT_DIR$/.idea/leap-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/leap-final.iml" filepath="$PROJECT_DIR$/leap-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/leap-master.iml" filepath="$PROJECT_DIR$/leap-master.iml" />

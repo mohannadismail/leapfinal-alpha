@@ -2,7 +2,6 @@ package com.leap_app.leap.UI;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,19 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.Constants;
 
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by aya on 4/9/16.
- */
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -44,11 +35,11 @@ public class SignupActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-        SignInLink = (TextView) findViewById(R.id.LoginHere);
-        SignUpBtn = (Button) findViewById(R.id.signUpBtn);
-        SignUpEmail = (EditText) findViewById(R.id.up_input_email);
-        SignUpName = (EditText) findViewById(R.id.up_input_name);
-        SignUpPassword = (EditText) findViewById(R.id.up_input_password);
+        SignInLink = findViewById(R.id.LoginHere);
+        SignUpBtn = findViewById(R.id.signUpBtn);
+        SignUpEmail = findViewById(R.id.up_input_email);
+        SignUpName = findViewById(R.id.up_input_name);
+        SignUpPassword = findViewById(R.id.up_input_password);
         mLeapHelper = new LeapDbHelper(getApplicationContext());
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,8 +1,8 @@
 package com.leap_app.leap.UI;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,9 +16,6 @@ import android.widget.Button;
 import com.leap_app.leap.R;
 
 
-/**
- * Created by aya on 5/7/16.
- */
 public class Invite extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -34,9 +31,9 @@ public class Invite extends Fragment {
          */
 
         View x =  inflater.inflate(R.layout.invite,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.invite_tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.inviteViewPager);
-        Next = (Button) x.findViewById(R.id.next);
+        tabLayout = x.findViewById(R.id.invite_tabs);
+        viewPager = x.findViewById(R.id.inviteViewPager);
+        Next = x.findViewById(R.id.next);
         Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

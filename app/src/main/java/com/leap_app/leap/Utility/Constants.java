@@ -20,6 +20,12 @@ public final class Constants {
     public static final String FIREBASE_LEAP_REVIEWS = "reviews";
     public static final String FIREBASE_USER_CIRCLE = "circle";
     public static final String KEY = "key";
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String flag = "flag";
+    public static final String Name1 = "nameKey";
+    public static final String signup1 = "signupKey";
+    public static final String member1 = "memberKey";
+    public static final String login1 = "loginKey";
 
     /**
      * Constants for Firebase object properties

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.leap_app.leap.R;
 
+
 public class UserLeapedTab extends Fragment {
 
     @Override

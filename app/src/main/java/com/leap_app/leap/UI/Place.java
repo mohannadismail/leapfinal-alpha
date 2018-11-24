@@ -22,16 +22,11 @@ import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.util.ArrayList;
-
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.ANCHORED;
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.EXPANDED;
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.HIDDEN;
 
 
-/**
- * Created by aya on 1/7/16.
- */
 public class Place extends FragmentActivity{
     private GoogleMap mMap;
     public SlidingUpPanelLayout slidingUpPanelLayout;
@@ -156,19 +151,19 @@ public class Place extends FragmentActivity{
                                                   Log.d("Marker", "" + marker.getId());
 
                                                   LatLng place = marker.getPosition();
-                                                  TextView p1 = (TextView) findViewById(R.id.placename);
+                                                  TextView p1 = findViewById(R.id.placename);
                                                   p1.setText(Placeview.getPlaceNameColumn(place.latitude, place.longitude));
 
-                                                  TextView p2 = (TextView) findViewById(R.id.placecategory);
+                                                  TextView p2 = findViewById(R.id.placecategory);
                                                   p2.setText(Placeview.getPlaceCatColumn(place.latitude, place.longitude));
 
-                                                  TextView p3 = (TextView) findViewById(R.id.placeaddress);
+                                                  TextView p3 = findViewById(R.id.placeaddress);
                                                   p3.setText(Placeview.getPlaceAddColumn(place.latitude, place.longitude));
 
-                                                  TextView p4 = (TextView) findViewById(R.id.placedesc);
+                                                  TextView p4 = findViewById(R.id.placedesc);
                                                   p4.setText(Placeview.getPlaceDescColumn(place.latitude, place.longitude));
 
-                                                  slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                                                  slidingUpPanelLayout = findViewById(R.id.sliding_layout);
                                                   slidingUpPanelLayout.setPanelState(ANCHORED);
                                                   return true;
                                               }

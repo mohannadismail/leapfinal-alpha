@@ -1,89 +1,45 @@
 package com.leap_app.leap.UI;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.LayoutRes;
-import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-import com.firebase.client.authentication.Constants;
-import com.firebase.client.core.SyncPoint;
-import com.firebase.client.snapshot.KeyIndex;
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.UserRecoverableAuthException;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.Scope;
-import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
-import com.leap_app.leap.Models.LeapInfo;
-import com.leap_app.leap.Models.User;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.CircleTransform;
-import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
-/**
- * Created by aya on 4/9/16.
- */
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    public LeapDbHelper mLeapHelper;
-    Button LoginBtn,googlePlus;
-    TextView SignUp;
-    EditText LoginEmail;
-    EditText LoginPassword;
-    public static String s1 = "";
-    public static String id1 ="";
-    public static boolean flag = false;
-
-
-
-
+    private static String s1 = "";
+    private static String id1 = "";
+    private static boolean flag = false;
+    private LeapDbHelper mLeapHelper;
+    private Button LoginBtn, googlePlus;
+    private TextView SignUp;
+    private EditText LoginEmail;
+    private EditText LoginPassword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        LoginBtn = (Button) findViewById(R.id.btn_login);
-        SignUp = (TextView) findViewById(R.id.signUpHere);
-        LoginEmail = (EditText) findViewById(R.id.input_email);
-        LoginPassword = (EditText) findViewById(R.id.input_password);
+        LoginBtn = findViewById(R.id.btn_login);
+        SignUp = findViewById(R.id.signUpHere);
+        LoginEmail = findViewById(R.id.input_email);
+        LoginPassword = findViewById(R.id.input_password);
         mLeapHelper = new LeapDbHelper(getApplicationContext());
 
 //        googlePlus = (Button) findViewById(R.id.login_with_google);
