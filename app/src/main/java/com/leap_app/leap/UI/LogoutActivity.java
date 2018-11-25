@@ -8,12 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import com.leap_app.leap.R;
 
 
-public class LogoutActivity extends AppCompatActivity{
+public class LogoutActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
 //        firebase.unauth();
 //        MainActivity.instance.clearTextview();
@@ -32,8 +31,8 @@ public class LogoutActivity extends AppCompatActivity{
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
                         progressDialog.dismiss();
-                        LoginActivity.flag = false;
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        LoginActivity.setFlag(false);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         // onLoginFailed();
 

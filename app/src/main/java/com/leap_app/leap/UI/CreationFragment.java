@@ -36,17 +36,17 @@ public class CreationFragment extends Fragment {
          */
 
         View x = inflater.inflate(R.layout.fragment_creation, null);
-        tabLayout = (TabLayout) x.findViewById(R.id.creation_tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.view_pager);
+        tabLayout = x.findViewById(R.id.creation_tabs);
+        viewPager = x.findViewById(R.id.view_pager);
 
-        Button done = (Button) x.findViewById(R.id.Done);
+        Button done = x.findViewById(R.id.Done);
 
 
         try {
             done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!CreationInfoFragment.flagg) {
+                    if (!CreationInfoFragment.isFlagg()) {
                         Toast.makeText(getContext(), "You forgot to save your data", Toast.LENGTH_SHORT).show();
 
 //                        ContentValues values = new ContentValues();
@@ -64,14 +64,14 @@ public class CreationFragment extends Fragment {
                     }
 //                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-                    if (CreationPlacesFragment.placeviewList.isEmpty())
+                    if (CreationPlacesFragment.getInstance().getPlaceviewList().isEmpty())
                         Toast.makeText(getContext(), "You didn't add your outing's places", Toast.LENGTH_SHORT).show();
 //
 //
 //                    if(!CreationInfoFragment.flagg)
 //                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-                    if (CreationInfoFragment.flagg && CreationPlacesFragment.placeviewList != null) {
+                    if (CreationInfoFragment.isFlagg() && CreationPlacesFragment.getInstance().getPlaceviewList() != null) {
 
                         Intent i = new Intent(getContext(), MainActivity.class);
                         v.getContext().startActivity(i);
@@ -88,7 +88,7 @@ public class CreationFragment extends Fragment {
 //                        LoginActivity.flag = true;
 //                        c.close();
                         Toast.makeText(getContext(), "Leap Saved", Toast.LENGTH_SHORT).show();
-                        CreationInfoFragment.flagg = false;
+                        CreationInfoFragment.setFlagg(false);
 
 //
 ////                        CreationPlacesFragment.placeviewList = new ArrayList<Placeview>();
@@ -103,8 +103,8 @@ public class CreationFragment extends Fragment {
             flag = true;
         }
 
-        Button invite = (Button) x.findViewById(R.id.Invite);
-        toolbar = (android.support.v7.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
+        Button invite = x.findViewById(R.id.Invite);
+        toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Create");
         invite.setOnClickListener(new View.OnClickListener() {
             @Override

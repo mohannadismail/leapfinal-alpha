@@ -1,6 +1,5 @@
 package com.leap_app.leap.UI;
 
-import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +29,9 @@ import java.util.Objects;
 public class CreationInfoFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static boolean flagg = Boolean.parseBoolean(null);
-    private android.support.v7.widget.AppCompatImageView circleImageView;
-//    public TextView dateText;
+
+    private static CreationInfoFragment instance;
+    //    public TextView dateText;
 //    public TextView timeText;
 //    public EditText leapTitle;
 //    public EditText leapDesc;
@@ -40,6 +39,23 @@ public class CreationInfoFragment extends Fragment {
 //    public EditText leapPrice;
     private final Calendar now = Calendar.getInstance();
 
+    private static boolean flagg = Boolean.parseBoolean(null);
+    private android.support.v7.widget.AppCompatImageView circleImageView;
+
+    public static boolean isFlagg() {
+        return flagg;
+    }
+
+    public static void setFlagg(boolean flagg) {
+        CreationInfoFragment.flagg = flagg;
+    }
+
+    public static CreationInfoFragment getInstance() {
+        if (instance == null) {
+            instance = new CreationInfoFragment();
+        }
+        return instance;
+    }
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,25 +99,25 @@ public class CreationInfoFragment extends Fragment {
     public Context context;
 
     public static LeapBaseInfo leapBaseInfooo;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_creation_info, container, false);
-        circleImageView = (android.support.v7.widget.AppCompatImageView) view.findViewById(R.id.make_public);
-        final TextView dateText = (TextView) view.findViewById(R.id.date_spinner);
-        final TextView timeText = (TextView) view.findViewById(R.id.time_spinner);
-        final EditText leapTitle = (EditText) view.findViewById(R.id.LeapTitle);
-        final EditText leapDesc = (EditText) view.findViewById(R.id.LeapDescription);
-        final EditText leapLocation = (EditText) view.findViewById(R.id.LeapLocation);
-        final EditText leapPrice = (EditText) view.findViewById(R.id.Leap_Price);
+        circleImageView = view.findViewById(R.id.make_public);
+        final TextView dateText = view.findViewById(R.id.date_spinner);
+        final TextView timeText = view.findViewById(R.id.time_spinner);
+        final EditText leapTitle = view.findViewById(R.id.LeapTitle);
+        final EditText leapDesc = view.findViewById(R.id.LeapDescription);
+        final EditText leapLocation = view.findViewById(R.id.LeapLocation);
+        final EditText leapPrice = view.findViewById(R.id.Leap_Price);
 
         int hour = now.get(Calendar.HOUR_OF_DAY);
         int minute = now.get(Calendar.MINUTE);
         int year = now.get(Calendar.YEAR);
         int month = now.get(Calendar.MONTH);
         int day = now.get(Calendar.DAY_OF_MONTH);
-
 
 
         String date;
@@ -113,44 +129,43 @@ public class CreationInfoFragment extends Fragment {
         final String[] s = new String[1];
 
 
-        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.nextButton);
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ContentValues values = new ContentValues();
-                    SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.nextButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
 
-                    values.put(LeapContract.LeapEntry.COLUMN_Name, leapTitle.getText().toString());
-                    values.put(LeapContract.LeapEntry.COLUMN_Description, leapDesc.getText().toString());
-                    values.put(LeapContract.LeapEntry.COLUMN_Map_Image, leapLocation.getText().toString());
-                    values.put(LeapContract.LeapEntry.COLUMN_Price, leapPrice.getText().toString());
-                    values.put(LeapContract.LeapEntry.COLUMN_User_Key, LoginActivity.id1);
+                values.put(LeapContract.LeapEntry.COLUMN_Name, leapTitle.getText().toString());
+                values.put(LeapContract.LeapEntry.COLUMN_Description, leapDesc.getText().toString());
+                values.put(LeapContract.LeapEntry.COLUMN_Map_Image, leapLocation.getText().toString());
+                values.put(LeapContract.LeapEntry.COLUMN_Price, leapPrice.getText().toString());
+                values.put(LeapContract.LeapEntry.COLUMN_User_Key, LoginActivity.getId1());
 
-                    db.insert(LeapContract.LeapEntry.Table_Name,null, values);
-                    db.execSQL("UPDATE User SET leapsNumber = leapsNumber + 1 WHERE id =?", new String[]{LoginActivity.id1});
-                    new Handler().postDelayed(new Runnable() {
+                db.insert(LeapContract.LeapEntry.Table_Name, null, values);
+                db.execSQL("UPDATE User SET leapsNumber = leapsNumber + 1 WHERE id =?", new String[]{LoginActivity.getId1()});
+                new Handler().postDelayed(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
-                            Cursor c = db.rawQuery("SELECT id FROM Leap ORDER BY id DESC LIMIT 1", null);
-                            if(c!=null)
-                            {
-                                c.moveToFirst();
-                            }
-                            s[0] = (Objects.requireNonNull(c).getString(0));
-                            c.close();
-
+                    @Override
+                    public void run() {
+                        SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
+                        Cursor c = db.rawQuery("SELECT id FROM Leap ORDER BY id DESC LIMIT 1", null);
+                        if (c != null) {
+                            c.moveToFirst();
                         }
-                    }, 500);
+                        s[0] = (Objects.requireNonNull(c).getString(0));
+                        c.close();
 
-                    db.close();
+                    }
+                }, 500);
+
+                db.close();
 
 //                    leapBaseInfooo = new LeapBaseInfo(leapTitle.getText().toString(), leapDesc.getText().toString(), leapLocation.getText().toString(), leapPrice.getText().toString(), dateText.getText().toString(), timeText.getText().toString());
-                    flagg = true;
-                    Toast.makeText(getContext(), "Info Saved, go to add your Places", Toast.LENGTH_LONG).show();
-                }
-            });
+                flagg = true;
+                Toast.makeText(getContext(), "Info Saved, go to add your Places", Toast.LENGTH_LONG).show();
+            }
+        });
 
         date = dateText.getText().toString();
         Time = timeText.getText().toString();
@@ -160,11 +175,11 @@ public class CreationInfoFragment extends Fragment {
         Price = leapPrice.getText().toString();
 
         timeText.setText(String.valueOf(hour) + " : " + String.valueOf(minute));
-        dateText.setText(String.valueOf(day + " \\ " + (month+1) + " \\ " + year));
+        dateText.setText(String.valueOf(day + " \\ " + (month + 1) + " \\ " + year));
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getFragmentManager();
+                android.support.v4.app.FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 DatePickerFragment dialog = new DatePickerFragment();
                 dialog.show(fm, "datePicker");
             }
@@ -172,7 +187,7 @@ public class CreationInfoFragment extends Fragment {
         timeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getFragmentManager();
+                android.support.v4.app.FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 TimePickerFragment dialog = new TimePickerFragment();
                 dialog.show(fm, "timePicker");
             }

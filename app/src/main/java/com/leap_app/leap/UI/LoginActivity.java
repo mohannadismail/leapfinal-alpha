@@ -18,13 +18,32 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.R;
 
+import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static String s1 = "";
+
+    public static String getId1() {
+        return id1;
+    }
+
+    public static void setId1(String id1) {
+        LoginActivity.id1 = id1;
+    }
+
     private static String id1 = "";
+
+    public static boolean isFlag() {
+        return flag;
+    }
+
+    public static void setFlag(boolean flag) {
+        LoginActivity.flag = flag;
+    }
+
     private static boolean flag = false;
     private LeapDbHelper mLeapHelper;
     private Button LoginBtn, googlePlus;
@@ -232,9 +251,10 @@ public class LoginActivity extends AppCompatActivity {
         {
             c.moveToFirst();
         }
-        s1 = c.getString(0);
+        s1 = Objects.requireNonNull(c).getString(0);
 
-        MainActivity.instance.fillTextview(s1);
+        //TODO:: fix this shit
+//        MainActivity.instance.fillTextview(s1);
         flag = true;
         c.close();
         finish();

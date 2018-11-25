@@ -27,20 +27,17 @@ public class PlacesCreationAdapter extends RecyclerView.Adapter<PlacesCreationAd
 
         this.c = c;
         this.places = places;
-        this.ii = i;
+        ii = i;
     }
 
-    static class PlaceViewHolder extends RecyclerView.ViewHolder{
-
-        TextView placeName;
-        Context context;
-        View view;
-
-        PlaceViewHolder(View itemView){
-            super(itemView);
-            view =itemView;
-            placeName = (TextView) view.findViewById(R.id.creation_place_name);
-        }
+    @Override
+    public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
+        getPlaces(ii);
+        int i = 0;
+        if (i < places.size() - 1)
+            position += i;
+        Placeview placeview = places.get(position);
+        holder.placeName.setText(String.valueOf(placeview.getPlaceName()));
     }
 
 
@@ -73,13 +70,17 @@ public class PlacesCreationAdapter extends RecyclerView.Adapter<PlacesCreationAd
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
-        getPlaces(ii);
-        int i = 0;
-        if(i < places.size()-1)
-            position+= i;Placeview placeview = places.get(position);
-        holder.placeName.setText(String.valueOf(placeview.placeName));
+    static class PlaceViewHolder extends RecyclerView.ViewHolder {
+
+        TextView placeName;
+        Context context;
+        View view;
+
+        PlaceViewHolder(View itemView) {
+            super(itemView);
+            view = itemView;
+            placeName = view.findViewById(R.id.creation_place_name);
+        }
     }
 
     @Override

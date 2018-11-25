@@ -25,15 +25,20 @@ import com.leap_app.leap.LeapProvider.LeapProvider;
 import com.leap_app.leap.R;
 
 import static com.leap_app.leap.Utility.Constants.MyPREFERENCES;
+import static com.leap_app.leap.Utility.Constants.Name1;
+import static com.leap_app.leap.Utility.Constants.flag;
+import static com.leap_app.leap.Utility.Constants.login1;
+import static com.leap_app.leap.Utility.Constants.member1;
+import static com.leap_app.leap.Utility.Constants.signup1;
 
 public class MainActivity extends AppCompatActivity implements DiscoverLeapsFragment.OnFragmentInteractionListener, DiscoverMapFragment.OnFragmentInteractionListener, CreationInfoFragment.OnFragmentInteractionListener, CreationPlacesFragment.OnFragmentInteractionListener {
     private static MainActivity instance;
     private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
     private android.support.v7.widget.Toolbar toolbar;
     private SharedPreferences sharedpreferences;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 //        mCursor.close();
 //        db.close();
 
-        LeapProvider.updatelatlon();
+//        LeapProvider.updatelatlon();
 
 
         /**
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
          */
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
-        mNavigationView = findViewById(R.id.nav_menu);
+        NavigationView mNavigationView = findViewById(R.id.nav_menu);
 
         /**
          * Lets inflate the very first fragment
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
                 }
 
                 if (menuItem.getItemId() == R.id.nav_item_create) {
-                    if (LoginActivity.flag == true) {
+                    if (LoginActivity.isFlag()) {
                         FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
                         toolbar = findViewById(R.id.toolbar);
@@ -110,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
                     toolbar.setTitle("My Leaps");
                 }
                 if (menuItem.getItemId() == R.id.nav_item_circles) {
-                    if (LoginActivity.flag == true) {
+                    if (LoginActivity.isFlag()) {
                         Intent intent = new Intent(getApplicationContext(), CirclesActivity.class);
                         startActivity(intent);
                         toolbar = findViewById(R.id.toolbar);
@@ -155,12 +160,12 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
         TextView location = findViewById(R.id.location);
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean(flag, LoginActivity.flag);
+        editor.putBoolean(flag, LoginActivity.isFlag());
         editor.putString(Name1, s);
         editor.putInt(signup1, View.INVISIBLE);
         editor.putString(member1, "");
         editor.putString(login1, "");
-        editor.commit();
+        editor.apply();
 
         user.setText(s);
         location.setText("Mansoura");
@@ -226,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
     //Create Leap By Clicking on FAB
     public void Create(View v) {
-        if (LoginActivity.flag == true) {
+        if (LoginActivity.isFlag()) {
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
             toolbar = findViewById(R.id.toolbar);
@@ -240,10 +245,10 @@ public class MainActivity extends AppCompatActivity implements DiscoverLeapsFrag
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             this.finish();
         } else {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
         }
     }
 }

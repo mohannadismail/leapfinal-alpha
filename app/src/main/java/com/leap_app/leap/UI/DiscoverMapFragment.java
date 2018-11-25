@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -25,6 +27,8 @@ import com.leap_app.leap.Models.LeapMarkerInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.LeapLatLon;
 
+import java.util.Objects;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +38,8 @@ import com.leap_app.leap.Utility.LeapLatLon;
  * Use the {@link DiscoverMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DiscoverMapFragment extends SupportMapFragment {
+public class DiscoverMapFragment extends Fragment
+        implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,12 +52,12 @@ public class DiscoverMapFragment extends SupportMapFragment {
     private LatLng latLon;
 
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private GoogleMap mMap;
 
     public DiscoverMapFragment() {
         super();
@@ -79,16 +84,16 @@ public class DiscoverMapFragment extends SupportMapFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = super.onCreateView(inflater, container, savedInstanceState);
         this.inflatr = inflater;
         try {
             initMap();
-        }catch (Exception e){
-            Log.e("Map Exception", ""+e);
-            Toast.makeText(this.getContext(),"Error Loading map", Toast.LENGTH_LONG);
+        } catch (Exception e) {
+            Log.e("Map Exception", "" + e);
+            Toast.makeText(this.getContext(), "Error Loading map", Toast.LENGTH_LONG);
         }
 //        FloatingActionButton fab  = (FloatingActionButton) v.findViewById(R.id.fab);
 //        fab.setVisibility(View.INVISIBLE);
@@ -110,14 +115,14 @@ public class DiscoverMapFragment extends SupportMapFragment {
 
         // position on right bottom
 
-        UiSettings settings = new UiSettings();
+        UiSettings settings = mMap.getUiSettings();
         settings.setZoomControlsEnabled(true);
         settings.setAllGesturesEnabled(true);
         settings.setMyLocationButtonEnabled(true);
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
-        getMap().addMarker(new MarkerOptions().position(latLon).visible(false));
-        double lats [] = LeapLatLon.getLeapLat();
-        double lngs [] = LeapLatLon.getLeapLon();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
+        mMap.addMarker(new MarkerOptions().position(latLon).visible(false));
+        double lats[] = LeapLatLon.getLeapLat();
+        double lngs[] = LeapLatLon.getLeapLon();
 
         addLeaps(lats, lngs);
 
@@ -170,7 +175,7 @@ public class DiscoverMapFragment extends SupportMapFragment {
             // String MarkerNumber = Integer.toString(i);
             Log.d("MarkerLatLng ", "" + latLng);
             final MarkerOptions mOptions = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(0));/*.title(titles[i]).snippet(Snippet[i]+" "+Lat[i]+","+Lng[i]);*/
-            getMap().addMarker(mOptions);
+            mMap.addMarker(mOptions);
 
             Log.d("LngLength", "" + Lng.length + Lat.length);
 
@@ -184,75 +189,75 @@ public class DiscoverMapFragment extends SupportMapFragment {
                     target(Target)
                     .zoom(13)
                     .build();
-            getMap().moveCamera(CameraUpdateFactory.newCameraPosition(cp));
-            getMap().animateCamera(CameraUpdateFactory.newCameraPosition(cp), 1000, null);
-            getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                                  @Override
-                                                  public boolean onMarkerClick(Marker marker) {
-                                                      getMap().setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                                                          @Override
-                                                          public View getInfoContents(Marker marker) {
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cp), 1000, null);
+            mMap
+                    .setOnMarkerClickListener(
+                            new GoogleMap
+                                    .OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+                                    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                                        @Override
+                                        public View getInfoContents(Marker marker) {
 
 
+                                            return null;
+                                        }
 
-                                                              return null;
-                                                          }
+                                        @Override
+                                        public View getInfoWindow(Marker marker) {
+                                            v = inflatr.inflate(R.layout.infowindow_card, null);
 
-                                                          @Override
-                                                          public View getInfoWindow(Marker marker) {
-                                                              v = inflatr.inflate(R.layout.infowindow_card, null);
+                                            TextView title = v.findViewById(R.id.LeapNameIW);
+                                            TextView price = v.findViewById(R.id.LeapPriceIW);
+                                            TextView creator = v.findViewById(R.id.LeapCreatorIW);
 
-                                                              TextView title = v.findViewById(R.id.LeapNameIW);
-                                                              TextView price = v.findViewById(R.id.LeapPriceIW);
-                                                              TextView creator = v.findViewById(R.id.LeapCreatorIW);
-
-                                                              LatLng place = marker.getPosition();
-                                                              lat = place.latitude; lon =place.longitude;
-
-
-                                                              LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat,lon);
-                                                              leapIdddd = leapMarkerInfo.getLeapID();
-                                                              Log.v("LeapIDMap", "" + leapIdddd);
-                                                              String n = leapMarkerInfo.getLeapNameColumn();
-                                                              String c = leapMarkerInfo.getLeapUserColumn();
-                                                              String p  = leapMarkerInfo.getLeapPriceColumn();
-
-                                                              Log.e("nnnnnnn", n + "");
-                                                              Log.e("nnnnnnnnnn", p + "");
-                                                              Log.e("nnnnnnn", c + "");
+                                            LatLng place = marker.getPosition();
+                                            lat = place.latitude;
+                                            lon = place.longitude;
 
 
+                                            LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat, lon);
+                                            leapIdddd = leapMarkerInfo.getLeapID();
+                                            Log.v("LeapIDMap", "" + leapIdddd);
+                                            String n = leapMarkerInfo.getLeapNameColumn();
+                                            String c = leapMarkerInfo.getLeapUserColumn();
+                                            String p = leapMarkerInfo.getLeapPriceColumn();
 
-                                                                  price.setText(String.valueOf(p));
-                                                                  title.setText(String.valueOf(n));
-                                                                  creator.setText(String.valueOf(c));
+                                            Log.e("nnnnnnn", n + "");
+                                            Log.e("nnnnnnnnnn", p + "");
+                                            Log.e("nnnnnnn", c + "");
+
+
+                                            price.setText(String.valueOf(p));
+                                            title.setText(String.valueOf(n));
+                                            creator.setText(String.valueOf(c));
 //
-                                                              return v;
-                                                          }
-                                                      });
-                                                      //  Take some action here
-                                                      marker.showInfoWindow();
-                                                      getMap().setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                            return v;
+                                        }
+                                    });
+                                    //  Take some action here
+                                    marker.showInfoWindow();
+                                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
-                                                          @Override
-                                                          public void onInfoWindowClick(Marker marker) {
-                                                              LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat,lon);
-                                                              leapIdddd = leapMarkerInfo.getLeapID();
-                                                              Log.v("LeapIDMap", "" + leapIdddd);
-                                                              Intent i = new Intent(v.getContext(), LeapInfoActivity.class);
-                                                              i.putExtra("LeapId", ""+leapIdddd);
-                                                              Log.d("EXTRA","" + ""+leapIdddd);
-                                                              v.getContext().startActivity(i);
-
-
+                                        @Override
+                                        public void onInfoWindowClick(Marker marker) {
+                                            LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat, lon);
+                                            leapIdddd = leapMarkerInfo.getLeapID();
+                                            Log.v("LeapIDMap", "" + leapIdddd);
+                                            Intent i = new Intent(v.getContext(), LeapInfoActivity.class);
+                                            i.putExtra("LeapId", "" + leapIdddd);
+                                            Log.d("EXTRA", "" + "" + leapIdddd);
+                                            v.getContext().startActivity(i);
 
 
-                                                          }
-                                                      });
-                                                      return true;
-                                                  }
-                                              }
-            );
+                                        }
+                                    });
+                                    return true;
+                                }
+                            }
+                    );
 //
 //            getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 //                                                  @Override
@@ -274,12 +279,24 @@ public class DiscoverMapFragment extends SupportMapFragment {
 //                                              }
 //            );
 //
-
-
-
         }
-
-
-
     }
+
+    private void setUpMapIfNeeded() {
+        if (mMap == null) {
+            SupportMapFragment mapFrag
+                    =
+                    (SupportMapFragment) getChildFragmentManager()
+                            .findFragmentById(R.id.location_map);
+            Objects.requireNonNull(mapFrag).getMapAsync(this);
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        setUpMapIfNeeded();
+    }
+
+
 }

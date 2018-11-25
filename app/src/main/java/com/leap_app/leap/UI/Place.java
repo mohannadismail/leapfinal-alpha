@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,10 +27,10 @@ import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.EXPANDE
 import static com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.HIDDEN;
 
 
-public class Place extends FragmentActivity{
+public class Place extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-    public SlidingUpPanelLayout slidingUpPanelLayout;
-    public String leapid;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
+    private String leapid;
 
     protected void onCreate(Bundle savedInstanceState) {
         leapid = this.getIntent().getStringExtra("LeapPlace");
@@ -44,22 +44,22 @@ public class Place extends FragmentActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        setUpMap();
     }
 
 
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.leap_map)).getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null)
-            {
-                setUpMap();
-            }
-        }
-    }
+//    private void setUpMapIfNeeded() {
+//        // Do a null check to confirm that we have not already instantiated the map.
+//        if (mMap == null) {
+//            // Try to obtain the map from the SupportMapFragment.
+//            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.leap_map));
+//            // Check if we were successful in obtaining the map.
+//            if (mMap != null)
+//            {
+//                setUpMap();
+//            }
+//        }
+//    }
 
 
     private void setUpMap() {
@@ -71,14 +71,14 @@ public class Place extends FragmentActivity{
             @Override
             public void onMapClick(LatLng point) {
 
-                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED)|slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
+                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED) | slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
                     slidingUpPanelLayout.setPanelState(HIDDEN);
                 }
             }
         });
 
         /*
-            *Latitude and Longitude Arrays
+         *Latitude and Longitude Arrays
          */
         double markersLat[] = Placeview.getLat(Integer.parseInt(leapid));
         double markersLng[] = Placeview.getLon(Integer.parseInt(leapid));
@@ -113,7 +113,7 @@ public class Place extends FragmentActivity{
             Path
          */
 
-        for (int i = 0; i < Lat.length-1 ; i++) {
+        for (int i = 0; i < Lat.length - 1; i++) {
             LatLng pLatLng = new LatLng(Lat[i], Lng[i]);
             LatLng latLng = new LatLng(Lat[i + 1], Lng[i + 1]);
             mMap.addPolygon(new PolygonOptions().add(latLng).add(pLatLng).strokeColor(Color.rgb(183, 28, 28)).strokeWidth(15));
@@ -145,8 +145,7 @@ public class Place extends FragmentActivity{
 
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                               @Override
-                                              public boolean onMarkerClick(Marker marker)
-                                              {
+                                              public boolean onMarkerClick(Marker marker) {
                                                   //  Take some action here
                                                   Log.d("Marker", "" + marker.getId());
 
@@ -172,10 +171,14 @@ public class Place extends FragmentActivity{
             );
 
 
-
-
         }
 
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        setUpMap();
     }
 }

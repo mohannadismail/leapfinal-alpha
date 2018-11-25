@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +26,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.leap_app.leap.Adapter.PlacesCreationAdapter;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
@@ -35,7 +36,7 @@ import com.leap_app.leap.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.Objects;
 
 
 public class CreationPlacesFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
@@ -43,15 +44,22 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final int PLACE_PICKER_REQUEST = 1;
+    private static CreationPlacesFragment instance;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton fab;
     //    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private Collection<Place> PlacesList = new ArrayList<>();
-    private static ArrayList<Placeview> placeviewList = new ArrayList<>();
+    public Context context;
+    private ArrayList<Placeview> placeviewList = new ArrayList<>();
+    private RecyclerView placesListView;
+    private GoogleApiClient mGoogleApiClient;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor e;
+    private TextView placeNumber;
+    private TextView placeAddress;
+    private int i = 0;
 
 
     /**
@@ -83,56 +91,45 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         return fragment;
     }
 
-    public RecyclerView placesListView;
-    String tag;
-    LeapDbHelper mLeapHelper;
+    public static CreationPlacesFragment getInstance() {
+        if (instance == null) {
+            instance = new CreationPlacesFragment();
+        }
+        return instance;
+    }
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            // TODO: Rename and change types of parameters
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        tag = this.getTag();
-        mLeapHelper = new LeapDbHelper(getContext());
+        String tag = this.getTag();
+        LeapDbHelper mLeapHelper = new LeapDbHelper(getContext());
 
         //Assign List items
 
 
-
-
-
     }
 
-
-    GoogleApiClient mGoogleApiClient;
-
-    SharedPreferences sharedPreferences;
-
-    SharedPreferences.Editor e;
-    private static final int PLACE_PICKER_REQUEST = 1;
-    private TextView placeName, placeNumber, placeAddress;
-    public Context context;
-    com.google.android.gms.location.places.Place place;
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //             Inflate the layout for this fragment
-         final View view = inflater.inflate(R.layout.fragment_creation_places, container, false);
+        final View view = inflater.inflate(R.layout.fragment_creation_places, container, false);
 
-        placesListView = (RecyclerView) view.findViewById(R.id.creation_places_list);
+        placesListView = view.findViewById(R.id.creation_places_list);
 
 
 //        e.clear();
 //        sharedPreferences = getContext().getSharedPreferences("SharedPlaces", Context.MODE_PRIVATE);
 
 
-
         // place list item components
-        FloatingActionButton addPlace = (FloatingActionButton) view.findViewById(R.id.addPlace);
-        placeName = (TextView) view.findViewById(R.id.creation_place_name);
+        FloatingActionButton addPlace = view.findViewById(R.id.addPlace);
+        TextView placeName = view.findViewById(R.id.creation_place_name);
 //        placeAddress = (TextView) view.findViewById(R.id.creation_place_address);
 //        placeNumber = (TextView) view.findViewById(R.id.placeNumber);
 
@@ -151,7 +148,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
 
                     mGoogleApiClient = new GoogleApiClient
-                            .Builder(getContext())
+                            .Builder(Objects.requireNonNull(getContext()))
                             .addApi(Places.GEO_DATA_API)
                             .addApi(Places.PLACE_DETECTION_API)
                             .build();
@@ -159,7 +156,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                     try {
-                        startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                        startActivityForResult(builder.build(Objects.requireNonNull(getActivity())), PLACE_PICKER_REQUEST);
                     } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                         e.printStackTrace();
                     }
@@ -173,30 +170,26 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
                 LinearLayoutManager llm = new LinearLayoutManager(context);
                 placesListView.setLayoutManager(llm);
-
-//                    i++;
             }
 
         });
 
 
-
-
         return view;
     }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        mGoogleApiClient.connect();
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        mGoogleApiClient.disconnect();
-//    }
 
-    private int i = 0 ;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
     @Override
     public void onActivityResult(int requestCode,
                                  int resultCode, Intent data) {
@@ -204,7 +197,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         if (requestCode == PLACE_PICKER_REQUEST
                 && resultCode == Activity.RESULT_OK) {
 
-            com.google.android.gms.location.places.Place place = PlacePicker.getPlace(this.getActivity(), data);
+            com.google.android.gms.location.places.Place place = PlacePicker.getPlace(Objects.requireNonNull(this.getActivity()), data);
             if (place != null) {
 
                 //Reading Data from places API
@@ -218,19 +211,17 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 String id = place.getId();
 
 
-
 //                ContentValues contentValues= new ContentValues();
 //                contentValues.put("Name",name);
                 // Writing to shared preferences
 
 
-
                 //Adding data to model
                 SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
-                Placeview placeview = new Placeview(lat,lon, name, address, price, phone, id);
+                Placeview placeview = new Placeview(lat, lon, name, address, price, phone, id);
                 placeviewList.add(placeview);
                 i++;
-                placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList,i));
+                placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList, i));
 
                 Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_SHORT).show();
                 ContentValues values = new ContentValues();
@@ -249,16 +240,15 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                         SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
 
                         Cursor c = db.rawQuery("SELECT place_id FROM Leap_Place ORDER BY place_id DESC LIMIT 1", null);
-                        if(c!=null)
-                        {
+                        if (c != null) {
                             c.moveToFirst();
                         }
-                        String s = (c.getString(0));
+                        String s = (Objects.requireNonNull(c).getString(0));
                         Log.d("PLACEID", s);
                         Integer i = Integer.parseInt(s);
 
                         c.close();
-                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Leap_Key, CreationInfoFragment.s);
+                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Leap_Key, CreationInfoFragment.leapBaseInfooo.getLeapID());
                         values1.put(LeapContract.Leap_Place_Entry.COLUMN_Place_Key, i + 1);
 
                         db.insert(LeapContract.Leap_Place_Entry.Table_Name, null, values1);
@@ -283,8 +273,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 //                refname.push().setValue(name);
 //                refaddress.push().setValue(address);
 //
-
-
 
 
                 String attributions = (String) place.getAttributions();
@@ -353,6 +341,10 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this.getContext(), "Error loading GOOGLE client, Please check connection", Toast.LENGTH_LONG).show();
 
+    }
+
+    public ArrayList<Placeview> getPlaceviewList() {
+        return placeviewList;
     }
 
 
