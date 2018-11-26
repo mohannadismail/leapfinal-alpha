@@ -166,7 +166,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                     e.printStackTrace();
                     Log.e("ERRooor", "" + e);
                 }
-                PlacesList.toString();
+//                PlacesList.toString();
 
                 LinearLayoutManager llm = new LinearLayoutManager(context);
                 placesListView.setLayoutManager(llm);
@@ -178,17 +178,17 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mGoogleApiClient.disconnect();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        mGoogleApiClient.connect();
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        mGoogleApiClient.disconnect();
+//    }
 
     @Override
     public void onActivityResult(int requestCode,

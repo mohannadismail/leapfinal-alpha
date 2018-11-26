@@ -17,7 +17,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c3d3bcb91a086ffd33cd072f00c87633d01c808f" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA9mrL8tO3tY29Qmd9BqAD8BQDVRItXPnU" />
