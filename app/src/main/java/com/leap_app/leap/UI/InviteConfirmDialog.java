@@ -32,7 +32,7 @@ public class InviteConfirmDialog extends DialogFragment {
         // Show soft keyboard automatically
 
         Toolbar toolbar = view.findViewById(R.id.confirm_toolbar);
-        toolbar.setTitle("Confirmation");
+        toolbar.setTitle(R.string.confirmation);
 
         Button inviteMore = view.findViewById(R.id.invite_more);
         inviteMore.setOnClickListener(new View.OnClickListener() {

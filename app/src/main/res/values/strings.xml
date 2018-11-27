@@ -108,7 +108,6 @@
     <string name="pending">Pending</string>
     <string name="invited_users">Invited Users</string>
     <string name="all_users_can_view_this_leap">All users can view this leap</string>
-    <string name="confirmation">Confirmation</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="account_picture">account picture</string>
     <string name="_150">150</string>
@@ -136,5 +135,23 @@
     <string name="favorite">Favorite</string>
     <string name="approx">Approx.</string>
     <string name="name">Name</string>
+    <string name="uncheck_receive_anyone">Uncheck to receive invitations from anyone.</string>
+    <string name="changed_for_leap">Can be changed for each leap!</string>
+    <string name="leapplace">LeapPlace</string>
+    <string name="please_login_first">Please Login first</string>
+    <string name="login_failed">Login failed</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="contacts">Contacts</string>
+    <string name="map">Map</string>
+    <string name="error_loading_map">Error Loading map</string>
+    <string name="must_implment_onfragint">must implement OnFragmentInteractionListener</string>
+    <string name="lnglength">LngLength</string>
+    <string name="extra">EXTRA</string>
+    <string name="key">key</string>
+    <string name="fragment_edit_name">fragment_edit_name</string>
+    <string name="leap_saved">Leap Saved</string>
+    <string name="timepicker">timePicker</string>
+    <string name="datepicker">datePicker</string>
+    <string name="info_saved_go_places">Info Saved, go to add your Places</string>
 </resources>
 

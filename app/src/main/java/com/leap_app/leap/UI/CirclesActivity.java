@@ -13,14 +13,11 @@ import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.leap_app.leap.Adapter.CirclesAdapter;
 import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.Constants;
 
 public class CirclesActivity extends AppCompatActivity implements NewCircleDialog.EditNameDialogListener {
 
-    static final String[] user_names = new String[]{
-            "Family", "Friends", "Shella", "Nas Keda", "Block"};
     private PopupWindow newCirclePopup;
     Button cancelAdding;
     Button doneAdding;
@@ -35,8 +32,8 @@ public class CirclesActivity extends AppCompatActivity implements NewCircleDialo
 
 
         mFragmentManager = getSupportFragmentManager();
-        GridView gridview = (GridView) findViewById(R.id.circlesGridView);
-        gridview.setAdapter(new CirclesAdapter(this, user_names));
+        GridView gridview = findViewById(R.id.circlesGridView);
+//        gridview.setAdapter(new CirclesAdapter(this, user_names));
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,7 +49,7 @@ public class CirclesActivity extends AppCompatActivity implements NewCircleDialo
     public void addCircle(View v) {
         FragmentManager fm = getSupportFragmentManager();
         NewCircleDialog circleNameDialog = new NewCircleDialog();
-        circleNameDialog.show(fm, "fragment_edit_name");
+        circleNameDialog.show(fm, getString(R.string.fragment_edit_name));
 
 
     }

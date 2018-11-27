@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -89,10 +88,10 @@ public class MainActivity extends BaseActivity
 
         mNavigationView.setNavigationItemSelectedListener(this);
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Discover");
+        toolbar.setTitle(getString(R.string.discover));
         ActionBarDrawerToggle mDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
-                R.string.app_name);
+                        R.string.app_name);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
@@ -129,7 +128,6 @@ public class MainActivity extends BaseActivity
             signup.setVisibility(View.INVISIBLE);
             member.setText("");
             login.setText("");
-            Log.d("MAIN", "DONE");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,7 +160,6 @@ public class MainActivity extends BaseActivity
 //            login.setText(sharedpreferences.getString(login1,""));
 //        }
 
-        return;
     }
 
     // SignUp from Navigation drawer button
@@ -198,7 +195,7 @@ public class MainActivity extends BaseActivity
             toolbar.setTitle("Create");
             mDrawerLayout.closeDrawers();
         } else {
-            Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getString(R.string.please_login_first), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -230,38 +227,38 @@ public class MainActivity extends BaseActivity
                 FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
                 xfragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
                 toolbar = findViewById(R.id.toolbar);
-                toolbar.setTitle("Create");
+                toolbar.setTitle(getString(R.string.create));
             } else {
-                Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.please_login_first, Toast.LENGTH_LONG).show();
             }
         }
         if (menuItem.getItemId() == R.id.nav_item_myleaps) {
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.containerView, new MyLeapsFragment()).commit();
             toolbar = findViewById(R.id.toolbar);
-            toolbar.setTitle("My Leaps");
+            toolbar.setTitle(getString(R.string.my_leaps));
         }
         if (menuItem.getItemId() == R.id.nav_item_circles) {
             if (LoginActivity.isFlag()) {
                 Intent intent = new Intent(getApplicationContext(), CirclesActivity.class);
                 startActivity(intent);
                 toolbar = findViewById(R.id.toolbar);
-                toolbar.setTitle("Circles");
+                toolbar.setTitle(getString(R.string.circles));
             } else {
-                Toast.makeText(getBaseContext(), "Please Login first", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), getString(R.string.please_login_first), Toast.LENGTH_LONG).show();
             }
         }
         if (menuItem.getItemId() == R.id.nav_item_logout) {
             Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
             startActivity(intent);
             toolbar = findViewById(R.id.toolbar);
-            toolbar.setTitle("Logout");
+            toolbar.setTitle(getString(R.string.logout));
         }
         if (menuItem.getItemId() == R.id.nav_item_settings) {
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.containerView, new SettingsFragment()).commit();
             toolbar = findViewById(R.id.toolbar);
-            toolbar.setTitle("Settings");
+            toolbar.setTitle(getString(R.string.settings));
         }
 
         return false;

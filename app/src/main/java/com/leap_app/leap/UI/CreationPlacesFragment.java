@@ -321,7 +321,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.must_implement_onfraginter));
         }
     }
 

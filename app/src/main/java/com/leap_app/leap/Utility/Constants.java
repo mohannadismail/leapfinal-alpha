@@ -59,6 +59,9 @@ public final class Constants {
     public static final String FIREBASE_PROPERTY_EMAIL = "email";
     public static final String FIREBASE_PROPERTY_USER_HAS_LOGGED_IN_WITH_PASSWORD = "hasLoggedInWithPassword";
     public static final String FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED_REVERSE = "timestampLastChangedReverse";
+    public static final String TAG_LEAP = "TAGleap";
+    public static final String TAG_LEAP_LAT = "Tagleaplat";
+    public static final String LEAP_ID = "LeapID";
     public static String FIREBASE_PROPERTY_Phone= "phone";
 
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.leap_app.leap.Models.LeapInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.CircleTransform;
+import com.leap_app.leap.Utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -49,8 +50,8 @@ public class LeapInfoActivity extends BaseActivity
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        leapid = this.getIntent().getStringExtra("LeapId");
-        Log.d("LeapID ", "" + leapid);
+        leapid = this.getIntent().getStringExtra(Constants.LEAP_ID);
+        Log.d(Constants.LEAP_ID, "" + leapid);
 
         TextView v1 = findViewById(R.id.leaptitle);
         v1.setText(LeapInfo.getLeapNameColumn(Integer.parseInt(leapid)));

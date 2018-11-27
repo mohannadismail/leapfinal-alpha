@@ -23,7 +23,6 @@ import java.util.Objects;
 
 
 public class LoginActivity extends BaseActivity {
-    private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static String s1 = "";
 
@@ -264,7 +263,7 @@ public class LoginActivity extends BaseActivity {
 
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), R.string.login_failed, Toast.LENGTH_LONG).show();
         flag = false;
         LoginBtn.setEnabled(true);
     }

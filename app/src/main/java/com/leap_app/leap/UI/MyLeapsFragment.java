@@ -2,6 +2,7 @@ package com.leap_app.leap.UI;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -22,7 +23,7 @@ public class MyLeapsFragment extends Fragment {
     public static int int_items = 2 ;
     public FloatingActionButton fab;
     @Nullable
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         /**
          *Inflate tab_layout and setup Views.
          */
@@ -61,7 +62,7 @@ public class MyLeapsFragment extends Fragment {
 
     class MyAdapter extends FragmentPagerAdapter {
 
-        public MyAdapter(FragmentManager fm) {
+        MyAdapter(FragmentManager fm) {
             super(fm);
         }
 

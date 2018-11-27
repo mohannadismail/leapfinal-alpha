@@ -23,15 +23,17 @@ public class LeapLatLon {
             c.moveToFirst();
         }
 
-        Log.d("TAGleap", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplat", "Value:" + c.getCount());
+        Log.d(Constants.TAG_LEAP, DatabaseUtils.dumpCursorToString(c));
+        Log.d(Constants.TAG_LEAP_LAT, String.valueOf(c != null ? c.getCount() : 0));
 
-        double[] s = new double[c.getCount()];
+        double[] s = c != null ? new double[c.getCount()] : new double[0];
         int i = 0;
-        while (!c.isAfterLast()) {
-            s[i] = (c.getDouble(0));
-            i++;
-            c.moveToNext();
+        if (c != null) {
+            while (!c.isAfterLast()) {
+                s[i] = (c.getDouble(0));
+                i++;
+                c.moveToNext();
+            }
         }
 
         return s;
@@ -46,8 +48,8 @@ public class LeapLatLon {
             c.moveToFirst();
         }
 
-        Log.d("TAGleap1", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplon", "Value:" + Objects.requireNonNull(c).getCount());
+        Log.d(Constants.TAG_LEAP, DatabaseUtils.dumpCursorToString(c));
+        Log.d(Constants.TAG_LEAP_LAT, String.valueOf(Objects.requireNonNull(c).getCount()));
 
         double[] s = new double[c.getCount()];
         int i = 0;
@@ -71,12 +73,6 @@ public class LeapLatLon {
             z1[j] = Math.sin(Math.toRadians(lat[j]));
         }
 
-        Log.d("LatJ ", "" + lat.length + lon.length);
-
-        Log.d("X1 ", "" + x1.length);
-        Log.d("Y1 ", "" + y1.length);
-        Log.d("Z1 ", "" + z1.length);
-
         double x = 0;
         for (double aX1 : x1) {
             x = x + aX1;
@@ -95,18 +91,12 @@ public class LeapLatLon {
         }
         z = z / z1.length;
 
-        Log.d("Xval ", "" + x);
-        Log.d("Yval ", "" + y);
-        Log.d("Zval ", "" + z);
-
         double leaplon1 = Math.atan2(y, x);
         double hyp = Math.sqrt((x * x) + (y * y));
         double leaplat1 = Math.atan2(z, hyp);
 
         double leaplon = Math.toDegrees(leaplon1);
         double leaplat = Math.toDegrees(leaplat1);
-
-        Log.d("TAGCenter", " " + leaplat + leaplon);
 
         return new double[]{leaplat, leaplon};
     }
@@ -118,9 +108,6 @@ public class LeapLatLon {
         if (c != null) {
             c.moveToFirst();
         }
-
-        Log.d("TAG6", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplat1", "Value:" + Objects.requireNonNull(c).getCount());
 
         double[] s = new double[c.getCount()];
         int i = 0;
@@ -141,16 +128,19 @@ public class LeapLatLon {
             c.moveToFirst();
         }
 
-        Log.d("TAG7", DatabaseUtils.dumpCursorToString(c));
-        Log.d("Tagleaplon1", "Value:" + Objects.requireNonNull(c).getCount());
-
-        double[] s = new double[c.getCount()];
-        int i = 0;
-        while (!c.isAfterLast()) {
-            s[i] = (c.getDouble(0));
-            i++;
-            c.moveToNext();
+        double[] s = new double[0];
+        if (c != null) {
+            s = new double[c.getCount()];
         }
+        int i = 0;
+        if (c != null) {
+            while (!c.isAfterLast()) {
+                s[i] = (c.getDouble(0));
+                i++;
+                c.moveToNext();
+            }
+        }
+        assert c != null;
         c.close();
         return s;
     }

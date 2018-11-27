@@ -1,6 +1,7 @@
 package com.leap_app.leap.UI;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.leap_app.leap.R;
+
+import java.util.Objects;
 
 
 public class NewCircleDialog extends DialogFragment implements TextView.OnEditorActionListener {
@@ -30,11 +33,11 @@ public class NewCircleDialog extends DialogFragment implements TextView.OnEditor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_new_cricle_popup, container);
         mEditText = view.findViewById(R.id.new_circle_name);
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        Objects.requireNonNull(getDialog().getWindow()).requestFeature(Window.FEATURE_NO_TITLE);
 
         // Show soft keyboard automatically
         mEditText.requestFocus();
@@ -55,6 +58,7 @@ public class NewCircleDialog extends DialogFragment implements TextView.OnEditor
             @Override
             public void onClick(View v) {
                 EditNameDialogListener activity = (EditNameDialogListener) getActivity();
+                assert activity != null;
                 activity.onFinishEditDialog(mEditText.getText().toString());
                 NewCircleDialog.this.dismiss();
             }
@@ -68,6 +72,7 @@ public class NewCircleDialog extends DialogFragment implements TextView.OnEditor
         if (EditorInfo.IME_ACTION_DONE == actionId) {
             // Return input text to activity
             EditNameDialogListener activity = (EditNameDialogListener) getActivity();
+            assert activity != null;
             activity.onFinishEditDialog(mEditText.getText().toString());
             this.dismiss();
             return true;

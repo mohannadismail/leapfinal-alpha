@@ -10,19 +10,15 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.leap_app.leap.Adapter.InviteCirclesAdapter;
 import com.leap_app.leap.R;
 
 
 public class InviteCirclesTab extends Fragment {
-    static final String[] circles = new String[]{
-            "Family", "Friends", "Shella", "Nas Keda", "Block"};
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.invite_circles_tab, container, false);
         GridView gridview = view.findViewById(R.id.inviteCircles);
-        gridview.setAdapter(new InviteCirclesAdapter(getContext(), circles));
+//        gridview.setAdapter(new InviteCirclesAdapter(getContext(), circles));
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

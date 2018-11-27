@@ -163,7 +163,7 @@ public class CreationInfoFragment extends Fragment {
 
 //                    leapBaseInfooo = new LeapBaseInfo(leapTitle.getText().toString(), leapDesc.getText().toString(), leapLocation.getText().toString(), leapPrice.getText().toString(), dateText.getText().toString(), timeText.getText().toString());
                 flagg = true;
-                Toast.makeText(getContext(), "Info Saved, go to add your Places", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.info_saved_go_places, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -181,7 +181,7 @@ public class CreationInfoFragment extends Fragment {
             public void onClick(View v) {
                 android.support.v4.app.FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 DatePickerFragment dialog = new DatePickerFragment();
-                dialog.show(fm, "datePicker");
+                dialog.show(fm, getString(R.string.datepicker));
             }
         });
         timeText.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +189,7 @@ public class CreationInfoFragment extends Fragment {
             public void onClick(View v) {
                 android.support.v4.app.FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
                 TimePickerFragment dialog = new TimePickerFragment();
-                dialog.show(fm, "timePicker");
+                dialog.show(fm, getString(R.string.timepicker));
             }
 
         });

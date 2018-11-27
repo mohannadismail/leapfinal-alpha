@@ -1,6 +1,7 @@
 package com.leap_app.leap.UI;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -19,18 +20,19 @@ import com.leap_app.leap.R;
 public class Invite extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
+    public static int int_items = 2;
     public Button Next;
-    public static int int_items = 2 ;
     public FloatingActionButton fab;
+
     @Nullable
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
 
         /**
          *Inflate tab_layout and setup Views.
          */
 
-        View x =  inflater.inflate(R.layout.invite,null);
+        View x = inflater.inflate(R.layout.invite, null);
         tabLayout = x.findViewById(R.id.invite_tabs);
         viewPager = x.findViewById(R.id.inviteViewPager);
         Next = x.findViewById(R.id.next);
@@ -42,8 +44,6 @@ public class Invite extends Fragment {
                 confirm.show(fm, "confirm");
             }
         });
-
-
 
 
         /**
@@ -65,8 +65,6 @@ public class Invite extends Fragment {
         });
 
 
-
-
         return x;
 
     }
@@ -82,11 +80,12 @@ public class Invite extends Fragment {
          */
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position)
-        {
-            switch (position){
-                case 0 : return new InviteCirclesTab();
-                case 1 :return new InviteContactsTab();
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new InviteCirclesTab();
+                case 1:
+                    return new InviteContactsTab();
             }
             return null;
         }
@@ -105,11 +104,11 @@ public class Invite extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position){
-                case 0 :
-                    return "Circles";
-                case 1 :
-                    return "Contacts";
+            switch (position) {
+                case 0:
+                    return getString(R.string.circles);
+                case 1:
+                    return getString(R.string.contacts);
             }
             return null;
         }

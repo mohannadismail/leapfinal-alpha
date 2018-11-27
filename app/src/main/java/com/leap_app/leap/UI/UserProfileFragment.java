@@ -93,13 +93,13 @@ public class UserProfileFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Created";
+                    return getString(R.string.created);
                 case 1 :
-                    return "Leaped";
+                    return getString(R.string.leaped);
                 case 2 :
-                    return "Likes";
+                    return getString(R.string.likes);
                 case 3 :
-                    return "Reviews";
+                    return getString(R.string.reviewss);
 
 
             }

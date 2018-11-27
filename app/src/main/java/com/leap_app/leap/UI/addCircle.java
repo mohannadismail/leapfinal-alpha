@@ -15,14 +15,14 @@ public class addCircle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_circle);
-        final String title = getIntent().getStringExtra(Constants.KEY).toString();
+        final String title = getIntent().getStringExtra(Constants.KEY);
         setTitle(title);
-        Button doneEditing = (Button) findViewById(R.id.done_editing);
+        Button doneEditing = findViewById(R.id.done_editing);
         doneEditing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(addCircle.this, CircleDetails.class);
-                i.putExtra("key", title);
+                i.putExtra(getString(R.string.key), title);
                 startActivity(i);
             }
         });

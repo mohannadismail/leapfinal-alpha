@@ -19,6 +19,7 @@ public class LeapApplication extends MultiDexApplication {
         Firebase.setAndroidContext(this);
         /* Enable disk persistence  */
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
+
     }
     @Override
     protected void attachBaseContext(Context base) {

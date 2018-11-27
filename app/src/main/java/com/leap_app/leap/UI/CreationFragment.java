@@ -2,6 +2,7 @@ package com.leap_app.leap.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,7 @@ public class CreationFragment extends Fragment {
 
 
     @Nullable
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         /**
          *Inflate tab_layout and setup Views.
          */
@@ -92,7 +93,7 @@ public class CreationFragment extends Fragment {
 //                        MainActivity.instance.fillTextview(s);
 //                        LoginActivity.flag = true;
 //                        c.close();
-                        Toast.makeText(getContext(), "Leap Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.leap_saved, Toast.LENGTH_SHORT).show();
                         CreationInfoFragment.setFlagg(false);
 
 //
@@ -175,7 +176,7 @@ public class CreationFragment extends Fragment {
 
     class MyAdapter extends FragmentPagerAdapter {
 
-        public MyAdapter(FragmentManager fm) {
+        MyAdapter(FragmentManager fm) {
             super(fm);
         }
 

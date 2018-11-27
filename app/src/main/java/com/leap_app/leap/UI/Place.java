@@ -33,8 +33,8 @@ public class Place extends FragmentActivity implements OnMapReadyCallback {
     private String leapid;
 
     protected void onCreate(Bundle savedInstanceState) {
-        leapid = this.getIntent().getStringExtra("LeapPlace");
-        Log.d("LeapPlace ", "" + leapid);
+        leapid = this.getIntent().getStringExtra(getString(R.string.leapplace));
+        Log.d(getString(R.string.place_category), leapid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_view);
 
@@ -71,7 +71,13 @@ public class Place extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onMapClick(LatLng point) {
 
-                if (slidingUpPanelLayout.getPanelState().equals(EXPANDED) | slidingUpPanelLayout.getPanelState().equals(ANCHORED)) {
+                if (slidingUpPanelLayout
+                        .getPanelState()
+                        .equals(EXPANDED)
+                        | slidingUpPanelLayout
+                        .getPanelState()
+                        .equals(ANCHORED)) {
+
                     slidingUpPanelLayout.setPanelState(HIDDEN);
                 }
             }

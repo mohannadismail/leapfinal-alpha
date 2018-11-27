@@ -33,14 +33,14 @@ public class SettingsFragment extends Fragment{
         contactsOnly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(container, "Uncheck to receive invitations from anyone.", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(container, R.string.uncheck_receive_anyone, Snackbar.LENGTH_SHORT).show();
 
             }
         });
         publicLeaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(container, "Can be changed for each leap!", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(container, R.string.changed_for_leap, Snackbar.LENGTH_SHORT).show();
 
             }
         });

@@ -2,6 +2,7 @@ package com.leap_app.leap.UI;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,20 +16,21 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.model.LatLng;
 import com.leap_app.leap.R;
 
-public class DiscoverTabsFragment extends Fragment  {
+public class DiscoverTabsFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 2 ;
+    public static int int_items = 2;
     final LatLng Mansoura = new LatLng(31.0409483, 31.3784704);
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /**
          *Inflate tab_layout and setup Views.
          */
 
-        View x =  inflater.inflate(R.layout.tab_layout,null);
+        View x = inflater.inflate(R.layout.tab_layout, null);
         tabLayout = x.findViewById(R.id.tabs);
         viewPager = x.findViewById(R.id.viewpager);
 
@@ -54,7 +56,7 @@ public class DiscoverTabsFragment extends Fragment  {
 
     }
 
-    class MyAdapter extends FragmentPagerAdapter{
+    class MyAdapter extends FragmentPagerAdapter {
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -65,11 +67,12 @@ public class DiscoverTabsFragment extends Fragment  {
          */
 
         @Override
-        public Fragment getItem(int position)
-        {
-            switch (position){
-                case 0 : return new DiscoverLeapsFragment();
-                case 1 :return DiscoverMapFragment.newInstance(Mansoura);
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new DiscoverLeapsFragment();
+                case 1:
+                    return DiscoverMapFragment.newInstance(Mansoura);
             }
             return null;
         }
@@ -88,11 +91,11 @@ public class DiscoverTabsFragment extends Fragment  {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position){
-                case 0 :
-                    return "LEAPS";
-                case 1 :
-                    return "MAP";
+            switch (position) {
+                case 0:
+                    return getString(R.string.leaps);
+                case 1:
+                    return getString(R.string.map);
             }
             return null;
         }

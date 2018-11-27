@@ -3,6 +3,7 @@ package com.leap_app.leap.UI;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -10,12 +11,14 @@ import android.widget.TimePicker;
 import com.leap_app.leap.R;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 public class TimePickerFragment extends android.support.v4.app.DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
     TextView timeText;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
@@ -29,13 +32,16 @@ public class TimePickerFragment extends android.support.v4.app.DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        timeText = getActivity().findViewById(R.id.time_spinner);
+        timeText = Objects.requireNonNull(getActivity()).findViewById(R.id.time_spinner);
         onTimeUpdated(hourOfDay, minute);
 
 
     }
 
     public void onTimeUpdated(int hours, int minutes) {
-        timeText.setText(String.valueOf(hours) + " : " + String.valueOf(minutes));
+        timeText.setText(new StringBuilder()
+                .append(String.valueOf(hours))
+                .append(" : ")
+                .append(String.valueOf(minutes)).toString());
     }
 }
