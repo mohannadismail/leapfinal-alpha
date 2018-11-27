@@ -3,24 +3,29 @@ package com.leap_app.leap.UI;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import com.firebase.client.Firebase;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
 
 
-public class LogoutActivity extends AppCompatActivity {
+public class LogoutActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
-//        firebase.unauth();
-//        MainActivity.instance.clearTextview();
+        Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+        firebase.unauth();
+        try {
+            MainActivity.class.newInstance().clearTextview();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         final ProgressDialog progressDialog = new ProgressDialog(LogoutActivity.this,
                 R.style.AppTheme);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Logging out...");
+        progressDialog.setMessage(getString(R.string.logging_out_msg));
         progressDialog.show();
 
 
@@ -34,7 +39,7 @@ public class LogoutActivity extends AppCompatActivity {
                         LoginActivity.setFlag(false);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        // onLoginFailed();
+//                         onLoginFailed();
 
                     }
                 }, 3000);

@@ -12,11 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leap_app.leap.Adapter.DiscoverLeapsAdapter;
-import com.leap_app.leap.Models.Leap;
 import com.leap_app.leap.R;
-
-import java.util.List;
+import com.leap_app.leap.Utility.FireDatabase;
 
 
 /**
@@ -81,10 +78,12 @@ public class DiscoverLeapsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaps, container, false);
         FragmentActivity context = getActivity();
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
+        RecyclerView rv = view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
         context = this.getActivity();
+        FireDatabase fireDatabase = new FireDatabase();
+        fireDatabase.getLeaps();
 //        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
 //        rv.setAdapter(adapter);
 
@@ -105,7 +104,7 @@ public class DiscoverLeapsFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.must_implement_onfraginter));
         }
     }
 

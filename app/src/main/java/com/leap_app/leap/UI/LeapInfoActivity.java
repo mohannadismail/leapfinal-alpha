@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +24,8 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 
-public class LeapInfoActivity extends AppCompatActivity implements NewCircleDialog.EditNameDialogListener {
+public class LeapInfoActivity extends BaseActivity
+        implements NewCircleDialog.EditNameDialogListener {
 
     public String leapid;
     private RatingBar ratingBar;

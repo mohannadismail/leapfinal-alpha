@@ -8,12 +8,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapProvider;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
+@IgnoreExtraProperties
 public class Leap implements Parcelable {
     private Context context;
     private String name;
@@ -30,7 +32,7 @@ public class Leap implements Parcelable {
         this.leapId = leapId;
     }
 
-    public static List<Leap> leaps;
+    private ArrayList<Leap> leaps;
 
     protected Leap(Parcel in) {
         name = in.readString();
@@ -51,6 +53,9 @@ public class Leap implements Parcelable {
             return new Leap[size];
         }
     };
+
+    public Leap() {
+    }
 
     private static String[] getNameColumn() {
 
@@ -214,12 +219,12 @@ public class Leap implements Parcelable {
         this.leapId = leapId;
     }
 
-    public static List<Leap> getLeaps() {
+    public ArrayList<Leap> getLeaps() {
         return leaps;
     }
 
-    public static void setLeaps(List<Leap> leaps) {
-        Leap.leaps = leaps;
+    public void setLeaps(ArrayList<Leap> leaps) {
+        this.leaps = leaps;
     }
 
     @Override

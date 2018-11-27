@@ -12,7 +12,7 @@ public final class Constants {
      * Constants related to locations in Firebase, such as the name of the node
      * where user lists are stored
      */
-    public static final String FIREBASE_Leap = "LeapRamy";
+    public static final String FIREBASE_Leap = "https://leapappeg.firebaseio.com/leap/Leap";
     public static final String FIREBASE_LEAP_USERS = "users";
     public static final String FIREBASE_LEAP_PLACES = "places";
     public static final String FIREBASE_USER_FRIENDS = "userFollow";
