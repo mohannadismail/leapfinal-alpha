@@ -8,4 +8,5 @@
     <color name="white">#FFF</color>
     <color name="gray">#606060</color>
     <color name="overlaygray">#e0e0e0</color>
+    <color name="textColor">#95FFFFff</color>
 </resources>

@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="320dp"
     android:layout_height="500dp"
     android:layout_gravity="center"
-    android:elevation="16dp"
-    >
+    android:elevation="@dimen/elev6">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:gravity="top"
-        android:title="@string/Confirmation_Rule"
-        android:minHeight="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        app:titleTextColor="@color/white"
+        android:gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/Confirmation_Rule"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleMarginTop="15dp" />
+        app:titleMarginTop="@dimen/margin16"
+        app:titleTextColor="@color/white" />
+
     <TextView
+        android:id="@+id/ruleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/rule_text"
-        android:textSize="24sp"
-        android:id="@+id/ruleText"
-        android:gravity="center"
-        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/margin_8"
+        android:gravity="center"
+        android:text="@string/rule_text"
+        android:textSize="@dimen/text24" />
+
     <Spinner
+        android:id="@+id/rule_spinner"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_margin="16dp"
         android:layout_below="@id/ruleText"
         android:layout_centerHorizontal="true"
 
-        android:id="@+id/rule_spinner"
+        android:layout_margin="@dimen/margin16"
         android:theme="@style/Base.Widget.AppCompat.DropDownItem.Spinner" />
-
 
 
 </RelativeLayout>

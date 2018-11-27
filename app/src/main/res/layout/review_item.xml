@@ -3,9 +3,9 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:elevation="2dp"
-    card_view:cardCornerRadius="4dp">
+    android:layout_margin="@dimen/margin_8"
+    android:elevation="@dimen/elev2"
+    card_view:cardCornerRadius="@dimen/margin4">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,36 +16,37 @@
             android:id="@+id/usercard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
+            android:elevation="@dimen/elev2"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
+                android:layout_width="@dimen/size48"
+                android:layout_height="@dimen/size48"
+                android:layout_margin="@dimen/margin_8"
+                android:contentDescription="@string/profile"
                 android:src="@drawable/ic_account_circle_black_48px_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_8"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/userreview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ahmad Adel"
-                    android:textSize="16sp" />
+                    android:text="@string/ahmad_adel"
+                    android:textSize="@dimen/text16" />
 
                 <TextView
                     android:id="@+id/datereview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:text="@string/currentDate"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text12" />
 
 
             </LinearLayout>
@@ -55,26 +56,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_8"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Had an amazing time !"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text16" />
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp">
+                android:layout_margin="@dimen/margin_8">
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="It was great seeing you all again. Hope to see you again soon."
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text12" />
             </ScrollView>
         </LinearLayout>
 

@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/margin_8"
     android:background="@color/white"
-    android:elevation="8dp"
+    android:elevation="@dimen/margin_8"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/margin_8">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="8dp">
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:padding="@dimen/margin_8">
 
         <EditText
             android:id="@+id/new_circle_name"
@@ -40,7 +40,7 @@
             android:onClick="CancelCreateCircle"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text12" />
 
         <Button
             android:id="@+id/circle_name_done"
@@ -52,7 +52,7 @@
             android:onClick="CreateNewCircle"
             android:text="@string/done"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text12" />
 
     </LinearLayout>
 </LinearLayout>

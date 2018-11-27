@@ -9,11 +9,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cv"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:elevation="6dp"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin4"
+            android:layout_marginRight="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin4"
+            android:elevation="@dimen/elev6"
             card_view:cardCornerRadius="0dp"
             >
             <include

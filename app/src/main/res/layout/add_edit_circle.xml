@@ -10,22 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_bar"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/margin16"
+        android:layout_marginRight="@dimen/margin16"
         android:gravity="center"
-        android:horizontalSpacing="8dp"
+        android:horizontalSpacing="@dimen/margin_8"
         android:numColumns="4"
-        android:verticalSpacing="8dp" />
+        android:verticalSpacing="@dimen/margin_8" />
 
     <SearchView
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginLeft="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin_8" />
 
     <Button
         android:id="@+id/done_editing"

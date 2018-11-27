@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="wrap_content"
         android:layout_height="320dp"
-        android:elevation="8dp"
+        android:elevation="@dimen/margin_8"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -45,9 +45,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_margin="8dp"
+                        android:layout_margin="@dimen/margin_8"
                         android:orientation="vertical"
-                        android:padding="8dp"
+                        android:padding="@dimen/margin_8"
                         android:theme="@style/AlertDialog.AppCompat.Light">
 
                         <TextView
@@ -64,11 +64,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#95FFFFFF"
-                            android:textSize="12sp"
+                            android:drawableStart="@drawable/ic_my_location_black_24px"
                             android:text="@string/City"
                             android:drawablePadding="2dp"
                             android:drawableLeft="@drawable/ic_my_location_black_24px"
-                            android:drawableStart="@drawable/ic_my_location_black_24px"/>
+                            android:textSize="@dimen/text12"
+                            tools:ignore="RtlHardcoded" />
 
                     </LinearLayout>
 
@@ -76,27 +77,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="8dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/margin_8"
                         android:orientation="vertical"
-                        android:padding="8dp">
+                        android:padding="@dimen/margin_8">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Approx."
-                            android:textSize="16sp" />
+                            android:text="@string/approx"
+                            android:textSize="@dimen/text16" />
 
                         <TextView
                             android:id="@+id/leapprice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/text12"
                             android:textStyle="normal"
-                            tools:text="100 L.E" />
+                            tools:text="@string/le100" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -131,35 +132,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="@dimen/margin_8">
 
                 <ImageView
                     android:id="@+id/profile"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_width="@dimen/size48"
+                    android:layout_height="@dimen/size48"
+                    android:layout_margin="@dimen/margin_8"
                     android:src="@drawable/ic_account_circle_black_48px" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="@dimen/margin_8">
 
                     <TextView
                         android:id="@+id/leapuser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/text16"
                         tools:text="Ibrahim Mohammed" />
 
                     <TextView
                         android:id="@+id/numofleaps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/margin_8"
                         android:layout_marginLeft="2dp"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text12"
                         tools:text="25 Leaps" />
                 </LinearLayout>
             </LinearLayout>
@@ -171,14 +172,14 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:background="@color/cardview_light_background"
-                android:elevation="1dp" />
+                android:elevation="@dimen/elev1" />
 
 
             <ImageView
                 android:id="@+id/mapIm"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_8"
                 android:onClick="viewMap"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mapscrsht2" />
@@ -196,24 +197,24 @@
                 android:id="@+id/leapDisc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:elevation="1dp"
+                android:layout_margin="@dimen/margin_8"
+                android:elevation="@dimen/elev1"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:padding="@dimen/margin_8"
                     android:text="@string/description"
                     android:textColor="@color/gray"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text16"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:padding="@dimen/margin_8"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     tools:text="dasdqwjk maspdainon askdmonqflk asmdkoncklnaskono ammcoinmlkkcmms capsjmpocmpsadpoj cpqojd[salkknciof" />
@@ -231,32 +232,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:elevation="1dp"
+                android:layout_marginLeft="@dimen/margin_8"
+                android:layout_marginRight="@dimen/margin_8"
+                android:elevation="@dimen/elev1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="@dimen/margin_8">
 
                 <ImageView
                     android:id="@+id/profilerev"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_width="@dimen/size48"
+                    android:layout_height="@dimen/size48"
+                    android:layout_margin="@dimen/margin_8"
                     android:src="@drawable/ic_account_circle_black_48px" />
 
                 <TextView
                     android:id="@+id/usernamereview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text16"
                     tools:text="El-Shaba7" />
 
                 <RatingBar
                     android:id="@+id/ratingBar1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:numStars="5"
                     android:theme="@style/RatingBar"/>
             </LinearLayout>
@@ -268,7 +269,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:background="@color/cardview_light_background"
-                android:elevation="1dp" />
+                android:elevation="@dimen/elev1" />
 
             <include layout="@layout/review_item" />
         </LinearLayout>

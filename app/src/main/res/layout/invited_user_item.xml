@@ -3,12 +3,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="8dp">
+    android:padding="@dimen/margin_8">
 
     <ImageView
         android:id="@+id/user_account_circle"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="@dimen/size75"
+        android:layout_height="@dimen/size75"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/Invited_User_Profile_Photo"
         android:gravity="center"
@@ -19,20 +19,19 @@
         style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/user_account_circle"
-        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
-        android:text="User Name" />
+        android:text="@string/user_name" />
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/user_checkbox"
         style="Widget.Holo.Light.CompoundButton.CheckBox"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/size25"
+        android:layout_height="@dimen/size25"
         android:layout_alignEnd="@+id/user_account_circle"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/user_account_circle"
         android:checked="true"
-        android:elevation="2dp" />
+        android:elevation="@dimen/margin4" />
 </RelativeLayout>

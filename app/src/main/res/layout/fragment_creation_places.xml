@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="@dimen/fab_margin"
+        android:elevation="@dimen/margin4"
         android:src="@drawable/vector_drawable_ic_add_location_white___px"
-        android:elevation="4dp"
-        android:textColor="@color/white"
-        android:layout_margin="@dimen/fab_margin" />
+        android:textColor="@color/white" />
+
     <android.support.v7.widget.RecyclerView
-        android:layout_gravity="center"
+        android:id="@+id/creation_places_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/creation_places_list"/>
+        android:layout_gravity="center" />
 
     <!--<include layout="@layout/creation_place_item"/>-->
-
 
 
 </LinearLayout>

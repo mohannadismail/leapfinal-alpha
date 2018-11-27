@@ -11,27 +11,26 @@
         android:gravity="top"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleMarginTop="15dp" />
+        app:titleMarginTop="@dimen/margin16" />
 
 
     <ImageView
         android:id="@+id/header_confirm"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/size250"
         android:background="@drawable/mapscrsht2"
         android:fitsSystemWindows="true"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/leaptitle_Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/header_confirm"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin16"
         android:text="@string/LeapTitle"
         android:textColor="#ffe"
-        android:textSize="16sp"
+        android:textSize="@dimen/text16"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -43,30 +42,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Rule"
-            android:textSize="16sp"
+            android:layout_margin="@dimen/margin16"
+            android:text="@string/rule"
+            android:textSize="@dimen/text16"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="16dp"
-            android:text="0/10"
-            android:textSize="16sp"/>
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginBottom="@dimen/margin16"
+            android:text="@string/_0_10"
+            android:textSize="16sp" />
     </LinearLayout>
+
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/view"
         android:layout_below="@+id/ruleid"
-        android:layout_marginBottom="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/cardview_light_background"
         android:elevation="1dp" />
+
     <TextView
         android:id="@+id/pending"
         android:layout_width="wrap_content"
@@ -74,9 +75,9 @@
         android:layout_below="@id/view"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Pending"
+        android:text="@string/pending"
         android:textColor="@color/orange"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/text16" />
 
     <TextView
         android:id="@+id/invited_users"
@@ -84,10 +85,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pending"
         android:layout_centerHorizontal="true"
-        android:layout_margin="16dp"
-        android:text="Invited Users"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:layout_margin="@dimen/margin16"
+        android:text="@string/invited_users"
+        android:textSize="@dimen/text16"
+        android:textStyle="bold" />
 
     <GridView
         android:id="@+id/invited_users_grid"
@@ -97,30 +98,30 @@
 
     <LinearLayout
         android:id="@+id/button_bar"
-        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark">
 
         <Button
             android:id="@+id/leap_invite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="12sp"
             android:background="@color/colorPrimary"
             android:text="@string/decline"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text12" />
 
         <Button
             android:id="@+id/leap_done"
-            android:textSize="12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="@string/accept"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text12" />
 
 
     </LinearLayout>

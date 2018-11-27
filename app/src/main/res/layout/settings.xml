@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:layout_margin="@dimen/margin_8"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/margin_8"
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/publicSearch"
@@ -20,26 +20,28 @@
             android:layout_weight="3"
             android:layoutDirection="rtl"
             android:text="@string/publicSearch"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
 
         <ImageButton
+            android:id="@+id/publicSearchInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_info"
             android:layout_gravity="center_vertical"
-            android:id="@+id/publicSearchInfo"/>
+            android:background="@color/white"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_8"
         android:background="@color/cardview_light_background" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/margin_8"
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/contactsOnly"
@@ -49,28 +51,28 @@
             android:layout_weight="3"
             android:layoutDirection="rtl"
             android:text="@string/contactsOnly"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
 
         <ImageButton
+            android:id="@+id/contactsOnlyInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_info"
             android:layout_gravity="center_vertical"
-            android:id="@+id/contactsOnlyInfo"/>
+            android:background="@color/white"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_8"
         android:background="@color/cardview_light_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/margin_8"
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/publicLeaps"
@@ -80,19 +82,20 @@
             android:layout_weight="3"
             android:layoutDirection="rtl"
             android:text="@string/publicLeaps"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
 
         <ImageButton
+            android:id="@+id/publicLeapsInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/ic_info"
             android:layout_gravity="center_vertical"
-            android:id="@+id/publicLeapsInfo"/>
+            android:background="@color/white"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_8"
         android:background="@color/cardview_light_background" />
 </LinearLayout>

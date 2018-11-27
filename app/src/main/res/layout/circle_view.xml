@@ -14,7 +14,7 @@
         android:onClick="EditCircle"
         android:text="@string/edit"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text16" />
 
     <GridView
         android:id="@+id/friendsGridView"
@@ -22,8 +22,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:horizontalSpacing="8dp"
+        android:horizontalSpacing="@dimen/margin_8"
         android:numColumns="3"
-        android:verticalSpacing="8dp" />
+        android:verticalSpacing="@dimen/margin_8" />
 
 </RelativeLayout>

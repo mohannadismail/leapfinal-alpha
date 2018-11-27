@@ -16,12 +16,12 @@
         <ImageView
             android:id="@+id/user_cover"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/size150"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
             android:background="@drawable/beach"
-            android:padding="16dp"
-            android:elevation="2dp"
+            android:elevation="@dimen/elev2"
+            android:padding="@dimen/margin16"
             android:scaleType="centerCrop" />
 
 
@@ -40,17 +40,18 @@
                 android:background="@color/white"
                 android:numStars="5"
                 android:stepSize="0.5"
-                android:theme="@style/RatingBar"/>
+                android:theme="@style/RatingBar" />
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
-            android:background="@color/cardview_light_background" />
+            android:layout_height="@dimen/elev1"
+            android:layout_marginLeft="@dimen/margin4"
+            android:layout_marginRight="@dimen/margin4"
+            android:background="@color/cardview_light_background"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8" />
 
         <EditText
             android:id="@+id/review_title"
@@ -58,34 +59,36 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="@string/reviewTitle"
-            android:padding="8dp"
+            android:padding="@dimen/margin_8"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
-            android:background="@color/cardview_light_background" />
+            android:layout_height="@dimen/elev1"
+            android:layout_marginLeft="@dimen/margin4"
+            android:layout_marginRight="@dimen/margin4"
+            android:background="@color/cardview_light_background"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="@string/description"
-            android:padding="8dp"
+            android:padding="@dimen/margin_8"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
-            android:background="@color/cardview_light_background" />
+            android:layout_height="@dimen/elev1"
+            android:layout_marginLeft="@dimen/margin4"
+            android:layout_marginRight="@dimen/margin4"
+            android:background="@color/cardview_light_background"
+            android:paddingTop="@dimen/margin_8"
+            android:paddingBottom="@dimen/margin_8" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +109,7 @@
                 android:background="@color/white"
                 android:text="@string/cancel"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text12" />
 
             <Button
                 android:id="@+id/submitReview"
@@ -116,7 +119,7 @@
                 android:background="@color/white"
                 android:text="@string/submit"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text12" />
 
 
         </LinearLayout>
@@ -126,8 +129,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/size75"
+        android:layout_height="@dimen/size75"
         android:layout_centerHorizontal="true"
         android:src="@drawable/account_circle" />
 

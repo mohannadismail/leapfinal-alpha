@@ -5,12 +5,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="@dimen/size200">
 
         <ImageView
             android:id="@+id/LeapImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/size200"
+            android:contentDescription="@string/leap_image"
             android:scaleType="centerCrop"
             android:src="@drawable/materialbackgroundred" />
 
@@ -27,23 +28,23 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/LeapName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/LeapName"
-                    android:layout_marginLeft="8dp"
-                    android:text="Studying Time"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:text="@string/studying_time"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text24" />
 
                 <TextView
                     android:id="@+id/LeapCreator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Creator"
-                    android:textColor="#95FFFFff"
+                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin16"
+                    android:text="@string/creator"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -51,9 +52,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/margin_8"
                 android:orientation="vertical">
 
                 <TextView
@@ -61,8 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Approx."
-                    android:textColor="#95FFFFFF"
+                    android:text="@string/approx"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
 
                 <TextView
@@ -70,10 +71,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="100 L.E"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:text="@string/le100"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text24"
                     android:textStyle="normal" />
+
                 <TextView
                     android:id="@+id/Leapid"
                     android:layout_width="0dp"

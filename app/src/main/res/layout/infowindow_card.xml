@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
     android:id="@+id/Infocard"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-<RelativeLayout
-    android:layout_width="210dp"
-    android:layout_height="125dp"
-    android:gravity="center"
-    android:background="#49FF0F0F">
+
     <RelativeLayout
-        android:layout_width="200dp"
-        android:layout_height="115dp"
-        >
+        android:layout_width="210dp"
+        android:layout_height="125dp"
+        android:background="#49FF0F0F"
+        android:gravity="center">
 
         <!--<ImageView-->
-            <!--android:id="@+id/LeapImageIW"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@drawable/leappic2" />-->
+        <!--android:id="@+id/LeapImageIW"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/leappic2" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,60 +30,60 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/LeapNameIW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/LeapNameIW"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="@dimen/margin_8"
                     android:layout_marginBottom="30dp"
-                    android:text="Studying Time"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:text="@string/studying_time"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text24" />
 
                 <TextView
                     android:id="@+id/LeapCreatorIW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Creator"
+                    android:layout_marginStart="@dimen/margin16"
+                    android:layout_marginTop="@dimen/margin4"
+                    android:layout_marginBottom="@dimen/margin16"
+                    android:text="@string/creator"
                     android:textColor="#95FFFFff"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text16" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:orientation="vertical">
 
                 <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="Approx."-->
-                    <!--android:textColor="#95FFFFFF"-->
-                    <!--android:textSize="16sp" />-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Approx."-->
+                <!--android:textColor="#95FFFFFF"-->
+                <!--android:textSize="@dimen/text16" />-->
 
                 <TextView
                     android:id="@+id/LeapPriceIW"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="100 L.E"
+                    android:text="@string/le100"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="normal" />
+
                 <TextView
                     android:id="@+id/LeapidIW"
                     android:layout_width="0dp"
                     android:layout_height="0dp" />
             </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

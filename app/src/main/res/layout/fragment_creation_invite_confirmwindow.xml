@@ -4,8 +4,8 @@
     android:layout_width="320dp"
     android:layout_height="500dp"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:nestedScrollingEnabled="true">
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/confirm_toolbar"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:title="Confirmation"
+        android:title="@string/confirmation"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleMarginTop="15dp"
         app:titleTextColor="@color/white" />
@@ -37,7 +37,7 @@
             android:background="@color/colorPrimary"
             android:text="@string/inviteMore"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
 
         <Button
             android:id="@+id/confirm"
@@ -47,6 +47,6 @@
             android:background="@color/colorPrimary"
             android:text="@string/confirm"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text16" />
     </LinearLayout>
 </LinearLayout>

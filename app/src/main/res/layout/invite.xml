@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/invite_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/invite_content"
-    android:elevation="6dp"
+    android:elevation="@dimen/elev6"
     android:orientation="vertical">
 
 
@@ -14,13 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?attr/colorPrimary"
-        android:elevation="6dp"
+        android:elevation="@dimen/elev6"
         android:minHeight="?attr/actionBarSize"
         android:textAlignment="center"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"
-        app:tabIndicatorHeight="4dp"
+        app:tabIndicatorHeight="@dimen/margin4"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@android:color/white"
@@ -29,24 +29,24 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/inviteViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/invite_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <Button
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/next"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:textAlignment="center"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:drawableRight="@drawable/vector_drawable_ic_navigate_next_white___px"
+        android:paddingLeft="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_8"
         android:text="@string/next"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="16sp"/>
-
+        android:textSize="@dimen/text16" />
 
 
 </RelativeLayout>
