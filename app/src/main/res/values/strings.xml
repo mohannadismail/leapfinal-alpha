@@ -27,7 +27,6 @@
     <string name="currentDate">March 19, 2016</string>
     <string name="makePublic">Make Public</string>
     <string name="done">Done</string>
-    <string name="invite">Invite</string>
     <string name="uploadPhoto">Upload Photo</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -73,5 +72,31 @@
     <string name="ahmedname">Ahmed</string>
     <string name="LeapId">LeapId</string>
     <string name="LE">L.E</string>
+    <string name="error_loading_place_data">Error loading place data</string>
+    <string name="create">Create</string>
+    <string name="frag">frag</string>
+    <string name="invite">Invite</string>
+    <string name="forgot_save_data_alert">You forgot to save your data</string>
+    <string name="didnt_add_places_alert">You didn\'t add your outing\'s places</string>
+    <string name="displayName">displayName</string>
+    <string name="google">google</string>
+    <string name="oauth_token"><![CDATA[<OAuth Token>]]></string>
+    <string name="logging_out_msg">Logging out...</string>
+    <string name="account_not_created">Account was not created. Please try again</string>
+    <string name="signup">Signup</string>
+    <string name="creating_account">Creating Account...</string>
+    <string name="account_created_successfully">Successfully created user account</string>
+    <string name="signup_failed">Signup failed</string>
+    <string name="atleast_3_chars">at least 3 characters</string>
+    <string name="enter_valid_mail">enter a valid email address</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="signupactivity">SignupActivity</string>
+    <string name="successfully_created_user">Successfully created user account</string>
+    <string name="users">users</string>
+    <string name="emailll">email</string>
+    <string name="nname">name</string>
+    <string name="uid">uid</string>
+    <string name="user">User</string>
+    <string name="authenticating">Authenticating...</string>
 </resources>
 

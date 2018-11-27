@@ -38,8 +38,8 @@
 //     * Return false otherwise
 //     */
 //    public static boolean checkIfOwner(Leap leap, String currentUserEmail) {
-//        return (leap.getOwner() != null &&
-//                leap.getOwner().equals(currentUserEmail));
+//        return (leap.getUser() != null &&
+//                leap.getUser().equals(currentUserEmail));
 //    }
 //
 //    /**
@@ -53,7 +53,7 @@
 //    /**
 //     * Email is being decoded just once to display real email in AutocompleteFriendAdapter
 //     *
-//     * @see com.udacity.firebase.shoppinglistplusplus.ui.sharing.AutocompleteFriendAdapter
+//     * Check: com.udacity.firebase.shoppinglistplusplus.ui.sharing.AutocompleteFriendAdapter
 //     */
 //    public static String decodeEmail(String userEmail) {
 //        return userEmail.replace(",", ".");

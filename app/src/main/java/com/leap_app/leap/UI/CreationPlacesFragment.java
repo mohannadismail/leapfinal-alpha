@@ -5,26 +5,22 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -33,6 +29,7 @@ import com.leap_app.leap.LeapProvider.LeapContract;
 import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,9 +46,14 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton fab;
-    //    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private Collection<Place> PlacesList = new ArrayList<>();
-    public Context context;
+    private Context context;
+
+    public Placeview getPlaceview() {
+        return placeview;
+    }
+
     private ArrayList<Placeview> placeviewList = new ArrayList<>();
     private RecyclerView placesListView;
     private GoogleApiClient mGoogleApiClient;
@@ -138,8 +140,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         context = this.getActivity();
 
         // initializing the place picker event
-
-
         addPlace.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -151,30 +151,28 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                             .Builder(Objects.requireNonNull(getContext()))
                             .addApi(Places.GEO_DATA_API)
                             .addApi(Places.PLACE_DETECTION_API)
+                            .addApi(Places.PLACE_DETECTION_API)
                             .build();
 
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                     try {
                         startActivityForResult(builder.build(Objects.requireNonNull(getActivity())), PLACE_PICKER_REQUEST);
-                    } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("ERRooor", "" + e);
                 }
-//                PlacesList.toString();
+                PlacesList.toString();
 
                 LinearLayoutManager llm = new LinearLayoutManager(context);
                 placesListView.setLayoutManager(llm);
             }
 
         });
-
-
         return view;
     }
 
@@ -232,65 +230,62 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 values.put(LeapContract.PlaceEntry.COLUMN_Longitude, lon);
                 db.insert(LeapContract.PlaceEntry.Table_Name, null, values);
 
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        ContentValues values1 = new ContentValues();
-                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
-
-                        Cursor c = db.rawQuery("SELECT place_id FROM Leap_Place ORDER BY place_id DESC LIMIT 1", null);
-                        if (c != null) {
-                            c.moveToFirst();
-                        }
-                        String s = (Objects.requireNonNull(c).getString(0));
-                        Log.d("PLACEID", s);
-                        Integer i = Integer.parseInt(s);
-
-                        c.close();
-                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Leap_Key, CreationInfoFragment.leapBaseInfooo.getLeapID());
-                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Place_Key, i + 1);
-
-                        db.insert(LeapContract.Leap_Place_Entry.Table_Name, null, values1);
-                    }
-                }, 500);
-
-
-//                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
-//                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
-//                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
-//                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
-//                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
-//                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
-//                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
+//                new Handler().postDelayed(new Runnable() {
 //
-//                //Writing data to Firebase
-//                reflat.push().setValue(lat);
-//                reflon.push().setValue(lon);
-//                refid.push().setValue(id);
-//                refprice.push().setValue(price);
-//                refPhone.push().setValue(phone);
-//                refname.push().setValue(name);
-//                refaddress.push().setValue(address);
+//                    @Override
+//                    public void run() {
+//                        ContentValues values1 = new ContentValues();
+//                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
 //
+//                        Cursor c = db.rawQuery("SELECT place_id FROM Leap_Place ORDER BY place_id DESC LIMIT 1", null);
+//                        if (c != null) {
+//                            c.moveToFirst();
+//                        }
+//                        String s = (Objects.requireNonNull(c).getString(0));
+//                        Log.d("PLACEID", s);
+//                        Integer i = Integer.parseInt(s);
+//
+//                        c.close();
+//                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Leap_Key, CreationInfoFragment.leapBaseInfooo.getLeapID());
+//                        values1.put(LeapContract.Leap_Place_Entry.COLUMN_Place_Key, i + 1);
+//
+//                        db.insert(LeapContract.Leap_Place_Entry.Table_Name, null, values1);
+//                    }
+//                }, 500);
+
+
+                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
+                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
+                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
+                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
+                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
+                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
+                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
+
+                //Writing data to Firebase
+                reflat.push().setValue(lat);
+                reflon.push().setValue(lon);
+                refid.push().setValue(id);
+                refprice.push().setValue(price);
+                refPhone.push().setValue(phone);
+                refname.push().setValue(name);
+                refaddress.push().setValue(address);
+
 
 
                 String attributions = (String) place.getAttributions();
-//                Log.e("Attributionsssssss", attributions);
-                if (attributions == null) {
-                    attributions = "";
-                }
+
                 data.putExtra("Name", place.getName());
 
             } else {
-                Toast.makeText(this.getContext(), " Error loading place data", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), R.string.error_loading_place_data, Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-//
-//
+
+
 //    int RESULT_OK = 1;
 //    int RESULT_CANCELED = -1;
 //    @Override
@@ -301,11 +296,11 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 //                Log.e("EEEEEEEEEEEEEEEEEE", "Place: " + place.getName());
 //            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
 //                Status status = PlaceAutocomplete.getStatus(this.getContext(), data);
-//                 TODO: Handle the error.
+////                 TODO: Handle the error.
 //                Log.i("EEEEEEEEEEEEE", status.getStatusMessage());
 //
 //            } else if (resultCode == RESULT_CANCELED) {
-//                 The user canceled the operation.
+////                 The user canceled the operation.
 //            }
 //        }
 //    }

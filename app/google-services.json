@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "234244801916",
-    "project_id": "leap-1306"
+    "project_number": "224716052746",
+    "firebase_url": "https://leapappeg.firebaseio.com",
+    "project_id": "leapappeg",
+    "storage_bucket": "leapappeg.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:234244801916:android:193e7c05059a7b16",
+        "mobilesdk_app_id": "1:224716052746:android:193e7c05059a7b16",
         "android_client_info": {
           "package_name": "com.leap_app.leap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "234244801916-blm3ir0qo8ie8m29g9khef7l95ac99rl.apps.googleusercontent.com",
+          "client_id": "224716052746-2kltbsggjmf8bdldudshgi2qmhtdgmvd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.leap_app.leap",
-            "certificate_hash": "5F20BBE0EE9AA424E62539C30319AD5052FDB1C2"
+            "certificate_hash": "c9794263cb8a61e0e92a4d9c21b193b4b8dfbf1d"
           }
         },
         {
-          "client_id": "234244801916-7o8rrogu8h2m302jmdprbd64e779ibfj.apps.googleusercontent.com",
+          "client_id": "224716052746-tj8l8huop5bvf69n9dfi05rent4320kl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBhEeDInqDcYMFydqkuv1bTK8zH_P4Q10w"
+          "current_key": "AIzaSyDnPrGQmV4evI6vJIfkeYhxcv6_aYu8f5U"
         }
       ],
       "services": {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224716052746-tj8l8huop5bvf69n9dfi05rent4320kl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
