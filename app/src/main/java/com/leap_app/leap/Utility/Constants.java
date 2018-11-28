@@ -13,6 +13,14 @@ public final class Constants {
      * where user lists are stored
      */
     public static final String FIREBASE_Leap = "https://leapappeg.firebaseio.com/leap/Leap";
+    public static final String LEAP = "/leap/Leap";
+    public static final String PLACES = "/leap/Places";
+    public static final String LEAP_NAME = "leapName";
+    public static final String LEAP_DESCRIPTION = "leapDescription";
+    public static final String LEAP_PRICE = "leapPrice";
+    public static final String LEAP_DATE = "date";
+    public static final String LEAP_TIME = "time";
+    public static final String LEAP_LOCATION = "leapLocation";
     static final String FIREBASE_USER_CIRCLE = "circle";
     private static final String FIREBASE_LEAP_USERS = "users";
     private static final String FIREBASE_LEAP_PLACES = "places";

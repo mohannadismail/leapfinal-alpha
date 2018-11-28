@@ -1,12 +1,8 @@
 package com.leap_app.leap.UI;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,8 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.leap_app.leap.LeapProvider.LeapContract;
-import com.leap_app.leap.LeapProvider.LeapDbHelper;
 import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 
@@ -133,35 +127,35 @@ public class CreationInfoFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentValues values = new ContentValues();
-                SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+//                ContentValues values = new ContentValues();
+//                SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+//
+//                values.put(LeapContract.LeapEntry.COLUMN_Name, leapTitle.getText().toString());
+//                values.put(LeapContract.LeapEntry.COLUMN_Description, leapDesc.getText().toString());
+//                values.put(LeapContract.LeapEntry.COLUMN_Map_Image, leapLocation.getText().toString());
+//                values.put(LeapContract.LeapEntry.COLUMN_Price, leapPrice.getText().toString());
+//                values.put(LeapContract.LeapEntry.COLUMN_User_Key, LoginActivity.getId1());
+//
+//                db.insert(LeapContract.LeapEntry.Table_Name, null, values);
+//                db.execSQL("UPDATE User SET leapsNumber = leapsNumber + 1 WHERE id =?", new String[]{LoginActivity.getId1()});
+//                new Handler().postDelayed(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
+//                        Cursor c = db.rawQuery("SELECT id FROM Leap ORDER BY id DESC LIMIT 1", null);
+//                        if (c != null) {
+//                            c.moveToFirst();
+//                        }
+//                        s[0] = (Objects.requireNonNull(c).getString(0));
+//                        c.close();
+//
+//                    }
+//                }, 500);
+//
+//                db.close();
 
-                values.put(LeapContract.LeapEntry.COLUMN_Name, leapTitle.getText().toString());
-                values.put(LeapContract.LeapEntry.COLUMN_Description, leapDesc.getText().toString());
-                values.put(LeapContract.LeapEntry.COLUMN_Map_Image, leapLocation.getText().toString());
-                values.put(LeapContract.LeapEntry.COLUMN_Price, leapPrice.getText().toString());
-                values.put(LeapContract.LeapEntry.COLUMN_User_Key, LoginActivity.getId1());
-
-                db.insert(LeapContract.LeapEntry.Table_Name, null, values);
-                db.execSQL("UPDATE User SET leapsNumber = leapsNumber + 1 WHERE id =?", new String[]{LoginActivity.getId1()});
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
-                        Cursor c = db.rawQuery("SELECT id FROM Leap ORDER BY id DESC LIMIT 1", null);
-                        if (c != null) {
-                            c.moveToFirst();
-                        }
-                        s[0] = (Objects.requireNonNull(c).getString(0));
-                        c.close();
-
-                    }
-                }, 500);
-
-                db.close();
-
-//                    leapBaseInfooo = new LeapBaseInfo(leapTitle.getText().toString(), leapDesc.getText().toString(), leapLocation.getText().toString(), leapPrice.getText().toString(), dateText.getText().toString(), timeText.getText().toString());
+                leapBaseInfooo = new LeapBaseInfo(leapTitle.getText().toString(), leapDesc.getText().toString(), leapLocation.getText().toString(), leapPrice.getText().toString(), dateText.getText().toString(), timeText.getText().toString());
                 flagg = true;
                 Toast.makeText(getContext(), R.string.info_saved_go_places, Toast.LENGTH_LONG).show();
             }

@@ -15,14 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
+import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -52,8 +52,8 @@ public class CreationFragment extends Fragment {
             done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!CreationInfoFragment.isFlagg()) {
-                        Toast.makeText(getContext(), R.string.forgot_save_data_alert, Toast.LENGTH_SHORT).show();
+//                    if (!CreationInfoFragment.isFlagg()) {
+//                        Toast.makeText(getContext(), R.string.forgot_save_data_alert, Toast.LENGTH_SHORT).show();
 
 //                        ContentValues values = new ContentValues();
 //                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
@@ -65,13 +65,13 @@ public class CreationFragment extends Fragment {
 //
 //                        db.insert(LeapContract.LeapEntry.Table_Name,null, values);
 
-                        LeapBaseInfo leapBase = new LeapBaseInfo(CreationInfoFragment.leapBaseInfooo.getLeapName(), CreationInfoFragment.leapBaseInfooo.getLeapDescription(), CreationInfoFragment.leapBaseInfooo.getLeapLocation(), CreationInfoFragment.leapBaseInfooo.getLeapPrice(), CreationInfoFragment.leapBaseInfooo.getDate(), CreationInfoFragment.leapBaseInfooo.getTime());
+                    LeapBaseInfo leapBase = CreationInfoFragment.leapBaseInfooo;
                         pushToFirebase(leapBase, CreationPlacesFragment.getInstance().getPlaceviewList());
-                    }
+//                    }
 //                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-                    if (CreationPlacesFragment.getInstance().getPlaceviewList().isEmpty())
-                        Toast.makeText(getContext(), R.string.didnt_add_places_alert, Toast.LENGTH_SHORT).show();
+//                    if (CreationPlacesFragment.getInstance().getPlaceviewList().isEmpty())
+//                        Toast.makeText(getContext(), R.string.didnt_add_places_alert, Toast.LENGTH_SHORT).show();
 //
 //
 //                    if(!CreationInfoFragment.flagg)
@@ -149,26 +149,18 @@ public class CreationFragment extends Fragment {
     }
 
     public void pushToFirebase(LeapBaseInfo leapBase, ArrayList<Placeview> placeviewList) {
-        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/leap/Leap/");
-        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/leap/Places/");
-
-
-        Map<String, LeapBaseInfo> newLeap = new HashMap<>();
-        try {
-            newLeap.put(CreationInfoFragment.leapBaseInfooo.getLeapName(), leapBase);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "You forgot to save your data", Toast.LENGTH_LONG).show();
-
-        }
-        Firebase newRef = ref.push();
+//        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/Leap/");
+//        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/Places/");
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference(Constants.LEAP);
+        DatabaseReference database1 = FirebaseDatabase.getInstance().getReference(Constants.PLACES);
+        DatabaseReference newRef = database.push();
         String key = newRef.getKey();
+        database.push();
+        database.child(key).setValue(leapBase);
 
-        ref.child(key).setValue(leapBase);
-
-        ref2.child(key).setValue(placeviewList);
-        ref.push();
-        ref2.push();
+        database1.child(key).setValue(placeviewList);
+        database.push();
+        database1.push();
 
         flag = true;
     }

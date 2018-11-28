@@ -188,15 +188,15 @@ public class MainActivity extends BaseActivity
 
     //Create Leap By Clicking on FAB
     public void Create(View v) {
-        if (LoginActivity.isFlag()) {
+//        if (LoginActivity.isFlag()) {
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.containerView, new CreationFragment()).commit();
             toolbar = findViewById(R.id.toolbar);
-            toolbar.setTitle("Create");
+        toolbar.setTitle(getString(R.string.create));
             mDrawerLayout.closeDrawers();
-        } else {
-            Toast.makeText(getBaseContext(), getString(R.string.please_login_first), Toast.LENGTH_LONG).show();
-        }
+//        } else {
+//            Toast.makeText(getBaseContext(), getString(R.string.please_login_first), Toast.LENGTH_LONG).show();
+//        }
 
     }
 
