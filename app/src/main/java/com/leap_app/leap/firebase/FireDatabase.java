@@ -29,10 +29,13 @@ public class FireDatabase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 leapIDs = new String[(int) dataSnapshot.getChildrenCount()];
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    leaps.add((HashMap<String, String>) dataSnapshot1.getValue());
+                }
                 //Getting Keys and Leaps in HashMaps
                 for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                     leapIDs[i] = dataSnapshot.getChildren().iterator().next().getKey();
-                    leaps.add((HashMap<String, String>) dataSnapshot.getChildren().iterator().next().getValue());
+
                 }
 
                 //Transforming Hashmaps to LeapBaseInfro objects

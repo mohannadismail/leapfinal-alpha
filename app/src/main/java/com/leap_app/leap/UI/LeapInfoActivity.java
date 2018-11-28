@@ -11,16 +11,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.leap_app.leap.Models.LeapInfo;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.CircleTransform;
 import com.leap_app.leap.Utility.Constants;
-import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -28,7 +25,7 @@ import java.util.Objects;
 public class LeapInfoActivity extends BaseActivity
         implements NewCircleDialog.EditNameDialogListener {
 
-    public String leapid;
+    public LeapBaseInfo leapid;
     private RatingBar ratingBar;
     private PopupWindow pwindo;
     private Button btnClosePopup;
@@ -49,50 +46,50 @@ public class LeapInfoActivity extends BaseActivity
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        leapid = this.getIntent().getStringExtra(Constants.LEAP_ID);
+        Bundle bundle = getIntent().getExtras();
+        leapid = Objects.requireNonNull(bundle).getParcelable(Constants.LEAP_ID);
         Log.d(Constants.LEAP_ID, "" + leapid);
 
         TextView v1 = findViewById(R.id.leaptitle);
-        v1.setText(LeapInfo.getLeapNameColumn(Integer.parseInt(leapid)));
+        v1.setText(leapid.getLeapName());
 
         CollapsingToolbarLayout collapsingToolbar =
                 findViewById(R.id.collapsingToolbarLayout);
-        collapsingToolbar.setTitle(LeapInfo.getLeapNameColumn(Integer.parseInt(leapid)));
+        collapsingToolbar.setTitle(leapid.getLeapName());
 
         TextView v2 = findViewById(R.id.leapprice);
-        v2.setText(LeapInfo.getLeapPriceColumn(Integer.parseInt(leapid)) + " L.E");
+        v2.setText(leapid.getLeapPrice() + " L.E");
 
         TextView v3 = findViewById(R.id.description);
-        v3.setText(LeapInfo.getLeapDescColumn(Integer.parseInt(leapid)));
+        v3.setText(leapid.getLeapDescription());
 
         TextView v41 = findViewById(R.id.leapuser);
-        v41.setText(LeapInfo.getLeapUserColumn(Integer.parseInt(leapid)));
+        v41.setText(leapid.getDate());
 
-        TextView v42 = findViewById(R.id.usernamereview);
-        v42.setText(LeapInfo.getLeapUserColumn(Integer.parseInt(leapid)));
-
-        TextView v5 = findViewById(R.id.numofleaps);
-        v5.setText(LeapInfo.getNumOfLeapsColumn(Integer.parseInt(leapid)));
-
-        ImageView v6 = findViewById(R.id.poster);
-        Picasso.get()
-                .load(LeapInfo.getImageColumn(Integer.parseInt(leapid)))
-                .into(v6);
-
-        ImageView v71 = findViewById(R.id.profile);
-        Picasso.
-                get()
-                .load(LeapInfo.getUserImageColumn(Integer.parseInt(leapid))).placeholder(R.drawable.ic_account_circle_black_48px).transform(new CircleTransform())
-                .into(v71);
-
-        ImageView v72 = findViewById(R.id.profilerev);
-        Picasso.get()
-                .load(LeapInfo.getUserImageColumn(Integer.parseInt(leapid))).placeholder(R.drawable.ic_account_circle_black_48px).transform(new CircleTransform())
-                .into(v72);
-
-        TextView v8 = findViewById(R.id.leapLocation);
-        v8.setText(LeapInfo.getLocationColumn(Integer.parseInt(leapid)));
+//        TextView v42 = findViewById(R.id.usernamereview);
+//        v42.setText(LeapInfo.getLeapUserColumn(Integer.parseInt(leapid)));
+//
+//        TextView v5 = findViewById(R.id.numofleaps);
+//        v5.setText(LeapInfo.getNumOfLeapsColumn(Integer.parseInt(leapid)));
+//
+//        ImageView v6 = findViewById(R.id.poster);
+//        Picasso.get()
+//                .load(LeapInfo.getImageColumn(Integer.parseInt(leapid)))
+//                .into(v6);
+//
+//        ImageView v71 = findViewById(R.id.profile);
+//        Picasso.
+//                get()
+//                .load(LeapInfo.getUserImageColumn(Integer.parseInt(leapid))).placeholder(R.drawable.ic_account_circle_black_48px).transform(new CircleTransform())
+//                .into(v71);
+//
+//        ImageView v72 = findViewById(R.id.profilerev);
+//        Picasso.get()
+//                .load(LeapInfo.getUserImageColumn(Integer.parseInt(leapid))).placeholder(R.drawable.ic_account_circle_black_48px).transform(new CircleTransform())
+//                .into(v72);
+//
+//        TextView v8 = findViewById(R.id.leapLocation);
+//        v8.setText(LeapInfo.getLocationColumn(Integer.parseInt(leapid)));
 
         // getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar myToolbar = findViewById(R.id.toolbar);
@@ -101,7 +98,7 @@ public class LeapInfoActivity extends BaseActivity
 
     public void viewMap(View view) {
         Intent i = new Intent(this, Place.class);
-        i.putExtra("LeapPlace", leapid);
+        i.putExtra(Constants.FIREBASE_PROPERTY_Place_Key, leapid);
         startActivity(i);
     }
 

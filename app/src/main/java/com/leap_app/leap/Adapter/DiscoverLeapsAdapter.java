@@ -3,6 +3,7 @@ package com.leap_app.leap.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.LeapInfoActivity;
+import com.leap_app.leap.Utility.Constants;
 
 import java.util.List;
 
@@ -30,12 +32,23 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
 
     @Override
-    public void onBindViewHolder(@NonNull LeapViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(@NonNull LeapViewHolder personViewHolder, final int i) {
         personViewHolder.LeapName.setText(leaps.get(i).getLeapName());
         personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice() + c.getString(R.string.LE));
         personViewHolder.LeapCreator.setText(leaps.get(i).getLeapID());
         personViewHolder.LeapId.setText(leaps.get(i).getLeapID());
 
+        //Navigate to Leap Info
+        personViewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LeapInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.LEAP_ID, leaps.get(i));
+                intent.putExtras(bundle);
+                view.getContext().startActivity(intent);
+            }
+        });
 //        Picasso.get()
 //                .load(leaps.get(i).getPhotoId())
 //                .into(personViewHolder.LeapPhoto);
@@ -78,18 +91,6 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
             LeapPhoto = itemView.findViewById(R.id.LeapImage);
             LeapId = itemView.findViewById(R.id.Leapid);
 
-            //Show Leap Details
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getLayoutPosition();
-                    String x = String.valueOf(leaps.get(position).getLeapID());
-                    Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
-                    i.putExtra(context.getString(R.string.LeapId), x);
-                    view.getContext().startActivity(i);
-                }
-            });
         }
     }
 
