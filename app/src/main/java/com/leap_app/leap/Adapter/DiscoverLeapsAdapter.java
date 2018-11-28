@@ -12,19 +12,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.leap_app.leap.Models.Leap;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
 import com.leap_app.leap.UI.LeapInfoActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 
 public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdapter.LeapViewHolder> {
-    private static List<Leap> leaps;
+    private static List<LeapBaseInfo> leaps;
     private Context c;
 
-    public DiscoverLeapsAdapter(Context context, List<Leap> leaps) {
+    public DiscoverLeapsAdapter(Context context, List<LeapBaseInfo> leaps) {
         this.c = context;
         DiscoverLeapsAdapter.leaps = leaps;
     }
@@ -32,14 +31,15 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
 
     @Override
     public void onBindViewHolder(@NonNull LeapViewHolder personViewHolder, int i) {
-        personViewHolder.LeapName.setText(leaps.get(i).getName());
-        personViewHolder.LeapPrice.setText(leaps.get(i).getPrice() + c.getString(R.string.LE));
-        personViewHolder.LeapCreator.setText(leaps.get(i).getUser());
+        personViewHolder.LeapName.setText(leaps.get(i).getLeapName());
+        personViewHolder.LeapPrice.setText(leaps.get(i).getLeapPrice() + c.getString(R.string.LE));
+        personViewHolder.LeapCreator.setText(leaps.get(i).getLeapID());
+        personViewHolder.LeapId.setText(leaps.get(i).getLeapID());
 
-        Picasso.get()
-                .load(leaps.get(i).getPhotoId())
-                .into(personViewHolder.LeapPhoto);
-        personViewHolder.LeapId.setText(leaps.get(i).getLeapId());
+//        Picasso.get()
+//                .load(leaps.get(i).getPhotoId())
+//                .into(personViewHolder.LeapPhoto);
+////        personViewHolder.LeapId.setText(leaps.get(i).getLeapId());
     }
 
 
@@ -54,18 +54,17 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
     @Override
     public LeapViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.leapcardlayout, viewGroup, false);
-        LeapViewHolder pvh = new LeapViewHolder(v);
-        return pvh;
+        return new LeapViewHolder(v);
     }
 
-    public static class LeapViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        public View view;
-        TextView LeapName;
-        TextView LeapCreator;
-        TextView LeapPrice;
-        ImageView LeapPhoto;
-        TextView LeapId;
+    static class LeapViewHolder extends RecyclerView.ViewHolder {
+        private CardView cv;
+        private View view;
+        private TextView LeapName;
+        private TextView LeapCreator;
+        private TextView LeapPrice;
+        private ImageView LeapPhoto;
+        private TextView LeapId;
         private Context context;
 
 
@@ -85,7 +84,7 @@ public class DiscoverLeapsAdapter extends RecyclerView.Adapter<DiscoverLeapsAdap
                 @Override
                 public void onClick(View view) {
                     int position = getLayoutPosition();
-                    String x = String.valueOf(leaps.get(position).getLeapId());
+                    String x = String.valueOf(leaps.get(position).getLeapID());
                     Intent i = new Intent(view.getContext(), LeapInfoActivity.class);
                     i.putExtra(context.getString(R.string.LeapId), x);
                     view.getContext().startActivity(i);

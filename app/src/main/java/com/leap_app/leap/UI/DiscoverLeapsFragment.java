@@ -12,8 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leap_app.leap.Adapter.DiscoverLeapsAdapter;
+import com.leap_app.leap.Models.Leap;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.FireDatabase;
+import com.leap_app.leap.firebase.FireDatabase;
+import com.leap_app.leap.firebase.OnLeapsRetrieved;
+
+import java.util.ArrayList;
 
 
 /**
@@ -24,7 +30,7 @@ import com.leap_app.leap.Utility.FireDatabase;
  * Use the {@link DiscoverLeapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DiscoverLeapsFragment extends Fragment {
+public class DiscoverLeapsFragment extends Fragment implements OnLeapsRetrieved {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +41,8 @@ public class DiscoverLeapsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ArrayList<Leap> leaps;
+    private RecyclerView rv;
 
     public DiscoverLeapsFragment() {
         // Required empty public constructor
@@ -70,23 +78,17 @@ public class DiscoverLeapsFragment extends Fragment {
     }
 
 
-    public Context context;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaps, container, false);
         FragmentActivity context = getActivity();
-        RecyclerView rv = view.findViewById(R.id.rv);
+        rv = view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         rv.setLayoutManager(llm);
-        context = this.getActivity();
-        FireDatabase fireDatabase = new FireDatabase();
+        FireDatabase fireDatabase = new FireDatabase(this);
         fireDatabase.getLeaps();
-//        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(context, leaps);
-//        rv.setAdapter(adapter);
-
         return view;
     }
 
@@ -112,6 +114,12 @@ public class DiscoverLeapsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void dataRetrieved(ArrayList<LeapBaseInfo> leaps) {
+        DiscoverLeapsAdapter adapter = new DiscoverLeapsAdapter(getContext(), leaps);
+        rv.setAdapter(adapter);
     }
 
     /**

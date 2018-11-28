@@ -27,6 +27,15 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!--// Job Dispatcher Service-->
+        <service
+            android:name=".firebase.provider.FirebaseDBScheduler"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
         <!-- Twitter Configuration -->
         <activity android:name="com.firebase.ui.auth.twitter.TwitterPromptActivity" />
 

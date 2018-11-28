@@ -22,9 +22,9 @@ public class Leap implements Parcelable {
     private String price;
     private String user;
     private String photoId;
-    private int leapId;
+    private String leapId;
 
-    private Leap(String name, String price, String user, String photoId, int leapId) {
+    private Leap(String name, String price, String user, String photoId, String leapId) {
         this.name = name;
         this.price = price;
         this.user = user;
@@ -39,7 +39,7 @@ public class Leap implements Parcelable {
         price = in.readString();
         user = in.readString();
         photoId = in.readString();
-        leapId = in.readInt();
+        leapId = in.readString();
     }
 
     public static final Creator<Leap> CREATOR = new Creator<Leap>() {
@@ -211,11 +211,11 @@ public class Leap implements Parcelable {
         this.photoId = photoId;
     }
 
-    public int getLeapId() {
+    public String getLeapId() {
         return leapId;
     }
 
-    public void setLeapId(int leapId) {
+    public void setLeapId(String leapId) {
         this.leapId = leapId;
     }
 
@@ -238,6 +238,6 @@ public class Leap implements Parcelable {
         dest.writeString(price);
         dest.writeString(user);
         dest.writeString(photoId);
-        dest.writeInt(leapId);
+        dest.writeString(leapId);
     }
 }
