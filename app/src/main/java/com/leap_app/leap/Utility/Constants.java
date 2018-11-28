@@ -12,7 +12,6 @@ public final class Constants {
      * Constants related to locations in Firebase, such as the name of the node
      * where user lists are stored
      */
-    public static final String FIREBASE_Leap = "https://leapappeg.firebaseio.com/leap/Leap";
     public static final String LEAP = "/leap/Leap";
     public static final String PLACES = "/leap/Places";
     public static final String LEAP_NAME = "leapName";
@@ -21,6 +20,7 @@ public final class Constants {
     public static final String LEAP_DATE = "date";
     public static final String LEAP_TIME = "time";
     public static final String LEAP_LOCATION = "leapLocation";
+    public static final String CENTER_POINT = "/leap/leapCenter";
     static final String FIREBASE_USER_CIRCLE = "circle";
     private static final String FIREBASE_LEAP_USERS = "users";
     private static final String FIREBASE_LEAP_PLACES = "places";
@@ -39,7 +39,7 @@ public final class Constants {
      * Constants for Firebase object properties
      */
     public static final String FIREBASE_PROPERTY_ID= "id";
-    public static final String FIREBASE_PROPERTY_NAME = "name";
+    public static final String FIREBASE_PROPERTY_NAME = "Name";
     public static final String FIREBASE_PROPERTY_User_Key= "user_id";
     public static final String FIREBASE_PROPERTY_Image= "imageUri";
     public static final String FIREBASE_PROPERTY_No_Of_Reviews = "reviewsNumber";
@@ -77,7 +77,6 @@ public final class Constants {
      * Constants for Firebase URL
      */
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
-    public static final String FIREBASE_Leap_URL = FIREBASE_URL + "/" + FIREBASE_Leap;
     public static final String FIREBASE_LEAP_USERS_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_USERS;
     public static final String FIREBASE_LEAP_PLACES_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_PLACES;
     public static final String FIREBASE_USER_FRIENDS_URL = FIREBASE_URL + "/" + FIREBASE_USER_FRIENDS;

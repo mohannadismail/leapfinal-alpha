@@ -11,14 +11,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
@@ -30,12 +28,11 @@ import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
 
 
 public class CreationPlacesFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
-    private Placeview placeview;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -45,15 +42,8 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton fab;
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private Collection<Place> PlacesList = new ArrayList<>();
     private Context context;
-    private com.google.android.gms.location.places.Place place;
-
-    public Placeview getPlaceview() {
-        return placeview;
-    }
-
-    private ArrayList<Placeview> placeviewList = new ArrayList<>();
+    static ArrayList<Placeview> placesviewList;
     private RecyclerView placesListView;
     private GoogleApiClient mGoogleApiClient;
     private SharedPreferences sharedPreferences;
@@ -109,6 +99,7 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
         }
         String tag = this.getTag();
         LeapDbHelper mLeapHelper = new LeapDbHelper(getContext());
+        placesviewList = new ArrayList<>();
 
         //Assign List items
 
@@ -147,7 +138,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                             .build();
 
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
                     try {
                         startActivityForResult(builder.build(Objects.requireNonNull(getActivity())), PLACE_PICKER_REQUEST);
                     } catch (Exception e) {
@@ -158,7 +148,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.e("PlASSCCCEEEDS", PlacesList.toString());
 
                 LinearLayoutManager llm = new LinearLayoutManager(context);
                 placesListView.setLayoutManager(llm);
@@ -203,9 +192,9 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
                 //Adding data to model
 //                SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
                 Placeview placeview = new Placeview(lat, lon, name, address, price, phone, id);
-                placeviewList.add(placeview);
+                placesviewList.add(placeview);
                 i++;
-                placesListView.setAdapter(new PlacesCreationAdapter(context, placeviewList, i));
+                placesListView.setAdapter(new PlacesCreationAdapter(context, placesviewList, i));
 
 //                Toast.makeText(getContext(), name + "  " + address + "  Added to places", Toast.LENGTH_SHORT).show();
 //                ContentValues values = new ContentValues();
@@ -228,7 +217,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 //                            c.moveToFirst();
 //                        }
 //                        String s = (Objects.requireNonNull(c).getString(0));
-//                        Log.d("PLACEID", s);
 //                        Integer i = Integer.parseInt(s);
 //
 //                        c.close();
@@ -240,28 +228,27 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 //                }, 500);
 
 
-                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
-                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
-                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
-                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
-                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
-                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
-                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
+//                Firebase refname = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_NAME);
+//                Firebase refaddress = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Address);
+//                Firebase reflat = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Latitude);
+//                Firebase reflon = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Longitude);
+//                Firebase refid = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_ID);
+//                Firebase refprice = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Price);
+//                Firebase refPhone = new Firebase(Constants.FIREBASE_LEAP_PLACES_URL).child(Constants.FIREBASE_PROPERTY_Phone);
 
                 //Writing data to Firebase
-                reflat.push().setValue(lat);
-                reflon.push().setValue(lon);
-                refid.push().setValue(id);
-                refprice.push().setValue(price);
-                refPhone.push().setValue(phone);
-                refname.push().setValue(name);
-                refaddress.push().setValue(address);
-
+//                reflat.push().setValue(lat);
+//                reflon.push().setValue(lon);
+//                refid.push().setValue(id);
+//                refprice.push().setValue(price);
+//                refPhone.push().setValue(phone);
+//                refname.push().setValue(name);
+//                refaddress.push().setValue(address);
 
 
                 String attributions = (String) place.getAttributions();
 
-                data.putExtra("Name", place.getName());
+                data.putExtra(Constants.FIREBASE_PROPERTY_NAME, place.getName());
 
             } else {
                 Toast.makeText(this.getContext(), R.string.error_loading_place_data, Toast.LENGTH_LONG).show();
@@ -270,27 +257,6 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-//
-//    int RESULT_OK = 1;
-//    int RESULT_CANCELED = -1;
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-//            if (resultCode == RESULT_OK) {
-//                place = PlaceAutocomplete.getPlace(getContext(), data);
-//                Log.e("EEEEEEEEEEEEEEEEEE", "Place: " + place.getName());
-//            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-//                Status status = PlaceAutocomplete.getStatus(this.getContext(), data);
-////                 TODO: Handle the error.
-//                Log.i("EEEEEEEEEEEEE", status.getStatusMessage());
-//
-//            } else if (resultCode == RESULT_CANCELED) {
-////                 The user canceled the operation.
-//            }
-//        }
-//    }
-
 
     // TODO: Rename method, update argument and hook method into UI event
 
@@ -320,14 +286,9 @@ public class CreationPlacesFragment extends Fragment implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this.getContext(), "Error loading GOOGLE client, Please check connection", Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.error_loading_googleclient, Toast.LENGTH_LONG).show();
 
     }
-
-    public ArrayList<Placeview> getPlaceviewList() {
-        return placeviewList;
-    }
-
 
 //    @Override
 //    public void onStart() {

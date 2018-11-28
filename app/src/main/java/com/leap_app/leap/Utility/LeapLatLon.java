@@ -65,7 +65,9 @@ public class LeapLatLon {
 
     public static double[] LeapCenter(double[] lat, double[] lon) {
 
-        double[] x1 = new double[lat.length], y1 = new double[lat.length], z1 = new double[lat.length];
+        double[] x1 = new double[lat.length],
+                y1 = new double[lat.length],
+                z1 = new double[lat.length];
 
         for (int j = 0; j < lon.length; j++) {
             x1[j] = Math.cos(Math.toRadians(lat[j])) * Math.cos(Math.toRadians(lon[j]));

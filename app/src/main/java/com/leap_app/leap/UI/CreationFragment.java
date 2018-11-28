@@ -1,5 +1,6 @@
 package com.leap_app.leap.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,9 +22,12 @@ import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.Placeview;
 import com.leap_app.leap.R;
 import com.leap_app.leap.Utility.Constants;
+import com.leap_app.leap.Utility.LeapLatLon;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.leap_app.leap.UI.CreationPlacesFragment.placesviewList;
 
 
 public class CreationFragment extends Fragment {
@@ -33,6 +37,7 @@ public class CreationFragment extends Fragment {
     private android.support.v7.widget.Toolbar toolbar;
     private ArrayList<Placeview> placeviews = new ArrayList<>();
     private Boolean flag = null;
+    private double[] lats, lons;
 
 
     @Nullable
@@ -66,7 +71,7 @@ public class CreationFragment extends Fragment {
 //                        db.insert(LeapContract.LeapEntry.Table_Name,null, values);
 
                     LeapBaseInfo leapBase = CreationInfoFragment.leapBaseInfooo;
-                        pushToFirebase(leapBase, CreationPlacesFragment.getInstance().getPlaceviewList());
+                    pushToFirebase(leapBase);
 //                    }
 //                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
@@ -77,7 +82,7 @@ public class CreationFragment extends Fragment {
 //                    if(!CreationInfoFragment.flagg)
 //                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-                    if (CreationInfoFragment.isFlagg() && CreationPlacesFragment.getInstance().getPlaceviewList() != null) {
+                    if (CreationInfoFragment.isFlagg() && placesviewList != null) {
 
                         Intent i = new Intent(getContext(), MainActivity.class);
                         v.getContext().startActivity(i);
@@ -148,20 +153,42 @@ public class CreationFragment extends Fragment {
 
     }
 
-    public void pushToFirebase(LeapBaseInfo leapBase, ArrayList<Placeview> placeviewList) {
-//        Firebase ref = new Firebase("https://leapappeg.firebaseio.com/Leap/");
-//        Firebase ref2 = new Firebase("https://leapappeg.firebaseio.com/Places/");
+    public void pushToFirebase(LeapBaseInfo leapBase) {
+        lats = new double[placesviewList.size()];
+        lons = new double[placesviewList.size()];
+        if (placesviewList.size() != 0) {
+            for (int i = 0; i < placesviewList.size(); i++) {
+                lats[i] = placesviewList.get(i).getLat();
+                lons[i] = placesviewList.get(i).getLon();
+            }
+        }
+        double[] centerPoint = new double[2];
+        centerPoint = LeapLatLon.LeapCenter(lats, lons);
+
+        DatabaseReference centerPointRef = FirebaseDatabase.getInstance().getReference(Constants.CENTER_POINT);
         DatabaseReference database = FirebaseDatabase.getInstance().getReference(Constants.LEAP);
         DatabaseReference database1 = FirebaseDatabase.getInstance().getReference(Constants.PLACES);
         DatabaseReference newRef = database.push();
+
+        //Getting a common key for all Leap Data
         String key = newRef.getKey();
         database.push();
+
+        //Setting Leap Info
         database.child(key).setValue(leapBase);
 
-        database1.child(key).setValue(placeviewList);
+        //Pushing center Point`
+        centerPointRef.child(key).child("0").setValue(centerPoint[0]);
+        centerPointRef.child(key).child("1").setValue(centerPoint[1]);
+
+        //Pushing Places
+        database1.child(key).setValue(placesviewList);
+
+
+        //Final Push
         database.push();
         database1.push();
-
+        centerPointRef.push();
         flag = true;
     }
 
@@ -212,5 +239,16 @@ public class CreationFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    //
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
 }

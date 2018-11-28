@@ -153,5 +153,6 @@
     <string name="timepicker">timePicker</string>
     <string name="datepicker">datePicker</string>
     <string name="info_saved_go_places">Info Saved, go to add your Places</string>
+    <string name="error_loading_googleclient">Error loading GOOGLE client, Please check connection</string>
 </resources>
 

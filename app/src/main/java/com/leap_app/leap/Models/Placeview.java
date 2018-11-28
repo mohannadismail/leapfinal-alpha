@@ -17,7 +17,6 @@ import com.leap_app.leap.LeapProvider.LeapProvider;
 public class Placeview implements Parcelable {
     private double lat;
     private double lon;
-    private int placeId;
     private String placeName;
     private String placeCategory;
     private String placeAddress;
@@ -30,7 +29,6 @@ public class Placeview implements Parcelable {
     private Placeview(Parcel in) {
         lat = in.readDouble();
         lon = in.readDouble();
-        placeId = in.readInt();
         placeName = in.readString();
         placeCategory = in.readString();
         placeAddress = in.readString();
@@ -131,10 +129,6 @@ public class Placeview implements Parcelable {
         setPlaceAddress(placeAddress);
         setPlaceDesc(placeDesc);
         setPlaceCategory(placeCategory);
-
-        //place key
-
-        setPlaceId(placeId);
     }
 
     public Placeview(double lat, double lon, String placeName, String placeAddress, int price, String phone, String id) {
@@ -238,15 +232,6 @@ public class Placeview implements Parcelable {
         this.placeName = placeName;
     }
 
-    public int getPlaceId() {
-
-        return placeId;
-    }
-
-    public void setPlaceId(int placeId) {
-        this.placeId = placeId;
-    }
-
     public void setLon(double lon) {
         this.lon = lon;
     }
@@ -261,7 +246,6 @@ public class Placeview implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(lat);
         dest.writeDouble(lon);
-        dest.writeInt(placeId);
         dest.writeString(placeName);
         dest.writeString(placeCategory);
         dest.writeString(placeAddress);
