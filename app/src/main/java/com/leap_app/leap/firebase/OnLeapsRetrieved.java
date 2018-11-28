@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface OnLeapsRetrieved {
     void dataRetrieved(ArrayList<LeapBaseInfo> leaps);
+
+    void markersRetrieved(double[] latts, double[] lonns, String[] markerIDs);
 }

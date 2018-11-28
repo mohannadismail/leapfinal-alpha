@@ -1,6 +1,7 @@
 package com.leap_app.leap.firebase;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,16 +13,57 @@ import com.leap_app.leap.Utility.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class FireDatabase {
     private DatabaseReference mDatabase;
     private ArrayList<LeapBaseInfo> leapss = new ArrayList<>();
     private ArrayList<HashMap<String, String>> leaps;
     private OnLeapsRetrieved onLeapsRetrieved;
-    private String[] leapIDs;
+    private String[] leapIDs, markerIDs;
 
     public FireDatabase(OnLeapsRetrieved onLeapsRetrieved) {
         this.onLeapsRetrieved = onLeapsRetrieved;
+    }
+
+    public void getMarkers() {
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.CENTER_POINT);
+        final ArrayList<ArrayList> doubles = new ArrayList<>();
+        try {
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    markerIDs = new String[(int) dataSnapshot.getChildrenCount()];
+                    int i = 0;
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        markerIDs[i] = dataSnapshot1.getKey();
+                        doubles.add((ArrayList) dataSnapshot1.getValue());
+                        i++;
+                    }
+                    Log.e("Markers zunkerbergs", Objects.requireNonNull(dataSnapshot.getValue()).toString());
+                    double[] lattss = new double[doubles.size()];
+                    double[] lonnss = new double[doubles.size()];
+                    Log.e("badl eltabib ro7t l 100", doubles.toString());
+                    try {
+                        for (i = 0; i < doubles.size(); i++) {
+                            lattss[i] = (Double) doubles.get(i).get(0);
+                            lonnss[i] = (Double) doubles.get(i).get(1);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    onLeapsRetrieved.markersRetrieved(lattss, lonnss, markerIDs);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    databaseError.toException().printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void getLeaps() {

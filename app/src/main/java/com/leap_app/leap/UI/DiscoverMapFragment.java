@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,11 +26,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.leap_app.leap.Models.LeapBaseInfo;
 import com.leap_app.leap.Models.LeapMarkerInfo;
 import com.leap_app.leap.R;
-import com.leap_app.leap.Utility.Constants;
-import com.leap_app.leap.Utility.LeapLatLon;
+import com.leap_app.leap.firebase.FireDatabase;
+import com.leap_app.leap.firebase.OnLeapsRetrieved;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -45,7 +45,7 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class DiscoverMapFragment extends Fragment
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, OnLeapsRetrieved {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,12 +95,13 @@ public class DiscoverMapFragment extends Fragment
 
         View v = inflater.inflate(R.layout.fragment_map, container, false);
         this.inflatr = inflater;
-        try {
-            initMap();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this.getContext(), R.string.error_loading_map, Toast.LENGTH_LONG).show();
-        }
+
+//        try {
+//            initMap();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(this.getContext(), R.string.error_loading_map, Toast.LENGTH_LONG).show();
+//        }
         mMapView = v.findViewById(R.id.location_map);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
@@ -137,10 +138,9 @@ public class DiscoverMapFragment extends Fragment
         settings.setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLon, 13));
         mMap.addMarker(new MarkerOptions().position(latLon).visible(false));
-        double lats[] = LeapLatLon.getLeapLat();
-        double lngs[] = LeapLatLon.getLeapLon();
 
-        addLeaps(lats, lngs);
+        FireDatabase fireDatabase = new FireDatabase(this);
+        fireDatabase.getMarkers();
 
 
     }
@@ -160,6 +160,17 @@ public class DiscoverMapFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void dataRetrieved(ArrayList<LeapBaseInfo> leaps) {
+
+    }
+
+    @Override
+    public void markersRetrieved(double[] latts, double[] lonns, String[] markerIDs) {
+        addLeaps(latts, lonns);
+
     }
 
 
@@ -189,11 +200,8 @@ public class DiscoverMapFragment extends Fragment
         for (int i = 0; i < Lng.length; i++) {
             final LatLng latLng = new LatLng(Lat[i], Lng[i]);
             // String MarkerNumber = Integer.toString(i);
-            Log.d("MarkerLatLng ", "" + latLng);
             final MarkerOptions mOptions = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(0));/*.title(titles[i]).snippet(Snippet[i]+" "+Lat[i]+","+Lng[i]);*/
             mMap.addMarker(mOptions);
-
-            Log.d(getString(R.string.lnglength), "" + Lng.length + Lat.length);
 
          /*
         TO set Camera Position at first Marker in the Path
@@ -236,7 +244,6 @@ public class DiscoverMapFragment extends Fragment
 
                                             LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat, lon);
                                             leapIdddd = leapMarkerInfo.getLeapID();
-                                            Log.v(Constants.LEAP_ID, "" + leapIdddd);
                                             String n = leapMarkerInfo.getLeapNameColumn();
                                             String c = leapMarkerInfo.getLeapUserColumn();
                                             String p = leapMarkerInfo.getLeapPriceColumn();
@@ -256,10 +263,8 @@ public class DiscoverMapFragment extends Fragment
                                         public void onInfoWindowClick(Marker marker) {
                                             LeapMarkerInfo leapMarkerInfo = new LeapMarkerInfo(lat, lon);
                                             leapIdddd = leapMarkerInfo.getLeapID();
-                                            Log.v(Constants.LEAP_ID, "" + leapIdddd);
                                             Intent i = new Intent(v.getContext(), LeapInfoActivity.class);
                                             i.putExtra("LeapId", "" + leapIdddd);
-                                            Log.d(getString(R.string.extra), "" + "" + leapIdddd);
                                             v.getContext().startActivity(i);
 
 
@@ -319,6 +324,7 @@ public class DiscoverMapFragment extends Fragment
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         setUpMapIfNeeded();
+        initMap();
     }
 
 
