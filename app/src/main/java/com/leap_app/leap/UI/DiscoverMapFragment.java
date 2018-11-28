@@ -1,10 +1,13 @@
 package com.leap_app.leap.UI;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
@@ -45,12 +50,12 @@ public class DiscoverMapFragment extends Fragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public GoogleMap myMap;
     private LayoutInflater inflatr;
 //    private String[] titles = new String[] {"Shawerma", "Pizza", "Burger"};
 //    private String[] Snippet = new String[]{"Shawerma","Pizza","Burger"};
 
     private LatLng latLon;
+    private MapView mMapView;
 
 
     // TODO: Rename and change types of parameters
@@ -88,7 +93,7 @@ public class DiscoverMapFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_map, container, false);
         this.inflatr = inflater;
         try {
             initMap();
@@ -96,18 +101,28 @@ public class DiscoverMapFragment extends Fragment
             e.printStackTrace();
             Toast.makeText(this.getContext(), R.string.error_loading_map, Toast.LENGTH_LONG).show();
         }
-//        FloatingActionButton fab  = (FloatingActionButton) v.findViewById(R.id.fab);
+        mMapView = v.findViewById(R.id.location_map);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume();
+        mMapView.getMapAsync(this);
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
 //        fab.setVisibility(View.INVISIBLE);
         return v;
     }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//
+//
+//    // TODO: Rename method, update argument and hook method into UI event
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     private void initMap() {
 
@@ -255,26 +270,26 @@ public class DiscoverMapFragment extends Fragment
                             }
                     );
 //
-//            getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                                                  @Override
-//                                                  public boolean onMarkerClick(Marker marker) {
-//                                                      //  Take some action here
-//                                                      marker.showInfoWindow();
-//                                                      getMap().setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//
-//                                                          @Override
-//                                                          public void onInfoWindowClick(Marker marker) {
-//
-//
-//                                                          }
-//                                                      });
-//                                                      return true;
-//                                                  }
-//
-//
-//                                              }
-//            );
-//
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                              @Override
+                                              public boolean onMarkerClick(Marker marker) {
+                                                  //  Take some action here
+                                                  marker.showInfoWindow();
+                                                  mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                                                      @Override
+                                                      public void onInfoWindowClick(Marker marker) {
+
+
+                                                      }
+                                                  });
+                                                  return true;
+                                              }
+
+
+                                          }
+            );
+
         }
     }
 
@@ -286,6 +301,18 @@ public class DiscoverMapFragment extends Fragment
                             .findFragmentById(R.id.location_map);
             Objects.requireNonNull(mapFrag).getMapAsync(this);
         }
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.leap_app.leap.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +24,7 @@ import java.util.Objects;
 public class LeapInfoActivity extends BaseActivity
         implements NewCircleDialog.EditNameDialogListener {
 
-    public LeapBaseInfo leapid;
+    private LeapBaseInfo leapid;
     private RatingBar ratingBar;
     private PopupWindow pwindo;
     private Button btnClosePopup;
@@ -97,15 +96,13 @@ public class LeapInfoActivity extends BaseActivity
     }
 
     public void viewMap(View view) {
-        Intent i = new Intent(this, Place.class);
-        i.putExtra(Constants.FIREBASE_PROPERTY_Place_Key, leapid);
-        startActivity(i);
+//        Intent i = new Intent(this, Place.class);
+//        i.putExtra(Constants.FIREBASE_PROPERTY_Place_Key, leapid);
+//        startActivity(i);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menuleap, menu);
-//        MenuItem menuShare = menu.findItem(R.id.share);
-//        MenuItem menuSearch = menu.findItem(R.id.search);
 
     }
 
@@ -132,7 +129,7 @@ public class LeapInfoActivity extends BaseActivity
 
         FragmentManager fm = getSupportFragmentManager();
         ReviewDialog review = new ReviewDialog();
-        review.show(fm, "fragment_edit_name");
+        review.show(fm, getString(R.string.fragment_edit_name));
 
         /**
          try {

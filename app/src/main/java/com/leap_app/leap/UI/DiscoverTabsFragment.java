@@ -58,7 +58,7 @@ public class DiscoverTabsFragment extends Fragment {
 
     class MyAdapter extends FragmentPagerAdapter {
 
-        public MyAdapter(FragmentManager fm) {
+        MyAdapter(FragmentManager fm) {
             super(fm);
         }
 
