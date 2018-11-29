@@ -16,6 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -37,7 +38,9 @@
         </service>
 
         <!-- Twitter Configuration -->
-        <activity android:name="com.firebase.ui.auth.twitter.TwitterPromptActivity" />
+        <activity
+            android:name="com.firebase.ui.auth.twitter.TwitterPromptActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.firebase.ui.TwitterKey"
@@ -51,6 +54,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
@@ -60,12 +64,14 @@
         <activity
             android:name=".ui.discover.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.discover.LeapInfoActivity"
             android:label="@string/title_activity_leap_view"
             android:parentActivityName=".ui.discover.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -75,6 +81,7 @@
         <activity
             android:name=".ui.utility.SplashScreen"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,21 +91,24 @@
         </activity>
         <activity
             android:name=".ui.registeration_in_out.LoginActivity"
-            android:parentActivityName=".ui.discover.MainActivity">
+            android:parentActivityName=".ui.discover.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.discover.MainActivity" />
         </activity>
         <activity
             android:name=".ui.registeration_in_out.LogoutActivity"
-            android:parentActivityName=".ui.discover.MainActivity">
+            android:parentActivityName=".ui.discover.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.discover.MainActivity" />
         </activity>
         <activity
             android:name=".ui.registeration_in_out.SignupActivity"
-            android:parentActivityName=".ui.discover.MainActivity">
+            android:parentActivityName=".ui.discover.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.discover.MainActivity" />
@@ -106,7 +116,8 @@
         <activity
             android:name=".ui.circles.CirclesActivity"
             android:label="@string/circles"
-            android:parentActivityName=".ui.discover.MainActivity">
+            android:parentActivityName=".ui.discover.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.discover.MainActivity" />
@@ -114,7 +125,8 @@
         <activity
             android:name=".ui.circles.addCircle"
             android:label="@string/circleName"
-            android:parentActivityName=".ui.circles.CirclesActivity">
+            android:parentActivityName=".ui.circles.CirclesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.circles.CirclesActivity" />
@@ -122,10 +134,19 @@
         <activity
             android:name=".ui.circles.CircleDetails"
             android:label="@string/circleName"
-            android:parentActivityName=".ui.circles.CirclesActivity">
+            android:parentActivityName=".ui.circles.CirclesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.leap_app.leap.ui.circles.CirclesActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.utility.Leap_AppWidgetConfigureActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
         </activity>
 
         <provider
@@ -144,11 +165,6 @@
                 android:resource="@xml/leap__app_widget_configure_info" />
         </receiver>
 
-        <activity android:name=".ui.utility.Leap_AppWidgetConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

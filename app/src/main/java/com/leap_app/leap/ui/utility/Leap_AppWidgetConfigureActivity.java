@@ -22,6 +22,13 @@ public class Leap_AppWidgetConfigureActivity extends Activity {
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private EditText mAppWidgetText;
     //    TextView leapName, leapCreator, leapPrice, leapDescription;
+
+
+    public Leap_AppWidgetConfigureActivity() {
+        super();
+    }
+
+
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = Leap_AppWidgetConfigureActivity.this;
@@ -41,35 +48,6 @@ public class Leap_AppWidgetConfigureActivity extends Activity {
             finish();
         }
     };
-
-    public Leap_AppWidgetConfigureActivity() {
-        super();
-    }
-
-    // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
-        prefs.apply();
-    }
-
-    // Read the prefix from the SharedPreferences object for this widget.
-    // If there is no preference saved, get the default from a resource
-    public static String loadTitlePref(Context context, int appWidgetId) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-        if (titleValue != null) {
-            return titleValue;
-        } else {
-            return context.getString(R.string.appwidget_text);
-        }
-    }
-
-    public static void deleteTitlePref(Context context, int appWidgetId) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
-        prefs.apply();
-    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -98,6 +76,32 @@ public class Leap_AppWidgetConfigureActivity extends Activity {
         }
 
         mAppWidgetText.setText(loadTitlePref(Leap_AppWidgetConfigureActivity.this, mAppWidgetId));
+    }
+
+
+    // Write the prefix to the SharedPreferences object for this widget
+    static void saveTitlePref(Context context, int appWidgetId, String text) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
+        prefs.apply();
+    }
+
+    // Read the prefix from the SharedPreferences object for this widget.
+    // If there is no preference saved, get the default from a resource
+    public static String loadTitlePref(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
+        if (titleValue != null) {
+            return titleValue;
+        } else {
+            return context.getString(R.string.appwidget_text);
+        }
+    }
+
+    public static void deleteTitlePref(Context context, int appWidgetId) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
+        prefs.apply();
     }
 }
 

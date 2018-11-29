@@ -159,5 +159,10 @@
     <string name="add_widget">Add widget</string>
     <string name="creator_image">Creator Image</string>
     <string name="review_image">Review Image</string>
+    <string name="storage_perm">android.permission.WRITE_EXTERNAL_STORAGE</string>
+    <string name="location_perm">android.permission.ACCESS_COARSE_LOCATION</string>
+    <string name="fineLocation_perm">android.permission.ACCESS_FINE_LOCATION</string>
+    <string name="getAccounts_perm">android.permission.GET_ACCOUNTS</string>
+    <string name="useCredintials_perm">android.permission.USE_CREDENTIALS</string>
 </resources>
 
