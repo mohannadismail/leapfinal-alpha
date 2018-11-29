@@ -8,8 +8,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.leap_app.leap.Models.LeapBaseInfo;
-import com.leap_app.leap.Utility.Constants;
+import com.leap_app.leap.models.LeapBaseInfo;
+import com.leap_app.leap.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

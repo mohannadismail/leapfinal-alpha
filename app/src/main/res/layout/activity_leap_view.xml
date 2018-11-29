@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.leap_app.leap.UI.LeapInfoActivity">
+    tools:context="com.leap_app.leap.ui.LeapInfoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/materialbackgroundred"
                     app:layout_collapseMode="parallax"
+                    android:contentDescription="@string/leap_image"
                     app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
 
                 <RelativeLayout
@@ -139,6 +140,7 @@
                     android:layout_width="@dimen/size48"
                     android:layout_height="@dimen/size48"
                     android:layout_margin="@dimen/margin_8"
+                    android:contentDescription="@string/creator_image"
                     android:src="@drawable/ic_account_circle_black_48px" />
 
                 <LinearLayout
@@ -182,6 +184,7 @@
                 android:layout_margin="@dimen/margin_8"
                 android:onClick="viewMap"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/map_image"
                 android:src="@drawable/mapscrsht2" />
 
             <View
@@ -244,6 +247,7 @@
                     android:layout_width="@dimen/size48"
                     android:layout_height="@dimen/size48"
                     android:layout_margin="@dimen/margin_8"
+                    android:contentDescription="@string/review_image"
                     android:src="@drawable/ic_account_circle_black_48px" />
 
                 <TextView

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".UI.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <RelativeLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".UI.LeapInfoActivity">
+        tools:context=".ui.LeapInfoActivity">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

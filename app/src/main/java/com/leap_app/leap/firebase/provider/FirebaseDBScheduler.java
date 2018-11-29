@@ -12,8 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.leap_app.leap.Models.Leap;
 import com.leap_app.leap.R;
+import com.leap_app.leap.models.Leap;
 
 public class FirebaseDBScheduler extends JobService {
 
