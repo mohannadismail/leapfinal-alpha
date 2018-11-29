@@ -23,7 +23,7 @@ public final class Constants {
     public static final String CENTER_POINT = "/leap/leapCenter";
     static final String FIREBASE_USER_CIRCLE = "circle";
     private static final String FIREBASE_LEAP_USERS = "users";
-    private static final String FIREBASE_LEAP_PLACES = "places";
+    private static final String FIREBASE_LEAP_PLACES = "/places";
     private static final String FIREBASE_USER_FRIENDS = "userFollow";
     private static final String FIREBASE_LEAP_LEAPPLACE = "Leap_Place";
     private static final String FIREBASE_LEAP_REVIEWS = "reviews";
@@ -78,7 +78,7 @@ public final class Constants {
      */
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
     public static final String FIREBASE_LEAP_USERS_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_USERS;
-    public static final String FIREBASE_LEAP_PLACES_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_PLACES;
+    public static final String FIREBASE_LEAP_PLACES_URL = FIREBASE_LEAP_PLACES;
     public static final String FIREBASE_USER_FRIENDS_URL = FIREBASE_URL + "/" + FIREBASE_USER_FRIENDS;
     public static final String FIREBASE_LEAP_LEAPPLACE_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_LEAPPLACE;
     public static final String FIREBASE_LEAP_REVIEWS_URL = FIREBASE_URL + "/" + FIREBASE_LEAP_REVIEWS;

@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.leap_app.leap.R;
-import com.leap_app.leap.models.LeapBaseInfo;
 import com.leap_app.leap.models.Placeview;
 import com.leap_app.leap.ui.discover.MainActivity;
 import com.leap_app.leap.ui.invites.Invite;
@@ -61,33 +60,31 @@ public class CreationFragment extends Fragment {
                 public void onClick(View v) {
 //                    if (!CreationInfoFragment.isFlagg()) {
 //                        Toast.makeText(getContext(), R.string.forgot_save_data_alert, Toast.LENGTH_SHORT).show();
-
-//                        ContentValues values = new ContentValues();
-//                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
 //
-//                        values.put(LeapContract.LeapEntry.COLUMN_Name, CreationInfoFragment.leapBaseInfooo.getLeapName());
-//                        values.put(LeapContract.LeapEntry.COLUMN_Description, CreationInfoFragment.leapBaseInfooo.getLeapDescription());
-//                        values.put(LeapContract.LeapEntry.COLUMN_Map_Image, CreationInfoFragment.leapBaseInfooo.getLeapLocation());
-//                        values.put(LeapContract.LeapEntry.COLUMN_Price, CreationInfoFragment.leapBaseInfooo.getLeapPrice());
-//
-//                        db.insert(LeapContract.LeapEntry.Table_Name,null, values);
-
-                    LeapBaseInfo leapBase = CreationInfoFragment.leapBaseInfooo;
-                    pushToFirebase(leapBase);
+////                        ContentValues values = new ContentValues();
+////                        SQLiteDatabase db = new LeapDbHelper(getContext()).getWritableDatabase();
+////
+////                        values.put(LeapContract.LeapEntry.COLUMN_Name, CreationInfoFragment.leapBaseInfooo.getLeapName());
+////                        values.put(LeapContract.LeapEntry.COLUMN_Description, CreationInfoFragment.leapBaseInfooo.getLeapDescription());
+////                        values.put(LeapContract.LeapEntry.COLUMN_Map_Image, CreationInfoFragment.leapBaseInfooo.getLeapLocation());
+////                        values.put(LeapContract.LeapEntry.COLUMN_Price, CreationInfoFragment.leapBaseInfooo.getLeapPrice());
+////
+////                        db.insert(LeapContract.LeapEntry.Table_Name,null, values);
 //                    }
-//                    else Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
 //
-//                    if (CreationPlacesFragment.getInstance().getPlaceviewList().isEmpty())
-//                        Toast.makeText(getContext(), R.string.didnt_add_places_alert, Toast.LENGTH_SHORT).show();
-//
-//
-//                    if(!CreationInfoFragment.flagg)
-//                        Toast.makeText(getContext(),"You forgot to save your data", Toast.LENGTH_SHORT).show();
-//
-                    if (CreationInfoFragment.isFlagg() && placesviewList != null) {
+                    if (CreationPlacesFragment.placesviewList.isEmpty())
+                        Toast.makeText(getContext(), R.string.didnt_add_places_alert, Toast.LENGTH_SHORT).show();
 
+                    if (!CreationInfoFragment.isFlagg())
+                        Toast.makeText(getContext(), R.string.forgot_save_data_alert, Toast.LENGTH_SHORT).show();
+
+                    if (CreationInfoFragment.isFlagg() && placesviewList != null && !placesviewList.isEmpty()) {
+                        pushToFirebase();
                         Intent i = new Intent(getContext(), MainActivity.class);
                         v.getContext().startActivity(i);
+                        Toast.makeText(getContext(), R.string.leap_saved, Toast.LENGTH_SHORT).show();
+                        CreationInfoFragment.setFlagg(false);
+
 //                        SQLiteDatabase db = new LeapDbHelper(getContext()).getReadableDatabase();
 //                        Cursor c = db.rawQuery("SELECT name FROM User WHERE id =?" , new String[]{LoginActivity.id1});
 //                        if(c!=null)
@@ -95,17 +92,10 @@ public class CreationFragment extends Fragment {
 //                            c.moveToFirst();
 //                        }
 //                        String s = c.getString(0);
-//                        Log.d("TAGI", s);
-//
+
 //                        MainActivity.instance.fillTextview(s);
 //                        LoginActivity.flag = true;
 //                        c.close();
-                        Toast.makeText(getContext(), R.string.leap_saved, Toast.LENGTH_SHORT).show();
-                        CreationInfoFragment.setFlagg(false);
-
-//
-////                        CreationPlacesFragment.placeviewList = new ArrayList<Placeview>();
-//
                     }
                 }
             });
@@ -155,43 +145,49 @@ public class CreationFragment extends Fragment {
 
     }
 
-    public void pushToFirebase(LeapBaseInfo leapBase) {
-        lats = new double[placesviewList.size()];
-        lons = new double[placesviewList.size()];
-        if (placesviewList.size() != 0) {
-            for (int i = 0; i < placesviewList.size(); i++) {
-                lats[i] = placesviewList.get(i).getLat();
-                lons[i] = placesviewList.get(i).getLon();
+    public void pushToFirebase() {
+        try {
+            lats = new double[placesviewList.size()];
+            lons = new double[placesviewList.size()];
+            if (placesviewList.size() != 0) {
+                for (int i = 0; i < placesviewList.size(); i++) {
+                    lats[i] = placesviewList.get(i).getLat();
+                    lons[i] = placesviewList.get(i).getLon();
+                }
             }
+            double[] centerPoint = new double[2];
+            centerPoint = LeapLatLon.LeapCenter(lats, lons);
+
+            DatabaseReference centerPointRef = FirebaseDatabase.getInstance().getReference(Constants.CENTER_POINT);
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference(Constants.LEAP);
+            DatabaseReference database1 = FirebaseDatabase.getInstance().getReference(Constants.PLACES);
+            DatabaseReference newRef = database.push();
+
+            //Getting a common key for all Leap Data
+            String key = newRef.getKey();
+            database.push();
+
+            //Setting Leap Info
+            assert key != null;
+            database.child(key).setValue(CreationInfoFragment.leapBaseInfooo);
+
+            //Pushing center Point`
+            centerPointRef.child(key).child("0").setValue(centerPoint[0]);
+            centerPointRef.child(key).child("1").setValue(centerPoint[1]);
+
+            //Pushing Places
+            database1.child(key).setValue(placesviewList);
+
+
+            //Final Push
+            database.push();
+            database1.push();
+            centerPointRef.push();
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
-        double[] centerPoint = new double[2];
-        centerPoint = LeapLatLon.LeapCenter(lats, lons);
-
-        DatabaseReference centerPointRef = FirebaseDatabase.getInstance().getReference(Constants.CENTER_POINT);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference(Constants.LEAP);
-        DatabaseReference database1 = FirebaseDatabase.getInstance().getReference(Constants.PLACES);
-        DatabaseReference newRef = database.push();
-
-        //Getting a common key for all Leap Data
-        String key = newRef.getKey();
-        database.push();
-
-        //Setting Leap Info
-        database.child(key).setValue(leapBase);
-
-        //Pushing center Point`
-        centerPointRef.child(key).child("0").setValue(centerPoint[0]);
-        centerPointRef.child(key).child("1").setValue(centerPoint[1]);
-
-        //Pushing Places
-        database1.child(key).setValue(placesviewList);
-
-
-        //Final Push
-        database.push();
-        database1.push();
-        centerPointRef.push();
-        flag = true;
     }
 
 
