@@ -1,7 +1,6 @@
 package com.leap_app.leap.firebase;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +12,6 @@ import com.leap_app.leap.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class FireDatabase {
     private DatabaseReference mDatabase;
@@ -40,10 +38,8 @@ public class FireDatabase {
                         doubles.add((ArrayList) dataSnapshot1.getValue());
                         i++;
                     }
-                    Log.e("Markers zunkerbergs", Objects.requireNonNull(dataSnapshot.getValue()).toString());
                     double[] lattss = new double[doubles.size()];
                     double[] lonnss = new double[doubles.size()];
-                    Log.e("badl eltabib ro7t l 100", doubles.toString());
                     try {
                         for (i = 0; i < doubles.size(); i++) {
                             lattss[i] = (Double) doubles.get(i).get(0);

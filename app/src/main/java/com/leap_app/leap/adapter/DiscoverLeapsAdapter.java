@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.leap_app.leap.R;
 import com.leap_app.leap.models.LeapBaseInfo;
-import com.leap_app.leap.ui.LeapInfoActivity;
+import com.leap_app.leap.ui.discover.LeapInfoActivity;
 import com.leap_app.leap.utility.Constants;
 
 import java.util.List;

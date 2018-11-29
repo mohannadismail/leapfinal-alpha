@@ -32,7 +32,7 @@ public class FirebaseDBScheduler extends JobService {
         dbReference.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.e(TAG, "OnDataChanged Called");    //----Never Called
 
 

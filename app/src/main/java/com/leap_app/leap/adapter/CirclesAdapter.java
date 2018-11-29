@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leap_app.leap.R;
-import com.leap_app.leap.ui.CircleDetails;
+import com.leap_app.leap.ui.circles.CircleDetails;
 
 
 public class CirclesAdapter extends BaseAdapter {
